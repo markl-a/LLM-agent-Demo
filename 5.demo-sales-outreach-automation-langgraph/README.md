@@ -81,7 +81,9 @@ SHEET_ID=""
 --------------
 
 AIRTABLE_ACCESS_TOKEN=""
+
 AIRTABLE_BASE_ID=airtable-base-id
+
 AIRTABLE_TABLE_NAME=table-name
 
 **如何取得這些值：**
