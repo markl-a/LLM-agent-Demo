@@ -2,11 +2,19 @@
 設定以及執行得過程
 --------------
 Prerequisites
+
 Python 3.9+
-Google Gemini API key (or choose other LLM providers like OpenAI or Groq).
+
+Google Gemini API key (or choose other LLM 
+providers like OpenAI or Groq).
+
 Google APIs credentials.
 API keys for integrated tools (RapidAPI, Serper API).
-API keys and configurations for your chosen CRM (check .env.example for more information).
+
+API keys and configurations for your chosen 
+
+CRM (check .env.example for more information).
+
 Necessary Python libraries (listed in requirements.txt).
 
 --------------
