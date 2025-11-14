@@ -1,0 +1,140 @@
+# LLM Agent Demo - 專案依賴
+# 更新日期: 2025-01-14
+# 基於 2025 年最新版本
+
+# ==================== 核心 LLM 框架 ====================
+# LangChain 生態系統 (2025 最新: 1.0 穩定版)
+langchain>=1.0.0
+langchain-core>=1.0.0
+langchain-community>=1.0.0
+langgraph>=0.2.50
+langchain-openai>=0.2.5
+langchain-google-genai>=2.0.1
+langsmith>=0.2.0
+
+# LlamaIndex 生態系統 (2025 最新功能: AgentWorkflow, Memory API, FlowMaker)
+llama-index>=0.12.0
+llama-index-core>=0.12.0
+llama-index-embeddings-openai>=0.3.0
+llama-index-embeddings-huggingface>=0.4.0
+llama-index-llms-openai>=0.3.0
+llama-index-llms-anthropic>=0.4.0
+llama-index-vector-stores-chroma>=0.3.0
+llamaparse>=0.5.0
+
+# AutoGen (注意: 2025 年進入維護模式，建議關注 Microsoft Agent Framework)
+pyautogen>=0.3.0
+
+# CrewAI (2025 快速增長: 130萬+/月安裝量)
+crewai>=1.0.0
+crewai-tools>=0.15.0
+
+# MetaGPT (軟體開發自動化)
+metagpt>=0.8.0
+
+# ==================== LLM 服務提供商 ====================
+openai>=1.50.0
+anthropic>=0.37.0
+google-generativeai>=0.8.0
+groq>=0.11.0
+cohere>=5.11.0
+
+# ==================== 向量數據庫 ====================
+chromadb>=0.5.0
+faiss-cpu>=1.8.0
+pinecone-client>=5.0.0
+qdrant-client>=1.11.0
+weaviate-client>=4.8.0
+
+# ==================== 嵌入模型 ====================
+sentence-transformers>=3.2.0
+tiktoken>=0.7.0
+
+# ==================== 文檔處理 ====================
+pypdf>=5.0.0
+pdfplumber>=0.11.0
+python-docx>=1.1.0
+unstructured>=0.16.0
+markdown>=3.7
+html2text>=2024.2.26
+
+# ==================== 數據處理 ====================
+pandas>=2.2.0
+numpy>=1.26.0
+openpyxl>=3.1.0
+
+# ==================== Web 和 API ====================
+requests>=2.32.0
+httpx>=0.27.0
+beautifulsoup4>=4.12.0
+playwright>=1.48.0
+
+# ==================== 資料庫 ====================
+sqlalchemy>=2.0.0
+pymongo>=4.10.0
+
+# ==================== CRM 和外部服務集成 ====================
+# Airtable
+pyairtable>=2.3.0
+
+# Google APIs
+google-auth>=2.35.0
+google-auth-oauthlib>=1.2.0
+google-auth-httplib2>=0.2.0
+google-api-python-client>=2.150.0
+
+# Email
+email-validator>=2.2.0
+
+# Serper (搜索 API)
+# 注意：Serper 主要通過 HTTP API 調用，無專用 Python 包
+
+# ==================== 開發工具 ====================
+jupyter>=1.1.0
+notebook>=7.2.0
+ipywidgets>=8.1.0
+jupyterlab>=4.3.0
+
+# ==================== 環境和配置 ====================
+python-dotenv>=1.0.0
+pydantic>=2.9.0
+pydantic-settings>=2.6.0
+
+# ==================== 可視化 ====================
+matplotlib>=3.9.0
+plotly>=5.24.0
+graphviz>=0.20.0
+
+# ==================== 測試 ====================
+pytest>=8.3.0
+pytest-asyncio>=0.24.0
+pytest-cov>=6.0.0
+
+# ==================== 代碼質量 ====================
+black>=24.10.0
+flake8>=7.1.0
+mypy>=1.13.0
+ruff>=0.7.0
+
+# ==================== 工具 ====================
+rich>=13.9.0
+tqdm>=4.67.0
+tenacity>=9.0.0
+
+# ==================== 特定 Demo 依賴 ====================
+# Sales Outreach Automation
+rapidapi>=0.1.0
+
+# ==================== 可選：GPU 加速 ====================
+# 取消註釋以使用 GPU 版本的 FAISS
+# faiss-gpu>=1.8.0
+
+# ==================== 說明 ====================
+# 安裝方式:
+# pip install -r requirements.txt
+#
+# 對於開發環境，建議使用虛擬環境:
+# python -m venv venv
+# source venv/bin/activate  # Linux/Mac
+# venv\Scripts\activate     # Windows
+# pip install -r requirements.txt

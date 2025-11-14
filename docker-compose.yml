@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  jupyter:
+    build: .
+    container_name: llm-agent-demo
+    ports:
+      - "8888:8888"
+    volumes:
+      - .:/app
+      - jupyter-data:/app/data
+      - jupyter-outputs:/app/outputs
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - PINECONE_API_KEY=${PINECONE_API_KEY}
+      - PINECONE_ENVIRONMENT=${PINECONE_ENVIRONMENT}
+      - SERPER_API_KEY=${SERPER_API_KEY}
+    networks:
+      - llm-network
+    restart: unless-stopped
+
+  # 可選：Chroma 向量數據庫
+  chromadb:
+    image: chromadb/chroma:latest
+    container_name: chromadb
+    ports:
+      - "8000:8000"
+    volumes:
+      - chroma-data:/chroma/chroma
+    networks:
+      - llm-network
+    restart: unless-stopped
+
+volumes:
+  jupyter-data:
+  jupyter-outputs:
+  chroma-data:
+
+networks:
+  llm-network:
+    driver: bridge
