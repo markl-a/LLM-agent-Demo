@@ -1,0 +1,30 @@
+# 核心依賴
+llama-index>=0.12.0
+llama-index-core>=0.12.0
+llama-index-llms-openai>=0.3.0
+llama-index-embeddings-openai>=0.3.0
+
+# LLM 提供商
+openai>=1.50.0
+google-generativeai>=0.8.0  # 可選
+
+# 向量數據庫
+chromadb>=0.5.0
+
+# 文檔處理
+pypdf>=5.0.0
+python-docx>=1.1.0
+openpyxl>=3.1.0
+python-pptx>=0.6.0
+
+# Web UI
+streamlit>=1.31.0
+
+# 工具
+python-dotenv>=1.0.0
+pydantic>=2.9.0
+tiktoken>=0.7.0
+
+# 開發工具（可選）
+pytest>=8.3.0
+black>=24.10.0
