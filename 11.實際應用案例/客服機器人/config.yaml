@@ -1,0 +1,108 @@
+# 客服機器人配置文件
+
+# LLM 設置
+llm:
+  # 意圖分類使用的模型
+  intent_model: "gpt-4o-mini"
+  intent_temperature: 0
+
+  # 回答生成使用的模型
+  response_model: "gpt-4o"
+  response_temperature: 0.7
+
+  # 情感分析使用的模型
+  sentiment_model: "gpt-4o-mini"
+  sentiment_temperature: 0
+
+# 向量存儲設置
+vectorstore:
+  type: "chroma"  # 選項: chroma, faiss, pinecone
+  collection_name: "customer_service_faq"
+  persist_directory: "./chroma_db"
+
+  # 檢索設置
+  retrieval:
+    k: 2  # 返回的相關文檔數量
+    score_threshold: 0.7  # 相似度閾值
+
+# Embedding 設置
+embeddings:
+  model: "text-embedding-3-small"  # OpenAI embedding 模型
+
+# 文本分割設置
+text_splitter:
+  chunk_size: 200
+  chunk_overlap: 50
+
+# 工單設置
+ticket:
+  # 工單ID前綴
+  id_prefix: "TICKET"
+
+  # 優先級別
+  priorities:
+    complaint: "high"
+    create_ticket: "medium"
+    query: "low"
+
+  # SLA (Service Level Agreement)
+  sla:
+    high: "24 hours"
+    medium: "48 hours"
+    low: "72 hours"
+
+# 會話設置
+session:
+  # 會話超時（秒）
+  timeout: 1800  # 30 分鐘
+
+  # 最大對話輪數
+  max_turns: 20
+
+  # 對話摘要閾值（超過此輪數則進行摘要）
+  summary_threshold: 10
+
+# 意圖分類設置
+intent:
+  # 有效的意圖類別
+  valid_intents:
+    - query
+    - complaint
+    - create_ticket
+
+  # 默認意圖
+  default_intent: "query"
+
+# 情感分析設置
+sentiment:
+  # 有效的情感類別
+  valid_sentiments:
+    - positive
+    - neutral
+    - negative
+
+  # 默認情感
+  default_sentiment: "neutral"
+
+# 日誌設置
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "customer_service.log"
+
+# API 設置（如果提供 Web 服務）
+api:
+  host: "0.0.0.0"
+  port: 8000
+  debug: false
+
+# 性能設置
+performance:
+  # 是否使用緩存
+  use_cache: true
+
+  # 緩存過期時間（秒）
+  cache_ttl: 3600
+
+  # 最大並發請求數
+  max_concurrent_requests: 10
