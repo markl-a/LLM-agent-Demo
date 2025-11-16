@@ -72,6 +72,15 @@
 ```
 LLM-agent-Demo/
 │
+├── 1.從AI到LLM基礎/              # 🆕 AI/ML/DL/LLM 基礎教程
+│   ├── 0.AI基礎概念.md
+│   ├── 1.機器學習基礎.md
+│   ├── 2.深度學習基礎.md
+│   ├── 3.Transformer架構詳解.md
+│   ├── 4.LLM基礎知識.md
+│   ├── 5.提示工程指南.md
+│   └── README.md
+│
 ├── 1.LangchainDemos/              # LangChain 學習教程
 │   ├── 0.簡單的RAG_範例.ipynb
 │   ├── 1.langchain官網使用範例：RAG問答/
@@ -235,7 +244,18 @@ jupyter notebook
 
 ## 🎓 學習路徑
 
-### 初學者路徑（第 1-2 週）
+### 完全初學者路徑（第 0-4 週）🆕
+
+**階段 0: 基礎知識 (1-2 週)**
+- `1.從AI到LLM基礎/` - 完整的 AI/ML/DL/LLM 基礎教程
+  - 從 AI 概念開始,逐步深入到 LLM
+  - 包含理論講解和代碼實踐
+  - 適合完全零基礎的學習者
+
+**階段 1: 框架入門 (3-4 週)**
+- 進入 LangChain 實戰學習
+
+### 有基礎學習者路徑（第 1-2 週）
 
 1. **LangChain 基礎**
    - `1.LangchainDemos/0.簡單的RAG_範例.ipynb`
