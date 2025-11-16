@@ -1,0 +1,35 @@
+# LangChain 核心套件
+langchain==0.3.0
+langchain-core==0.3.0
+langchain-community==0.3.0
+langchain-openai==0.2.0
+langgraph==0.2.30
+
+# OpenAI
+openai==1.54.0
+
+# 向量存儲
+chromadb==0.5.0
+faiss-cpu==1.8.0
+
+# 其他依賴
+python-dotenv==1.0.0
+tiktoken==0.7.0
+pydantic==2.9.0
+
+# 可選：其他 LLM 提供商
+# anthropic==0.25.0
+# google-generativeai==0.3.0
+
+# 可選：Web 界面
+# streamlit==1.35.0
+# fastapi==0.111.0
+# uvicorn==0.30.0
+
+# 可選：數據庫
+# psycopg2-binary==2.9.9
+# sqlalchemy==2.0.30
+
+# 可選：其他工具
+# redis==5.0.0
+# celery==5.4.0
