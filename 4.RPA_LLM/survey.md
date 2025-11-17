@@ -32,11 +32,214 @@ LLM 的整合也標誌著 RPA 發展的重大轉變，從傳統的基於規則�
 
 ## 專門用於 RPA 的開源 LLM 專案
 
-| 專案名稱 | 簡介 | 是否使用 LLM | 主要功能 |
-|---------|------|-------------|----------|
-| AmitXShukla/RPA | 使用 Python 和 Julia 語言腳本自動化日常任務，並利用 LLM（例如 ChatGPT）構建交易機器人等應用。 | 是 | - 文件分割與合併<br>- 網頁截圖<br>- 從圖像中讀取文本<br>- 生成和讀取 QR 碼<br>- 建立虛擬測試數據<br>- 建立推薦引擎<br>- 預測到達時間 |
-| tebelorg/RPA-Python | 一個用於 RPA 的 Python 套件，可自動化網站、桌面應用程序或命令行上的重複性任務。 | 未知 | - 網頁自動化<br>- 視覺自動化<br>- OCR 自動化<br>- 鍵盤自動化<br>- 鼠標自動化 |
-| Skyvern-AI/skyvern | 使用 LLM 和計算機視覺自動化基於瀏覽器的任務，例如網頁導航、數據提取、密碼填充等。 | 是 | - 網頁導航<br>- 數據提取<br>- 循環操作<br>- 文件解析<br>- 發送電子郵件 |
+### 綜合比較表
+
+| 專案名稱 | 星標數 | 是否使用 LLM | 主要語言 | 適用場景 | 學習曲線 |
+|---------|-------|-------------|---------|---------|---------|
+| Skyvern-AI/skyvern | ⭐ 高 | ✅ 是 | Python | 複雜網頁自動化 | 中等 |
+| OpenAdaptAI/OpenAdapt | ⭐ 中 | ✅ 是 | Python | 通用桌面自動化 | 中等 |
+| AmitXShukla/RPA | ⭐ 中 | ✅ 是 | Python/Julia | 業務流程自動化 | 低 |
+| tebelorg/RPA-Python | ⭐ 高 | ⚠️ 部分 | Python | 快速原型開發 | 低 |
+| ProAgent | ⭐ 中 | ✅ 是 | Python | Agent 流程自動化 | 高 |
+| AutoGPT-RPA | ⭐ 低 | ✅ 是 | Python | 自主任務執行 | 高 |
+
+### 詳細專案介紹
+
+#### 1. Skyvern-AI/skyvern 🌟 推薦
+
+**GitHub**: [Skyvern-AI/skyvern](https://github.com/Skyvern-AI/skyvern)
+
+**核心特色**：
+- 使用 LLM 和計算機視覺自動化瀏覽器任務
+- 無需預先定義的選擇器（selectors），適應性強
+- 支援複雜的多步驟工作流程
+
+**主要功能**：
+- 🌐 智能網頁導航與互動
+- 📊 結構化數據提取
+- 🔄 循環操作與條件邏輯
+- 📄 文件上傳與解析
+- 📧 自動化郵件處理
+- 🔐 表單自動填充
+
+**技術架構**：
+```
+用戶指令 → LLM 理解 → 視覺識別 → 動作執行 → 結果驗證
+```
+
+**適用場景**：
+- 電商數據採集
+- 競品監控
+- 表單批量提交
+- 跨平台數據整合
+
+**安裝與使用**：
+```bash
+pip install skyvern
+# 詳細使用請參考 tutorial-part2-llm-integration.md
+```
+
+---
+
+#### 2. OpenAdaptAI/OpenAdapt 🔥 新興專案
+
+**GitHub**: [OpenAdaptAI/OpenAdapt](https://github.com/OpenAdaptAI/OpenAdapt)
+
+**核心特色**：
+- 記錄並重放人類操作行為
+- 使用 LLM 理解操作意圖
+- 支援桌面應用程式自動化
+
+**主要功能**：
+- 🎥 操作錄製與重放
+- 🧠 智能化操作理解
+- 🖥️ 跨平台桌面自動化
+- 🔍 視覺元素識別
+- 📝 自然語言驅動的自動化
+
+**技術架構**：
+```
+錄製階段: 用戶操作 → 截圖 + 事件 → 存儲
+重放階段: LLM 分析 → 識別元素 → 執行操作
+```
+
+**適用場景**：
+- 重複性桌面操作
+- 跨應用程式工作流
+- 操作文檔化
+- 自動化培訓
+
+**安裝與使用**：
+```bash
+pip install openadapt
+# 詳細使用請參考 tutorial-part1-basic-rpa.md
+```
+
+---
+
+#### 3. AmitXShukla/RPA 🎯 實用工具集
+
+**GitHub**: [AmitXShukla/RPA](https://github.com/AmitXShukla/RPA)
+
+**核心特色**：
+- Python 和 Julia 雙語言支援
+- 整合 ChatGPT 等 LLM
+- 豐富的實用工具集
+
+**主要功能**：
+- 📁 文件批量處理（分割、合併、轉換）
+- 📸 網頁截圖自動化
+- 🔤 OCR 文字識別
+- 🎫 QR Code 生成與讀取
+- 🧪 測試數據生成
+- 🤖 推薦系統構建
+- ⏱️ ETA 預測
+
+**技術架構**：
+- 模組化設計，可按需使用
+- LLM 用於智能決策與數據分析
+- 支援與現有系統整合
+
+**適用場景**：
+- 文檔管理自動化
+- 業務數據處理
+- 測試環境搭建
+- 智能推薦系統
+
+---
+
+#### 4. tebelorg/RPA-Python 📦 經典框架
+
+**GitHub**: [tebelorg/RPA-Python](https://github.com/tebelorg/RPA-Python)
+
+**核心特色**：
+- 簡單易用的 Python RPA 框架
+- 支援多種自動化類型
+- 活躍的社群支援
+
+**主要功能**：
+- 🌐 網頁自動化（支援 Chrome、Firefox）
+- 👁️ 視覺自動化（圖像識別）
+- 📖 OCR 文字識別
+- ⌨️ 鍵盤模擬
+- 🖱️ 滑鼠控制
+- 📋 剪貼簿操作
+
+**技術架構**：
+```python
+# 簡潔的 API 設計
+rpa.init()
+rpa.url('https://example.com')
+rpa.type('//*[@id="search"]', 'RPA')
+rpa.click('Search')
+rpa.close()
+```
+
+**適用場景**：
+- 快速原型開發
+- 簡單重複任務
+- 網頁數據抓取
+- UI 測試自動化
+
+---
+
+#### 5. OpenBMB/ProAgent 🚀 進階 Agent 系統
+
+**GitHub**: [OpenBMB/ProAgent](https://github.com/OpenBMB/ProAgent)
+
+**核心特色**：
+- 基於 LLM 的智能 Agent 系統
+- 支援複雜的多步驟工作流
+- 自主規劃與執行能力
+
+**主要功能**：
+- 🎯 任務自動分解
+- 🔄 動態工作流生成
+- 🧩 多工具協同
+- 📊 執行監控與調試
+- 🔧 可擴展的 Plugin 系統
+
+**技術架構**：
+```
+任務輸入 → LLM 規劃 → 工具選擇 → 執行引擎 → 結果整合
+```
+
+**適用場景**：
+- 複雜業務流程自動化
+- 需要推理決策的任務
+- 多系統整合場景
+- 研究與實驗
+
+---
+
+#### 6. 其他值得關注的專案
+
+**AutoGen (Microsoft)** - 多 Agent 協作框架
+- 適合建構複雜的 Agent 系統
+- 支援 Agent 之間的對話與協作
+
+**LangChain** - LLM 應用開發框架
+- 不是專門的 RPA 工具，但可用於構建 LLM 驅動的自動化
+- 豐富的工具鏈與整合
+
+**n8n** - 工作流程自動化平台
+- 視覺化的工作流編輯器
+- 支援整合 LLM API
+
+### 如何選擇合適的工具？
+
+根據你的需求選擇：
+
+| 需求 | 推薦工具 | 原因 |
+|------|---------|------|
+| 網頁自動化 | Skyvern、RPA-Python | 成熟穩定，社群支援好 |
+| 桌面自動化 | OpenAdapt、RPA-Python | 支援跨平台，易於使用 |
+| 智能化程度高 | Skyvern、ProAgent | LLM 深度整合 |
+| 快速開發 | RPA-Python、AmitXShukla/RPA | API 簡單，上手快 |
+| 學習研究 | ProAgent、OpenAdapt | 架構先進，文檔完善 |
+| 生產環境 | Skyvern、RPA-Python | 穩定性好，有商業支援 |
+
+詳細對比請參考 [tools-comparison.md](./tools-comparison.md)
 
 ## 總結
 
