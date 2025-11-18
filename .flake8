@@ -1,0 +1,57 @@
+[flake8]
+# Flake8 配置文件
+
+# 最大行長度
+max-line-length = 100
+
+# 最大複雜度
+max-complexity = 15
+
+# 忽略的錯誤代碼
+# E203: whitespace before ':'  (與 Black 衝突)
+# W503: line break before binary operator (與 Black 衝突)
+# E501: line too long (由 Black 處理)
+# E402: module level import not at top of file
+# F401: imported but unused (在 __init__.py 中常見)
+# F403: unable to detect undefined names
+extend-ignore = E203, W503, E501
+
+# 排除的目錄
+exclude =
+    .git,
+    __pycache__,
+    .venv,
+    venv,
+    env,
+    .eggs,
+    *.egg,
+    build,
+    dist,
+    .ipynb_checkpoints,
+    .mypy_cache,
+    .pytest_cache,
+    .tox,
+    .coverage,
+    htmlcov,
+    docs/_build
+
+# 每個文件的最大行數
+max-line-length = 100
+
+# 針對不同文件的忽略規則
+per-file-ignores =
+    __init__.py:F401,F403
+    tests/*:F401,F403,S101
+
+# 統計信息
+count = True
+statistics = True
+show-source = True
+
+# Docstring 約定
+docstring-convention = google
+
+# 啟用的插件
+# flake8-bugbear: 捕捉常見錯誤
+# flake8-comprehensions: 優化列表/字典推導式
+# flake8-docstrings: 檢查 docstring

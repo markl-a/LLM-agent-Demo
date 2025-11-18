@@ -179,3 +179,43 @@ node_modules/
 outputs/
 cache/
 checkpoints/
+
+# Pre-commit
+.pre-commit-config.yaml.backup
+
+# Ruff
+.ruff_cache/
+
+# Safety
+safety-report.json
+
+# Bandit
+bandit-report.json
+.bandit
+
+# Coverage reports
+.coverage.*
+coverage.xml
+htmlcov/
+.pytest_cache/
+
+# Type checking
+.pytype/
+.pyre/
+.mypy_cache/
+
+# Documentation builds
+docs/_build/
+docs/_static/
+docs/_templates/
+site/
+
+# Benchmark results
+.benchmarks/
+
+# Profiling
+*.prof
+*.lprof
+
+# Security scanning
+.snyk
