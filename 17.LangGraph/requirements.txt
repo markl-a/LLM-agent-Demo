@@ -1,0 +1,51 @@
+# LangGraph Requirements
+# LangGraph 是 LangChain 官方的狀態管理和工作流框架
+
+# 核心依賴
+langgraph>=0.2.50
+langchain>=0.3.0
+langchain-core>=0.3.0
+langchain-openai>=0.2.5
+langchain-anthropic>=0.2.0
+langchain-community>=0.3.0
+
+# OpenAI
+openai>=1.0.0
+
+# Anthropic Claude
+anthropic>=0.7.0
+
+# 向量數據庫 (可選)
+chromadb>=0.4.0
+faiss-cpu>=1.7.0
+
+# 工具和輔助
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+
+# 數據處理
+pandas>=2.0.0
+numpy>=1.24.0
+
+# HTTP 和 API
+requests>=2.31.0
+httpx>=0.24.0
+
+# 可視化 (可選)
+matplotlib>=3.7.0
+graphviz>=0.20.0
+
+# 日誌和調試
+loguru>=0.7.0
+rich>=13.0.0
+
+# 測試
+pytest>=7.0.0
+pytest-asyncio>=0.21.0
+
+# Jupyter (可選)
+jupyter>=1.0.0
+ipykernel>=6.25.0
+
+# 安裝說明:
+# pip install -r requirements.txt

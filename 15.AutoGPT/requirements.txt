@@ -1,0 +1,60 @@
+# AutoGPT 自主 AI Agent 框架依賴
+
+# 核心依賴
+openai>=1.0.0                    # OpenAI API 客戶端
+langchain>=0.1.0                 # LangChain 框架
+langchain-openai>=0.0.2          # LangChain OpenAI 整合
+
+# 記憶管理
+chromadb>=0.4.0                  # 向量數據庫（本地）
+# pinecone-client>=2.2.0         # Pinecone 向量數據庫（雲端，可選）
+# weaviate-client>=3.0.0         # Weaviate 向量數據庫（可選）
+
+# 工具和功能
+requests>=2.31.0                 # HTTP 請求
+beautifulsoup4>=4.12.0           # 網頁解析
+lxml>=4.9.0                      # XML/HTML 處理
+
+# 搜索工具（可選）
+# google-search-results>=2.4.0   # Google 搜索 API
+# duckduckgo-search>=3.0.0       # DuckDuckGo 搜索（免費）
+
+# 瀏覽器自動化（可選）
+# playwright>=1.40.0             # 瀏覽器自動化
+# selenium>=4.15.0               # Selenium 自動化
+
+# 數據處理
+pandas>=2.0.0                    # 數據分析
+numpy>=1.24.0                    # 數值計算
+
+# 文本處理
+tiktoken>=0.5.0                  # Token 計數
+python-dotenv>=1.0.0             # 環境變量管理
+
+# 日誌和監控
+loguru>=0.7.0                    # 日誌記錄
+
+# 工具類
+pydantic>=2.0.0                  # 數據驗證
+python-json-logger>=2.0.0        # JSON 日誌格式
+
+# 可選：圖像處理
+# pillow>=10.0.0                 # 圖像處理
+# opencv-python>=4.8.0           # 計算機視覺
+
+# 可選：語音處理
+# openai-whisper>=20230918       # 語音識別
+# pyttsx3>=2.90                  # 文本轉語音
+
+# 開發工具
+pytest>=7.4.0                    # 測試框架
+pytest-asyncio>=0.21.0           # 異步測試
+black>=23.0.0                    # 代碼格式化
+flake8>=6.0.0                    # 代碼檢查
+mypy>=1.5.0                      # 類型檢查
+
+# 注意事項：
+# 1. 使用前請設置環境變量 OPENAI_API_KEY
+# 2. 可根據需求選擇性安裝標記為"可選"的依賴
+# 3. 建議使用虛擬環境安裝
+# 4. 某些工具可能需要額外的系統依賴

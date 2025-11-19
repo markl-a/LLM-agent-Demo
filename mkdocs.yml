@@ -1,0 +1,221 @@
+# MkDocs 配置文件
+# 為 LLM-agent-Demo 專案生成文檔站點
+
+# 專案信息
+site_name: LLM Agent Demo
+site_description: 完整的 LLM Agent 框架學習資源庫，涵蓋 LangChain、LlamaIndex、AutoGen、CrewAI、MetaGPT 等主流框架
+site_author: markl-a
+site_url: https://markl-a.github.io/LLM-agent-Demo
+
+# 代碼倉庫
+repo_name: markl-a/LLM-agent-Demo
+repo_url: https://github.com/markl-a/LLM-agent-Demo
+edit_uri: edit/main/docs/
+
+# 版權信息
+copyright: Copyright &copy; 2025 markl-a
+
+# 主題配置
+theme:
+  name: material
+  language: zh-TW
+  palette:
+    # 淺色模式
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: 切換到深色模式
+
+    # 深色模式
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: 切換到淺色模式
+
+  font:
+    text: Roboto
+    code: Roboto Mono
+
+  icon:
+    repo: fontawesome/brands/github
+
+  features:
+    - navigation.instant      # 即時載入
+    - navigation.tracking     # 追蹤錨點
+    - navigation.tabs         # 頂部選項卡
+    - navigation.sections     # 側邊欄分組
+    - navigation.expand       # 展開導航
+    - navigation.top          # 返回頂部按鈕
+    - navigation.indexes      # 章節索引頁
+    - toc.follow              # 目錄跟隨
+    - toc.integrate           # 目錄整合到側邊欄
+    - search.suggest          # 搜索建議
+    - search.highlight        # 搜索高亮
+    - search.share            # 搜索分享
+    - content.code.copy       # 代碼複製按鈕
+    - content.code.annotate   # 代碼註釋
+    - content.tabs.link       # 標籤頁連結
+
+# Markdown 擴展
+markdown_extensions:
+  # Python Markdown
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+
+  # Python Markdown Extensions
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+# 插件
+plugins:
+  - search:
+      lang:
+        - zh
+        - en
+  - tags
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: datetime
+  - minify:
+      minify_html: true
+
+# 額外配置
+extra:
+  version:
+    provider: mike
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/markl-a
+      name: GitHub
+    - icon: fontawesome/brands/python
+      link: https://www.python.org
+      name: Python
+  generator: false
+
+# CSS 樣式
+extra_css:
+  - stylesheets/extra.css
+
+# JavaScript
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+# 導航結構
+nav:
+  - 首頁: index.md
+
+  - 快速開始:
+      - 安裝指南: getting-started/installation.md
+      - 快速教程: getting-started/quickstart.md
+      - 環境配置: getting-started/configuration.md
+
+  - AI 基礎:
+      - AI 發展史: ai-basics/ai-history.md
+      - 機器學習基礎: ai-basics/machine-learning.md
+      - 深度學習簡介: ai-basics/deep-learning.md
+      - 大型語言模型: ai-basics/large-language-models.md
+
+  - 框架教程:
+      - LangChain:
+          - 簡介: frameworks/langchain/introduction.md
+          - RAG 問答: frameworks/langchain/rag-qa.md
+          - 向量檢索: frameworks/langchain/vector-retrieval.md
+          - LCEL 應用: frameworks/langchain/lcel.md
+          - 聊天機器人: frameworks/langchain/chatbot.md
+          - Agent 開發: frameworks/langchain/agents.md
+          - 代碼理解: frameworks/langchain/code-understanding.md
+          - 多 Agent: frameworks/langchain/multi-agent.md
+
+      - LlamaIndex:
+          - 簡介: frameworks/llamaindex/introduction.md
+          - 快速開始: frameworks/llamaindex/quickstart.md
+          - 進階索引: frameworks/llamaindex/advanced-indexing.md
+          - 查詢引擎: frameworks/llamaindex/query-engine.md
+
+      - AutoGen:
+          - 簡介: frameworks/autogen/introduction.md
+          - 基礎對話: frameworks/autogen/basic-conversation.md
+          - 多 Agent 協作: frameworks/autogen/multi-agent.md
+
+      - CrewAI:
+          - 簡介: frameworks/crewai/introduction.md
+          - 快速開始: frameworks/crewai/quickstart.md
+          - 實際案例: frameworks/crewai/use-cases.md
+
+      - MetaGPT:
+          - 簡介: frameworks/metagpt/introduction.md
+          - 軟體開發: frameworks/metagpt/software-development.md
+          - 角色定制: frameworks/metagpt/role-customization.md
+
+  - 實際應用:
+      - 文檔問答系統: applications/document-qa.md
+      - 客服機器人: applications/customer-service.md
+      - 智能搜索引擎: applications/smart-search.md
+      - 程式碼助手: applications/code-assistant.md
+
+  - 框架對比:
+      - 選擇指南: comparison/selection-guide.md
+      - 性能對比: comparison/performance.md
+      - 最佳實踐: comparison/best-practices.md
+      - 成本分析: comparison/cost-analysis.md
+
+  - 進階主題:
+      - 多模態 RAG: advanced/multimodal-rag.md
+      - 性能優化: advanced/optimization.md
+      - 成本控制: advanced/cost-control.md
+      - 安全考慮: advanced/security.md
+
+  - API 參考:
+      - 核心模組: api/core.md
+      - 工具函數: api/utils.md
+      - 配置管理: api/config.md
+
+  - 貢獻指南:
+      - 如何貢獻: contributing/how-to-contribute.md
+      - 代碼規範: contributing/code-style.md
+      - 測試指南: contributing/testing.md
+
+  - 關於:
+      - 更新日誌: about/changelog.md
+      - 常見問題: about/faq.md
+      - 許可證: about/license.md

@@ -1,0 +1,21 @@
+# OpenAI Swarm 依賴配置
+# OpenAI Swarm Dependencies
+
+# OpenAI Swarm 框架
+git+https://github.com/openai/swarm.git
+
+# OpenAI API
+openai>=1.40.0
+
+# 基礎依賴
+python-dotenv>=1.0.0
+
+# 數據處理
+requests>=2.31.0
+
+# 可選：日誌和監控
+loguru>=0.7.0
+
+# 開發工具
+pytest>=7.4.0
+black>=23.0.0

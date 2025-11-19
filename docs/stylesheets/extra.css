@@ -1,0 +1,63 @@
+/* 自定義樣式 */
+
+/* 卡片樣式 */
+.grid.cards {
+    grid-gap: 1rem;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+}
+
+.grid.cards > .card {
+    border: 1px solid var(--md-default-fg-color--lightest);
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: box-shadow 0.2s;
+}
+
+.grid.cards > .card:hover {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* 按鈕樣式 */
+.md-button {
+    margin: 0.5rem;
+}
+
+/* 代碼塊優化 */
+.highlight {
+    border-radius: 0.5rem;
+}
+
+/* 表格優化 */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+}
+
+table th {
+    background-color: var(--md-primary-fg-color);
+    color: white;
+    padding: 0.75rem;
+}
+
+table td {
+    padding: 0.75rem;
+    border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* 標題優化 */
+h1, h2, h3 {
+    margin-top: 2rem;
+}
+
+/* 圖標 */
+.lg.middle {
+    font-size: 3rem;
+}
+
+/* 警告框 */
+.admonition {
+    border-radius: 0.5rem;
+    margin: 1rem 0;
+}
