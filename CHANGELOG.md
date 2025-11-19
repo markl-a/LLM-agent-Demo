@@ -5,6 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.0] - 2025-11-19
+
+### Added
+- **CrewAI 框架** - 新增 CrewAI 角色扮演 AI Agent 協作框架，共 20 個示例
+  - 基礎入門示例 (1-5): 快速開始、角色定義、任務設計、團隊組建、工具使用
+  - 核心功能示例 (6-10): 順序流程、層級流程、記憶管理、協作模式、結果處理
+  - 進階應用示例 (11-15): 自定義工具、異步執行、錯誤處理、性能優化、監控日誌
+  - 實戰場景示例 (16-20): 內容創作團隊、市場分析團隊、軟體開發團隊、客戶服務團隊、最佳實踐
+- **18.CrewAI/** - 新增 CrewAI 專用目錄，包含完整的 README 和 requirements.txt
+- **完整示例實現** - 01_快速開始.py 和 02_角色定義.py 完整可運行實現
+
+### Changed
+- **項目規模擴展** - 從 120 個示例擴展至 140 個示例
+- **框架數量增加** - 從 6 個框架增加至 7 個框架
+- **更新 README.md** - 更新主 README 統計數據和框架表格
+- **更新 PROJECT_SUMMARY.md** - 全面更新項目總結，包含 CrewAI 信息
+- **更新 QUICKSTART.md** - 新增 CrewAI 快速開始選項和學習路徑
+- **更新依賴管理** - requirements.txt 新增 CrewAI 相關依賴
+
+### Documentation
+- **CrewAI README** - 新增詳細的 CrewAI 教程文檔，包含:
+  - 完整的框架介紹和核心概念
+  - 20 個示例索引和難度分級
+  - 與其他框架的對比分析
+  - 最佳實踐和常見問題
+- **框架選擇指南** - 更新框架選擇建議，包含 CrewAI 應用場景
+- **官方文檔鏈接** - 新增 CrewAI 官方文檔鏈接
+
+### Features Highlight
+- **角色扮演支持** - CrewAI 提供原生的 Agent 角色扮演能力
+- **簡潔的團隊協作 API** - 使用 Agent、Task、Crew 三個核心概念
+- **多種執行流程** - 支持 Sequential 和 Hierarchical 兩種流程模式
+- **豐富的工具生態** - 與 LangChain 工具生態完全兼容
+
 ## [1.1.0] - 2025-11-19
 
 ### Added

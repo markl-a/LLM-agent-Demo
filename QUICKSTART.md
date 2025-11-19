@@ -89,6 +89,13 @@ cd "14.Haystack"
 python 01_RAG基礎.py
 ```
 
+#### 選項 E: CrewAI (推薦團隊協作)
+
+```bash
+cd "18.CrewAI"
+python 01_快速開始.py
+```
+
 ## 🎯 選擇您的學習路徑
 
 ### 🌱 初學者路徑 (第 1 週)
@@ -151,7 +158,7 @@ python 01_RAG基礎.py
 
 **目標**: 構建生產級應用
 
-1. 完成所有 120 個示例
+1. 完成所有 140 個示例
 2. 研究框架源碼
 3. 構建自己的項目
 
@@ -165,6 +172,7 @@ python 01_RAG基礎.py
 | **構建企業應用** | Semantic Kernel | Microsoft 支持，功能完整 |
 | **實現 RAG 系統** | Haystack | RAG 專注，性能優秀 |
 | **複雜工作流編排** | LangGraph | 狀態管理，支持循環和條件 |
+| **團隊角色協作** | CrewAI | 角色扮演，簡潔 API |
 | **可視化設計** | LangFlow | 低代碼，拖放式界面 |
 | **自動化任務** | AutoGPT | 自主決策，持續執行 |
 
@@ -173,9 +181,9 @@ python 01_RAG基礎.py
 ```
 簡單 → 中等 → 進階 → 困難
    ↓      ↓      ↓      ↓
-Swarm → SK → LangGraph → Haystack → AutoGPT
-  ↓      ↓      ↓         ↓          ↓
- 1天    2-3天  3-4天    4-5天      1-2週
+Swarm → CrewAI → SK → LangGraph → Haystack → AutoGPT
+  ↓      ↓       ↓      ↓         ↓          ↓
+ 1天    1-2天  2-3天  3-4天    4-5天      1-2週
 ```
 
 ## 🛠️ 常見問題
@@ -225,6 +233,7 @@ pip install -r "16.OpenAI Swarm/requirements.txt"
 - [OpenAI Swarm](https://github.com/openai/swarm)
 - [AutoGPT](https://github.com/Significant-Gravitas/AutoGPT)
 - [LangGraph](https://langchain-ai.github.io/langgraph/)
+- [CrewAI](https://docs.crewai.com/)
 
 ### 項目文檔
 
@@ -232,6 +241,7 @@ pip install -r "16.OpenAI Swarm/requirements.txt"
 - [12.Semantic Kernel/README.md](12.Semantic%20Kernel/README.md) - SK 教程
 - [16.OpenAI Swarm/README.md](16.OpenAI%20Swarm/README.md) - Swarm 教程
 - [17.LangGraph/README.md](17.LangGraph/README.md) - LangGraph 教程
+- [18.CrewAI/README.md](18.CrewAI/README.md) - CrewAI 教程
 - [14.Haystack/README.md](14.Haystack/README.md) - Haystack 教程
 
 ## 🔧 開發工具

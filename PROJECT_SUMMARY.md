@@ -3,8 +3,8 @@
 <div align="center">
 
 ![Project Status](https://img.shields.io/badge/Status-Complete-success?style=for-the-badge)
-![Examples](https://img.shields.io/badge/Examples-120-blue?style=for-the-badge)
-![Frameworks](https://img.shields.io/badge/Frameworks-6-orange?style=for-the-badge)
+![Examples](https://img.shields.io/badge/Examples-140-blue?style=for-the-badge)
+![Frameworks](https://img.shields.io/badge/Frameworks-7-orange?style=for-the-badge)
 ![Language](https://img.shields.io/badge/Language-Python-yellow?style=for-the-badge)
 
 **完整的 LLM Agent 框架學習資源庫**
@@ -15,12 +15,12 @@
 
 ## 📊 項目概覽
 
-本項目是一個全面的 **LLM Agent 框架教程與示例集合**，涵蓋了當前最流行和最強大的 6 個 AI Agent 框架，共包含 **120 個完整的可運行示例**。
+本項目是一個全面的 **LLM Agent 框架教程與示例集合**，涵蓋了當前最流行和最強大的 7 個 AI Agent 框架，共包含 **140 個完整的可運行示例**。
 
 ### 🎯 項目目標
 
-- ✅ 提供 6 個主流 AI Agent 框架的完整教程
-- ✅ 為每個框架創建 20 個實用示例（共 120 個）
+- ✅ 提供 7 個主流 AI Agent 框架的完整教程
+- ✅ 為每個框架創建 20 個實用示例（共 140 個）
 - ✅ 涵蓋從基礎到高級的所有應用場景
 - ✅ 包含詳細的中文註釋和最佳實踐
 - ✅ 提供完整的文檔和學習路徑
@@ -35,7 +35,8 @@
 | **AutoGPT** | 20 ✅ | ✅ | 100% | 完成 |
 | **OpenAI Swarm** | 20 ✅ | ✅ | 100% | 完成 |
 | **LangGraph** | 20 ✅ | ✅ | 100% | 完成 |
-| **總計** | **120** | **6** | **100%** | **✅ 完成** |
+| **CrewAI** | 20 ✅ | ✅ | 100% | 完成 |
+| **總計** | **140** | **7** | **100%** | **✅ 完成** |
 
 ---
 
@@ -161,6 +162,26 @@
 
 ---
 
+### 7. CrewAI (角色扮演)
+
+**定位**: 角色扮演型 AI Agent 協作框架
+
+**核心特點**:
+- 🎭 原生角色扮演支持
+- 👥 簡潔的團隊協作 API
+- 🔄 Sequential 和 Hierarchical 流程
+- 🛠️ 豐富的工具生態
+
+**示例分類** (20 個):
+- **基礎入門** (1-5): 快速開始、角色定義、任務設計、團隊組建、工具使用
+- **核心功能** (6-10): 順序流程、層級流程、記憶管理、協作模式、結果處理
+- **進階應用** (11-15): 自定義工具、異步執行、錯誤處理、性能優化、監控日誌
+- **實戰場景** (16-20): 內容創作團隊、市場分析團隊、軟體開發團隊、客戶服務團隊、最佳實踐
+
+**適用場景**: 內容創作、市場分析、團隊協作、角色扮演任務
+
+---
+
 ## 📁 項目結構
 
 ```
@@ -198,6 +219,12 @@ LLM-agent-Demo/
 ├── 17.LangGraph/               # 狀態管理框架
 │   ├── README.md
 │   ├── 01_狀態圖基礎.py
+│   ├── ...
+│   └── 20_最佳實踐.py
+│
+├── 18.CrewAI/                  # 角色扮演協作框架
+│   ├── README.md
+│   ├── 01_快速開始.py
 │   ├── ...
 │   └── 20_最佳實踐.py
 │
@@ -254,6 +281,13 @@ LLM-agent-Demo/
 3. **檢查點機制** - 狀態持久化和斷點續傳
 4. **人機協作** - 內建的人工審批和介入機制
 
+### CrewAI 亮點示例
+
+1. **角色扮演** - 每個 Agent 都有獨特的角色和背景故事
+2. **團隊協作** - 簡潔的多 Agent 協同工作 API
+3. **流程控制** - Sequential 和 Hierarchical 兩種執行模式
+4. **工具集成** - 與 LangChain 工具生態完全兼容
+
 ---
 
 ## 💻 技術棧
@@ -267,6 +301,8 @@ langflow>=1.0.0
 farm-haystack>=1.0.0
 langgraph>=0.2.50
 langchain>=0.3.0
+crewai>=0.28.0
+crewai-tools>=0.2.0
 openai>=1.0.0
 
 # LLM 提供商
@@ -412,10 +448,10 @@ python 01_狀態圖基礎.py
 
 ### 代碼統計
 
-- **總文件數**: 126+ (120 個示例 + 6 個 README + 配置文件)
-- **總代碼行數**: ~16,000+ 行 Python 代碼
-- **總文檔字數**: ~55,000+ 字中文文檔
-- **覆蓋場景數**: 120+ 個實際應用場景
+- **總文件數**: 147+ (140 個示例 + 7 個 README + 配置文件)
+- **總代碼行數**: ~17,500+ 行 Python 代碼
+- **總文檔字數**: ~60,000+ 字中文文檔
+- **覆蓋場景數**: 140+ 個實際應用場景
 
 ### 知識覆蓋
 
@@ -463,6 +499,7 @@ python 01_狀態圖基礎.py
 - [AutoGPT GitHub](https://github.com/Significant-Gravitas/AutoGPT)
 - [OpenAI Swarm GitHub](https://github.com/openai/swarm)
 - [LangGraph 官方文檔](https://langchain-ai.github.io/langgraph/)
+- [CrewAI 官方文檔](https://docs.crewai.com/)
 
 ### 推薦閱讀
 
@@ -600,6 +637,7 @@ in the Software without restriction...
 - [AutoGPT](https://github.com/Significant-Gravitas/AutoGPT)
 - [OpenAI Swarm](https://github.com/openai/swarm)
 - [LangGraph](https://github.com/langchain-ai/langgraph)
+- [CrewAI](https://github.com/joaomdmoura/crewAI)
 - [LangChain](https://github.com/langchain-ai/langchain)
 
 ### 技術支持
@@ -630,6 +668,8 @@ in the Software without restriction...
 - ✅ **2025-11-18**: 項目完成總結發布
 - ✅ **2025-11-19**: 完成 LangGraph 20 個示例
 - ✅ **2025-11-19**: 項目擴展至 120 個示例，6 個框架
+- ✅ **2025-11-19**: 完成 CrewAI 20 個示例
+- ✅ **2025-11-19**: 項目擴展至 140 個示例，7 個框架
 - 🎯 **2025-11-19**: 持續優化和完善中...
 
 ---
@@ -651,7 +691,7 @@ in the Software without restriction...
 ---
 
 最後更新: 2025-11-19
-版本: 1.1.0
-狀態: ✅ 完成 (120 個示例, 6 個框架)
+版本: 1.2.0
+狀態: ✅ 完成 (140 個示例, 7 個框架)
 
 </div>
