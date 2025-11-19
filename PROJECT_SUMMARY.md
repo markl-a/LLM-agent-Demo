@@ -3,8 +3,8 @@
 <div align="center">
 
 ![Project Status](https://img.shields.io/badge/Status-Complete-success?style=for-the-badge)
-![Examples](https://img.shields.io/badge/Examples-100-blue?style=for-the-badge)
-![Frameworks](https://img.shields.io/badge/Frameworks-5-orange?style=for-the-badge)
+![Examples](https://img.shields.io/badge/Examples-120-blue?style=for-the-badge)
+![Frameworks](https://img.shields.io/badge/Frameworks-6-orange?style=for-the-badge)
 ![Language](https://img.shields.io/badge/Language-Python-yellow?style=for-the-badge)
 
 **完整的 LLM Agent 框架學習資源庫**
@@ -15,12 +15,12 @@
 
 ## 📊 項目概覽
 
-本項目是一個全面的 **LLM Agent 框架教程與示例集合**，涵蓋了當前最流行和最強大的 5 個 AI Agent 框架，共包含 **100 個完整的可運行示例**。
+本項目是一個全面的 **LLM Agent 框架教程與示例集合**，涵蓋了當前最流行和最強大的 6 個 AI Agent 框架，共包含 **120 個完整的可運行示例**。
 
 ### 🎯 項目目標
 
-- ✅ 提供 5 個主流 AI Agent 框架的完整教程
-- ✅ 為每個框架創建 20 個實用示例（共 100 個）
+- ✅ 提供 6 個主流 AI Agent 框架的完整教程
+- ✅ 為每個框架創建 20 個實用示例（共 120 個）
 - ✅ 涵蓋從基礎到高級的所有應用場景
 - ✅ 包含詳細的中文註釋和最佳實踐
 - ✅ 提供完整的文檔和學習路徑
@@ -34,7 +34,8 @@
 | **Haystack** | 20 ✅ | ✅ | 100% | 完成 |
 | **AutoGPT** | 20 ✅ | ✅ | 100% | 完成 |
 | **OpenAI Swarm** | 20 ✅ | ✅ | 100% | 完成 |
-| **總計** | **100** | **5** | **100%** | **✅ 完成** |
+| **LangGraph** | 20 ✅ | ✅ | 100% | 完成 |
+| **總計** | **120** | **6** | **100%** | **✅ 完成** |
 
 ---
 
@@ -140,6 +141,26 @@
 
 ---
 
+### 6. LangGraph (狀態管理)
+
+**定位**: LangChain 官方的狀態管理與工作流編排框架
+
+**核心特點**:
+- 🎯 基於圖的工作流編排
+- 🔄 支持循環和條件邏輯
+- 💾 內建檢查點和持久化
+- 🤝 人機協作支持 (Human-in-the-Loop)
+
+**示例分類** (20 個):
+- **基礎入門** (1-5): 狀態圖基礎、節點與邊、條件路由、循環控制、檢查點
+- **核心功能** (6-10): 並行執行、子圖、工具集成、記憶管理、錯誤處理
+- **進階應用** (11-15): 人機協作、多 Agent 協作、流式輸出、持久化、自定義狀態
+- **實戰場景** (16-20): 客服機器人、研究助手、代碼審查、工作流自動化、最佳實踐
+
+**適用場景**: 複雜工作流、有狀態應用、多 Agent 系統
+
+---
+
 ## 📁 項目結構
 
 ```
@@ -174,8 +195,16 @@ LLM-agent-Demo/
 │   ├── ...
 │   └── 20_最佳實踐.py
 │
+├── 17.LangGraph/               # 狀態管理框架
+│   ├── README.md
+│   ├── 01_狀態圖基礎.py
+│   ├── ...
+│   └── 20_最佳實踐.py
+│
 ├── README.md                   # 項目主文檔
 ├── PROJECT_SUMMARY.md          # 本文件
+├── QUICKSTART.md               # 快速開始指南
+├── CONTRIBUTING.md             # 貢獻指南
 └── requirements.txt            # 依賴管理
 ```
 
@@ -218,6 +247,13 @@ LLM-agent-Demo/
 3. **並發處理** - 多線程並行處理多個請求
 4. **監控儀表板** - 實時性能監控和可視化
 
+### LangGraph 亮點示例
+
+1. **狀態圖編排** - 基於圖的複雜工作流設計
+2. **條件與循環** - 靈活的分支和循環邏輯
+3. **檢查點機制** - 狀態持久化和斷點續傳
+4. **人機協作** - 內建的人工審批和介入機制
+
 ---
 
 ## 💻 技術棧
@@ -229,6 +265,8 @@ LLM-agent-Demo/
 semantic-kernel>=1.0.0
 langflow>=1.0.0
 farm-haystack>=1.0.0
+langgraph>=0.2.50
+langchain>=0.3.0
 openai>=1.0.0
 
 # LLM 提供商
@@ -257,14 +295,14 @@ numpy>=1.24.0
 
 ### 初學者路徑 (1-2 週)
 
-1. **第 1-2 天**: 閱讀主 README，了解 5 個框架的定位
+1. **第 1-2 天**: 閱讀主 README，了解 6 個框架的定位
 2. **第 3-5 天**: 學習 **OpenAI Swarm** 基礎入門示例 (1-5)
    - 最簡單，核心概念清晰
-3. **第 6-8 天**: 學習 **Semantic Kernel** 基礎入門示例 (1-5)
+3. **第 6-8 天**: 學習 **LangGraph** 基礎入門示例 (1-5)
+   - 狀態管理，工作流編排
+4. **第 9-11 天**: 學習 **Semantic Kernel** 基礎入門示例 (1-5)
    - 企業級框架，完整的 Agent 能力
-4. **第 9-10 天**: 學習 **LangFlow** 基礎示例
-   - 可視化設計，快速構建原型
-5. **第 11-14 天**: 選擇一個框架深入學習核心功能 (6-10)
+5. **第 12-14 天**: 選擇一個框架深入學習核心功能 (6-10)
 
 ### 進階路徑 (3-4 週)
 
@@ -275,7 +313,7 @@ numpy>=1.24.0
 
 ### 專家路徑 (2-3 個月)
 
-1. **第 1 個月**: 完成所有 100 個示例
+1. **第 1 個月**: 完成所有 120 個示例
 2. **第 2 個月**: 深入研究框架源碼，理解設計模式
 3. **第 3 個月**: 構建生產級項目，貢獻開源社區
 
@@ -293,7 +331,8 @@ numpy>=1.24.0
 | **快速原型** | LangFlow | 可視化設計，無需編碼 |
 | **自動化任務** | AutoGPT | 自主決策，持續執行 |
 | **文檔分析** | Haystack | 文檔處理能力強 |
-| **多 Agent 協作** | Semantic Kernel / Swarm | 協作能力優秀 |
+| **複雜工作流** | LangGraph | 狀態管理，支持循環和條件 |
+| **多 Agent 協作** | Semantic Kernel / Swarm / LangGraph | 協作能力優秀 |
 | **學習研究** | OpenAI Swarm | 代碼簡單，易於理解 |
 
 ### 根據團隊特點選擇
@@ -361,6 +400,10 @@ python 01_自主Agent.py
 # OpenAI Swarm
 cd "../16.OpenAI Swarm"
 python 01_多Agent協作.py
+
+# LangGraph
+cd "../17.LangGraph"
+python 01_狀態圖基礎.py
 ```
 
 ---
@@ -369,10 +412,10 @@ python 01_多Agent協作.py
 
 ### 代碼統計
 
-- **總文件數**: 105+ (100 個示例 + 5 個 README + 配置文件)
-- **總代碼行數**: ~15,000+ 行 Python 代碼
-- **總文檔字數**: ~50,000+ 字中文文檔
-- **覆蓋場景數**: 100+ 個實際應用場景
+- **總文件數**: 126+ (120 個示例 + 6 個 README + 配置文件)
+- **總代碼行數**: ~16,000+ 行 Python 代碼
+- **總文檔字數**: ~55,000+ 字中文文檔
+- **覆蓋場景數**: 120+ 個實際應用場景
 
 ### 知識覆蓋
 
@@ -419,6 +462,7 @@ python 01_多Agent協作.py
 - [Haystack 官方文檔](https://haystack.deepset.ai/)
 - [AutoGPT GitHub](https://github.com/Significant-Gravitas/AutoGPT)
 - [OpenAI Swarm GitHub](https://github.com/openai/swarm)
+- [LangGraph 官方文檔](https://langchain-ai.github.io/langgraph/)
 
 ### 推薦閱讀
 
@@ -470,7 +514,7 @@ python 01_多Agent協作.py
    - [ ] CrewAI 示例 (20 個)
    - [ ] LlamaIndex 示例 (20 個)
    - [ ] AutoGen 示例 (20 個)
-   - [ ] LangGraph 示例 (20 個)
+   - [x] LangGraph 示例 (20 個) - ✅ 已完成
 
 2. **多語言支持**
    - [ ] 英文文檔翻譯
@@ -555,6 +599,7 @@ in the Software without restriction...
 - [Haystack](https://github.com/deepset-ai/haystack)
 - [AutoGPT](https://github.com/Significant-Gravitas/AutoGPT)
 - [OpenAI Swarm](https://github.com/openai/swarm)
+- [LangGraph](https://github.com/langchain-ai/langgraph)
 - [LangChain](https://github.com/langchain-ai/langchain)
 
 ### 技術支持
@@ -583,7 +628,9 @@ in the Software without restriction...
 - ✅ **2025-11-18**: 完成 OpenAI Swarm 20 個示例
 - ✅ **2025-11-18**: 所有框架 README 添加示例索引
 - ✅ **2025-11-18**: 項目完成總結發布
-- 🎯 **2025-11-19**: 項目 100% 完成！
+- ✅ **2025-11-19**: 完成 LangGraph 20 個示例
+- ✅ **2025-11-19**: 項目擴展至 120 個示例，6 個框架
+- 🎯 **2025-11-19**: 持續優化和完善中...
 
 ---
 
@@ -604,7 +651,7 @@ in the Software without restriction...
 ---
 
 最後更新: 2025-11-19
-版本: 1.0.0
-狀態: ✅ 完成
+版本: 1.1.0
+狀態: ✅ 完成 (120 個示例, 6 個框架)
 
 </div>

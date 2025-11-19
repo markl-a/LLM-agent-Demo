@@ -75,7 +75,14 @@ cd "12.Semantic Kernel"
 python 01_快速開始.py
 ```
 
-#### 選項 C: Haystack (推薦 RAG 應用)
+#### 選項 C: LangGraph (推薦工作流應用)
+
+```bash
+cd "17.LangGraph"
+python 01_狀態圖基礎.py
+```
+
+#### 選項 D: Haystack (推薦 RAG 應用)
 
 ```bash
 cd "14.Haystack"
@@ -96,7 +103,15 @@ python 01_RAG基礎.py
    python 04_函數工具.py      # 函數調用
    ```
 
-2. **Semantic Kernel** - 企業級框架
+2. **LangGraph** - 狀態管理與工作流
+   ```bash
+   cd "17.LangGraph"
+   python 01_狀態圖基礎.py
+   python 02_節點與邊.py
+   python 03_條件路由.py
+   ```
+
+3. **Semantic Kernel** - 企業級框架
    ```bash
    cd "12.Semantic Kernel"
    python 01_快速開始.py
@@ -116,7 +131,15 @@ python 01_RAG基礎.py
    python 04_Pipeline構建.py
    ```
 
-2. **AutoGPT** - 自主 Agent
+2. **LangGraph** - 複雜工作流
+   ```bash
+   cd "17.LangGraph"
+   python 06_並行執行.py
+   python 11_人機協作.py
+   python 16_客服機器人.py
+   ```
+
+3. **AutoGPT** - 自主 Agent
    ```bash
    cd "15.AutoGPT"
    python 01_自主Agent.py
@@ -128,7 +151,7 @@ python 01_RAG基礎.py
 
 **目標**: 構建生產級應用
 
-1. 完成所有 100 個示例
+1. 完成所有 120 個示例
 2. 研究框架源碼
 3. 構建自己的項目
 
@@ -141,17 +164,18 @@ python 01_RAG基礎.py
 | **學習 AI Agent 概念** | OpenAI Swarm | 代碼最簡單，核心概念清晰 |
 | **構建企業應用** | Semantic Kernel | Microsoft 支持，功能完整 |
 | **實現 RAG 系統** | Haystack | RAG 專注，性能優秀 |
+| **複雜工作流編排** | LangGraph | 狀態管理，支持循環和條件 |
 | **可視化設計** | LangFlow | 低代碼，拖放式界面 |
 | **自動化任務** | AutoGPT | 自主決策，持續執行 |
 
 ### 框架難度排序
 
 ```
-簡單 → 中等 → 困難
-   ↓      ↓      ↓
-Swarm → SK → Haystack → AutoGPT
-  ↓      ↓      ↓        ↓
- 1天    2-3天  4-5天   1-2週
+簡單 → 中等 → 進階 → 困難
+   ↓      ↓      ↓      ↓
+Swarm → SK → LangGraph → Haystack → AutoGPT
+  ↓      ↓      ↓         ↓          ↓
+ 1天    2-3天  3-4天    4-5天      1-2週
 ```
 
 ## 🛠️ 常見問題
@@ -200,12 +224,14 @@ pip install -r "16.OpenAI Swarm/requirements.txt"
 - [Haystack](https://haystack.deepset.ai/)
 - [OpenAI Swarm](https://github.com/openai/swarm)
 - [AutoGPT](https://github.com/Significant-Gravitas/AutoGPT)
+- [LangGraph](https://langchain-ai.github.io/langgraph/)
 
 ### 項目文檔
 
 - [PROJECT_SUMMARY.md](PROJECT_SUMMARY.md) - 完整項目總結
 - [12.Semantic Kernel/README.md](12.Semantic%20Kernel/README.md) - SK 教程
 - [16.OpenAI Swarm/README.md](16.OpenAI%20Swarm/README.md) - Swarm 教程
+- [17.LangGraph/README.md](17.LangGraph/README.md) - LangGraph 教程
 - [14.Haystack/README.md](14.Haystack/README.md) - Haystack 教程
 
 ## 🔧 開發工具
