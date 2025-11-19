@@ -1,0 +1,52 @@
+# LLM 配置
+llm:
+  provider: openai  # 選項: openai, google, anthropic
+  model: gpt-4o-mini  # OpenAI: gpt-4o-mini, gpt-4o / Google: gemini-2.0-flash-exp
+  temperature: 0.3
+  max_tokens: 1000
+
+# 嵌入模型配置
+embeddings:
+  provider: openai  # 選項: openai, google
+  model: text-embedding-3-small  # OpenAI: text-embedding-3-small, text-embedding-3-large
+
+# 向量數據庫配置
+vectorstore:
+  type: chroma  # 目前支持: chroma
+  persist_directory: ./vectorstore
+  collection_name: documents
+
+# 檢索配置
+retrieval:
+  top_k: 5  # 返回的文檔數量
+  score_threshold: 0.7  # 相似度閾值
+  similarity_mode: default  # 選項: default, mmr, threshold
+
+# 文檔處理配置
+document_processing:
+  chunk_size: 1000  # 分塊大小（字符數）
+  chunk_overlap: 200  # 重疊大小（字符數）
+  supported_extensions:
+    - .txt
+    - .md
+    - .pdf
+    - .docx
+    - .xlsx
+    - .csv
+
+# 緩存配置
+cache:
+  enabled: true
+  type: memory  # 選項: memory, sqlite
+  ttl: 3600  # 緩存過期時間（秒）
+
+# 日誌配置
+logging:
+  level: INFO  # 選項: DEBUG, INFO, WARNING, ERROR
+  format: "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
+  file: ./logs/qa_system.log
+
+# 性能配置
+performance:
+  batch_size: 50  # 批處理大小
+  max_concurrent: 5  # 最大並發數
