@@ -1,6 +1,7 @@
 # LLM Agent Demo - 專案依賴
-# 更新日期: 2025-01-14
+# 更新日期: 2025-11-19
 # 基於 2025 年最新版本
+# 包含 100 個示例的所有依賴
 
 # ==================== 核心 LLM 框架 ====================
 # LangChain 生態系統 (2025 最新: 1.0 穩定版)
@@ -125,6 +126,27 @@ tenacity>=9.0.0
 # Sales Outreach Automation
 rapidapi>=0.1.0
 
+# ==================== 🆕 2025-11 新增框架 ====================
+# Semantic Kernel (Microsoft Agent Framework)
+semantic-kernel>=1.0.0
+azure-identity>=1.14.0
+
+# LangFlow (視覺化低代碼平台)
+langflow>=1.0.0
+# LangFlow 相關依賴已包含在 LangChain 部分
+
+# Haystack (RAG 原生框架)
+farm-haystack>=1.20.0
+haystack-ai>=2.0.0
+# 文檔處理依賴已包含在上方
+
+# AutoGPT (自主 AI Agent)
+# AutoGPT 主要依賴 LangChain 和 OpenAI，已包含在上方
+
+# OpenAI Swarm (輕量級協作框架)
+# 注意：Swarm 需要從 GitHub 安裝
+# pip install git+https://github.com/openai/swarm.git
+
 # ==================== 可選：GPU 加速 ====================
 # 取消註釋以使用 GPU 版本的 FAISS
 # faiss-gpu>=1.8.0
@@ -133,8 +155,21 @@ rapidapi>=0.1.0
 # 安裝方式:
 # pip install -r requirements.txt
 #
+# OpenAI Swarm 需要單獨從 GitHub 安裝:
+# pip install git+https://github.com/openai/swarm.git
+#
+# 如果只需要特定框架，可以安裝對應目錄下的 requirements.txt:
+# pip install -r "12.Semantic Kernel/requirements.txt"
+# pip install -r "13.LangFlow/requirements.txt"
+# pip install -r "14.Haystack/requirements.txt"
+# pip install -r "15.AutoGPT/requirements.txt"
+# pip install -r "16.OpenAI Swarm/requirements.txt"
+#
 # 對於開發環境，建議使用虛擬環境:
 # python -m venv venv
 # source venv/bin/activate  # Linux/Mac
 # venv\Scripts\activate     # Windows
 # pip install -r requirements.txt
+#
+# Playwright 安裝後需要額外步驟:
+# playwright install

@@ -219,3 +219,35 @@ site/
 
 # Security scanning
 .snyk
+
+# ============================================
+# 🆕 2025-11 New Frameworks Specific
+# ============================================
+
+# Semantic Kernel
+sk_memory/
+sk_planners_cache/
+semantic_kernel_cache/
+
+# LangFlow
+langflow_data/
+.langflow/
+*.langflow.json
+
+# Haystack
+document_store/
+haystack_storage/
+*.haystack.yaml
+pipelines_cache/
+
+# AutoGPT
+auto_gpt_workspace/
+autogpt_workspace/
+ai_settings.yaml
+last_run.json
+autogpt/auto_gpt_workspace/
+
+# OpenAI Swarm
+swarm_sessions/
+swarm_logs/
+*.swarm.json
