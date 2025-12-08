@@ -116,6 +116,22 @@ plugins:
       type: datetime
   - minify:
       minify_html: true
+  # API 文檔自動生成
+  - mkdocstrings:
+      default_handler: python
+      handlers:
+        python:
+          paths: [src]
+          options:
+            show_source: true
+            show_root_heading: true
+            show_root_full_path: false
+            show_category_heading: true
+            docstring_style: google
+            docstring_section_style: table
+            members_order: source
+            show_signature_annotations: true
+            separate_signature: true
 
 # 額外配置
 extra:

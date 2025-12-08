@@ -1,0 +1,67 @@
+# Dependabot 配置文件
+# 自動檢測和更新依賴項的安全漏洞
+
+version: 2
+updates:
+  # Python 依賴更新
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Taipei"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "python"
+    commit-message:
+      prefix: "chore(deps)"
+    groups:
+      # LLM 框架依賴分組
+      llm-frameworks:
+        patterns:
+          - "langchain*"
+          - "llama-index*"
+          - "crewai*"
+          - "openai"
+          - "anthropic"
+          - "google-generativeai"
+      # 開發工具分組
+      dev-tools:
+        patterns:
+          - "pytest*"
+          - "black"
+          - "ruff"
+          - "mypy"
+          - "flake8"
+      # 向量數據庫分組
+      vector-databases:
+        patterns:
+          - "chromadb"
+          - "faiss*"
+          - "pinecone*"
+          - "qdrant*"
+
+  # GitHub Actions 更新
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    labels:
+      - "dependencies"
+      - "github-actions"
+    commit-message:
+      prefix: "chore(ci)"
+
+  # Docker 依賴更新
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    labels:
+      - "dependencies"
+      - "docker"
+    commit-message:
+      prefix: "chore(docker)"
