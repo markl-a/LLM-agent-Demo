@@ -148,9 +148,7 @@ haystack-ai>=2.0.0
 # pip install git+https://github.com/openai/swarm.git
 
 # CrewAI (角色扮演 AI Agent 協作框架)
-crewai>=0.28.0
-crewai-tools>=0.2.0
-# CrewAI 依賴 LangChain，已包含在上方
+# 注意：CrewAI 已在上方「核心 LLM 框架」部分定義 (crewai>=1.0.0, crewai-tools>=0.15.0)
 
 # ==================== 可選：GPU 加速 ====================
 # 取消註釋以使用 GPU 版本的 FAISS
