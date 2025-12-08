@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "llm-agent-demo"
-version = "1.0.0"
+version = "2.0.0"
 description = "全面的 LLM Agent 框架學習與實踐專案，涵蓋 LangChain、LlamaIndex、AutoGen、CrewAI 等主流框架"
 authors = [
     {name = "LLM Agent Demo Contributors"}
@@ -40,10 +40,10 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/LLM-agent-Demo"
-Documentation = "https://github.com/yourusername/LLM-agent-Demo/blob/main/README.md"
-Repository = "https://github.com/yourusername/LLM-agent-Demo"
-Issues = "https://github.com/yourusername/LLM-agent-Demo/issues"
+Homepage = "https://github.com/markl-a/LLM-agent-Demo"
+Documentation = "https://github.com/markl-a/LLM-agent-Demo/blob/main/README.md"
+Repository = "https://github.com/markl-a/LLM-agent-Demo"
+Issues = "https://github.com/markl-a/LLM-agent-Demo/issues"
 
 # ==================== Black 代碼格式化 ====================
 [tool.black]
