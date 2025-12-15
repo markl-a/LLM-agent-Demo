@@ -1,9 +1,13 @@
 """配置管理模組 - 使用 Pydantic Settings 管理環境變數和配置"""
 
-import os
+import logging
 from functools import lru_cache
-from typing import Optional, Dict, Any
 from pathlib import Path
+from typing import Any, Dict, Literal, Optional
+
+from .exceptions import ConfigurationError, APIKeyError
+
+logger = logging.getLogger(__name__)
 
 try:
     from pydantic import Field, field_validator
@@ -24,6 +28,9 @@ class Settings(BaseSettings):
 
     所有配置都可以通過環境變數設定，環境變數會覆蓋 .env 文件中的值。
     """
+
+    # 效能優化：快取 LLM 配置字典
+    _llm_config_cache: Dict[str, Dict[str, Any]] = {}
 
     # ============= LLM 提供商設定 =============
     openai_api_key: Optional[str] = Field(None, description="OpenAI API 金鑰")
@@ -86,7 +93,17 @@ class Settings(BaseSettings):
     @field_validator("log_level")
     @classmethod
     def validate_log_level(cls, v: str) -> str:
-        """驗證日誌級別"""
+        """驗證日誌級別。
+
+        Args:
+            v: 日誌級別字符串
+
+        Returns:
+            str: 大寫的有效日誌級別
+
+        Raises:
+            ValueError: 如果日誌級別不在允許的值中
+        """
         valid_levels = {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}
         v = v.upper()
         if v not in valid_levels:
@@ -96,7 +113,17 @@ class Settings(BaseSettings):
     @field_validator("app_env")
     @classmethod
     def validate_app_env(cls, v: str) -> str:
-        """驗證應用環境"""
+        """驗證應用環境。
+
+        Args:
+            v: 應用環境字符串
+
+        Returns:
+            str: 小寫的有效應用環境
+
+        Raises:
+            ValueError: 如果應用環境不在允許的值中
+        """
         valid_envs = {"development", "staging", "production"}
         v = v.lower()
         if v not in valid_envs:
@@ -106,25 +133,43 @@ class Settings(BaseSettings):
     @field_validator("temperature")
     @classmethod
     def validate_temperature(cls, v: float) -> float:
-        """驗證溫度參數"""
+        """驗證溫度參數。
+
+        Args:
+            v: 溫度值
+
+        Returns:
+            float: 驗證後的溫度值
+
+        Raises:
+            ValueError: 如果溫度值不在 0.0 到 2.0 之間
+        """
         if not 0.0 <= v <= 2.0:
             raise ValueError("temperature 必須在 0.0 到 2.0 之間")
         return v
 
-    def get_llm_config(self, provider: str = "openai") -> Dict[str, Any]:
+    def get_llm_config(
+        self, provider: Literal["openai", "anthropic", "google", "groq"] = "openai"
+    ) -> Dict[str, Any]:
         """
-        獲取特定 LLM 提供商的配置
+        獲取特定 LLM 提供商的配置（帶快取優化）
 
         Args:
             provider: LLM 提供商名稱（openai, anthropic, google, groq）
 
         Returns:
-            配置字典
+            Dict[str, Any]: 包含 api_key, model 等配置的字典
 
         Raises:
             ValueError: 如果提供商不支援或缺少 API 金鑰
         """
-        provider = provider.lower()
+        provider_lower = provider.lower()
+
+        # 檢查快取
+        if provider_lower in self._llm_config_cache:
+            return self._llm_config_cache[provider_lower]
+
+        # 構建配置
         configs = {
             "openai": {
                 "api_key": self.openai_api_key,
@@ -145,23 +190,53 @@ class Settings(BaseSettings):
             },
         }
 
-        if provider not in configs:
-            raise ValueError(
-                f"不支援的 LLM 提供商: {provider}。支援的提供商: {list(configs.keys())}"
+        if provider_lower not in configs:
+            supported_providers = list(configs.keys())
+            raise ConfigurationError(
+                f"不支援的 LLM 提供商: '{provider_lower}'. "
+                f"支援的提供商: {', '.join(supported_providers)}",
+                config_key="provider",
+                details={"invalid_provider": provider_lower, "supported_providers": supported_providers},
             )
 
-        config = configs[provider]
+        config = configs[provider_lower]
         if not config["api_key"]:
-            raise ValueError(f"{provider.upper()} API 金鑰未設定")
+            env_var_name = f"{provider.upper()}_API_KEY"
+            raise APIKeyError(
+                provider=provider.upper(),
+                message=f"{provider.upper()} API 金鑰未設定。請設定環境變數 {env_var_name} 或在 .env 文件中配置",
+            )
+
+        # 快取配置
+        self._llm_config_cache[provider_lower] = config
+        logger.debug(f"成功獲取並快取 {provider.upper()} 配置")
 
         return config
 
     def is_production(self) -> bool:
-        """檢查是否為生產環境"""
+        """檢查是否為生產環境。
+
+        Returns:
+            bool: 如果當前環境是生產環境則返回 True
+
+        Example:
+            >>> settings = get_settings()
+            >>> if settings.is_production():
+            ...     print("運行在生產環境")
+        """
         return self.app_env == "production"
 
     def is_development(self) -> bool:
-        """檢查是否為開發環境"""
+        """檢查是否為開發環境。
+
+        Returns:
+            bool: 如果當前環境是開發環境則返回 True
+
+        Example:
+            >>> settings = get_settings()
+            >>> if settings.is_development():
+            ...     print("運行在開發環境")
+        """
         return self.app_env == "development"
 
 
@@ -193,20 +268,56 @@ def reload_settings() -> Settings:
 
 # 便利函數
 def get_openai_config() -> Dict[str, Any]:
-    """獲取 OpenAI 配置"""
+    """獲取 OpenAI 配置。
+
+    Returns:
+        Dict[str, Any]: 包含 OpenAI API 配置的字典
+
+    Example:
+        >>> config = get_openai_config()
+        >>> print(config["model"])
+        'gpt-4o-mini'
+    """
     return get_settings().get_llm_config("openai")
 
 
 def get_anthropic_config() -> Dict[str, Any]:
-    """獲取 Anthropic 配置"""
+    """獲取 Anthropic 配置。
+
+    Returns:
+        Dict[str, Any]: 包含 Anthropic API 配置的字典
+
+    Example:
+        >>> config = get_anthropic_config()
+        >>> print(config["model"])
+        'claude-3-5-sonnet-20241022'
+    """
     return get_settings().get_llm_config("anthropic")
 
 
 def get_google_config() -> Dict[str, Any]:
-    """獲取 Google 配置"""
+    """獲取 Google 配置。
+
+    Returns:
+        Dict[str, Any]: 包含 Google Gemini API 配置的字典
+
+    Example:
+        >>> config = get_google_config()
+        >>> print(config["model"])
+        'gemini-2.0-flash-exp'
+    """
     return get_settings().get_llm_config("google")
 
 
 def get_groq_config() -> Dict[str, Any]:
-    """獲取 Groq 配置"""
+    """獲取 Groq 配置。
+
+    Returns:
+        Dict[str, Any]: 包含 Groq API 配置的字典
+
+    Example:
+        >>> config = get_groq_config()
+        >>> print(config["model"])
+        'llama-3.3-70b-versatile'
+    """
     return get_settings().get_llm_config("groq")

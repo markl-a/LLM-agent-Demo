@@ -458,7 +458,8 @@ class TestCostTracker:
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir) / "test_history.json"
 
-            tracker = CostTracker(save_path=str(temp_path))
+            # 使用 auto_save_interval=1 以便每次記錄後立即保存
+            tracker = CostTracker(save_path=str(temp_path), auto_save_interval=1)
             tracker.track_usage(1000, 500, "gpt-4o", "openai")
 
             # 驗證文件已創建並包含正確的數據
@@ -478,7 +479,8 @@ class TestCostTracker:
         with tempfile.TemporaryDirectory() as temp_dir:
             save_path = Path(temp_dir) / "subdir" / "data.json"
 
-            tracker = CostTracker(save_path=str(save_path))
+            # 使用 auto_save_interval=1 以便每次記錄後立即保存
+            tracker = CostTracker(save_path=str(save_path), auto_save_interval=1)
             tracker.track_usage(1000, 500, "gpt-4o")
 
             assert save_path.exists()
@@ -507,8 +509,8 @@ class TestCostTracker:
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir) / "test_history.json"
 
-            # 創建並保存數據
-            tracker1 = CostTracker(save_path=str(temp_path))
+            # 創建並保存數據（使用 auto_save_interval=1 以便每次記錄後立即保存）
+            tracker1 = CostTracker(save_path=str(temp_path), auto_save_interval=1)
             tracker1.track_usage(1000, 500, "gpt-4o", "openai")
             tracker1.track_usage(2000, 1000, "claude-3-5-sonnet-20241022", "anthropic")
 
@@ -552,7 +554,8 @@ class TestCostTracker:
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir) / "test_history.json"
 
-            tracker = CostTracker(save_path=str(temp_path))
+            # 使用 auto_save_interval=1 以便每次記錄後立即保存
+            tracker = CostTracker(save_path=str(temp_path), auto_save_interval=1)
             tracker.track_usage(1000, 500, "gpt-4o")
 
             assert temp_path.exists()
@@ -596,7 +599,8 @@ class TestCostTracker:
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_path = Path(temp_dir) / "test_history.json"
 
-            tracker = CostTracker(save_path=str(temp_path))
+            # 使用 auto_save_interval=1 以便每次記錄後立即保存
+            tracker = CostTracker(save_path=str(temp_path), auto_save_interval=1)
 
             # 每次 track_usage 都應該自動保存
             tracker.track_usage(1000, 500, "gpt-4o")

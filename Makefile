@@ -29,6 +29,14 @@ help: ## 顯示幫助信息
 
 ##@ 安裝和設置
 
+venv: ## 創建虛擬環境
+	@echo "$(GREEN)創建虛擬環境...$(NC)"
+	$(PYTHON) -m venv venv
+	@echo "$(GREEN)✓ 虛擬環境已創建$(NC)"
+	@echo "$(YELLOW)激活方式:$(NC)"
+	@echo "  Linux/Mac: source venv/bin/activate"
+	@echo "  Windows:   venv\\Scripts\\activate"
+
 install: ## 安裝生產環境依賴
 	@echo "$(GREEN)安裝依賴...$(NC)"
 	$(PIP) install --upgrade pip
@@ -47,6 +55,14 @@ install-poetry: ## 使用 Poetry 安裝依賴
 	poetry install
 	@echo "$(GREEN)✓ Poetry 安裝完成$(NC)"
 
+install-playwright: ## 安裝 Playwright 瀏覽器
+	@echo "$(GREEN)安裝 Playwright 瀏覽器...$(NC)"
+	playwright install
+	@echo "$(GREEN)✓ Playwright 瀏覽器已安裝$(NC)"
+
+install-all: install-dev install-playwright ## 安裝所有依賴（包括 Playwright）
+	@echo "$(GREEN)✓ 所有依賴已安裝完成$(NC)"
+
 setup-env: ## 設置環境變數文件
 	@if [ ! -f .env ]; then \
 		echo "$(YELLOW)創建 .env 文件...$(NC)"; \
@@ -55,6 +71,12 @@ setup-env: ## 設置環境變數文件
 	else \
 		echo "$(YELLOW).env 文件已存在$(NC)"; \
 	fi
+
+update-deps: ## 更新所有依賴到最新版本
+	@echo "$(GREEN)更新依賴...$(NC)"
+	$(PIP) install --upgrade pip
+	$(PIP) install --upgrade -r requirements.txt
+	@echo "$(GREEN)✓ 依賴已更新$(NC)"
 
 ##@ 測試
 
@@ -78,6 +100,41 @@ test-cov: ## 運行測試並生成覆蓋率報告
 test-quick: ## 快速測試（跳過慢速測試）
 	@echo "$(GREEN)運行快速測試...$(NC)"
 	$(PYTEST) tests/ -v -m "not slow"
+
+test-watch: ## 監視模式運行測試（文件變化時自動重新運行）
+	@echo "$(GREEN)啟動測試監視模式...$(NC)"
+	@if command -v pytest-watch > /dev/null; then \
+		pytest-watch tests/; \
+	else \
+		echo "$(YELLOW)pytest-watch 未安裝，嘗試安裝...$(NC)"; \
+		$(PIP) install pytest-watch; \
+		pytest-watch tests/; \
+	fi
+
+test-failed: ## 只重新運行上次失敗的測試
+	@echo "$(GREEN)重新運行失敗的測試...$(NC)"
+	$(PYTEST) tests/ -v --lf
+
+test-report: test-cov ## 生成詳細的測試報告
+	@echo "$(GREEN)生成測試報告...$(NC)"
+	@echo "$(BLUE)HTML 覆蓋率報告: htmlcov/index.html$(NC)"
+	@echo "$(BLUE)XML 覆蓋率報告: coverage.xml$(NC)"
+	@if command -v xdg-open > /dev/null; then \
+		xdg-open htmlcov/index.html; \
+	elif command -v open > /dev/null; then \
+		open htmlcov/index.html; \
+	else \
+		echo "$(YELLOW)請手動打開 htmlcov/index.html 查看報告$(NC)"; \
+	fi
+
+benchmark: ## 運行性能基準測試
+	@echo "$(GREEN)運行性能測試...$(NC)"
+	@if command -v pytest-benchmark > /dev/null; then \
+		$(PYTEST) tests/ -v -m benchmark --benchmark-only; \
+	else \
+		echo "$(YELLOW)pytest-benchmark 未安裝$(NC)"; \
+		echo "$(YELLOW)運行: pip install pytest-benchmark$(NC)"; \
+	fi
 
 ##@ 代碼質量
 
@@ -158,6 +215,34 @@ serve-docs: ## 本地預覽文檔
 		exit 1; \
 	fi
 
+docs-deploy: docs ## 部署文檔到 GitHub Pages
+	@echo "$(GREEN)部署文檔到 GitHub Pages...$(NC)"
+	@if [ -d "docs" ]; then \
+		mkdocs gh-deploy --force; \
+		echo "$(GREEN)✓ 文檔已部署$(NC)"; \
+	else \
+		echo "$(RED)docs 目錄不存在$(NC)"; \
+		exit 1; \
+	fi
+
+api-docs: ## 生成 API 文檔
+	@echo "$(GREEN)生成 API 文檔...$(NC)"
+	@if command -v pdoc > /dev/null; then \
+		pdoc --html --output-dir api-docs src/llm_agent_demo --force; \
+		echo "$(GREEN)✓ API 文檔已生成: api-docs/$(NC)"; \
+	else \
+		echo "$(YELLOW)pdoc 未安裝，嘗試安裝...$(NC)"; \
+		$(PIP) install pdoc3; \
+		pdoc --html --output-dir api-docs src/llm_agent_demo --force; \
+	fi
+
+changelog: ## 查看變更日誌
+	@if [ -f CHANGELOG.md ]; then \
+		cat CHANGELOG.md | head -50; \
+	else \
+		echo "$(YELLOW)CHANGELOG.md 不存在$(NC)"; \
+	fi
+
 ##@ 清理
 
 clean: ## 清理生成的文件
@@ -173,14 +258,51 @@ clean: ## 清理生成的文件
 	rm -rf dist/
 	rm -rf build/
 	rm -rf site/
+	rm -rf api-docs/
 	rm -f bandit-report.json
+	rm -f coverage.xml
 	@echo "$(GREEN)✓ 清理完成$(NC)"
+
+clean-cache: ## 清理 Python 緩存文件
+	@echo "$(GREEN)清理 Python 緩存...$(NC)"
+	find . -type f -name '*.pyc' -delete
+	find . -type d -name '__pycache__' -delete
+	find . -type d -name '.pytest_cache' -exec rm -rf {} + 2>/dev/null || true
+	@echo "$(GREEN)✓ 緩存清理完成$(NC)"
+
+clean-docs: ## 清理文檔生成文件
+	@echo "$(GREEN)清理文檔文件...$(NC)"
+	rm -rf site/
+	rm -rf api-docs/
+	@echo "$(GREEN)✓ 文檔清理完成$(NC)"
+
+clean-test: ## 清理測試生成的文件
+	@echo "$(GREEN)清理測試文件...$(NC)"
+	find . -type f -name '.coverage' -delete
+	rm -rf htmlcov/
+	rm -rf .pytest_cache/
+	rm -f coverage.xml
+	@echo "$(GREEN)✓ 測試文件清理完成$(NC)"
 
 clean-all: clean ## 清理所有文件（包括向量數據庫）
 	@echo "$(YELLOW)清理所有文件（包括向量數據庫）...$(NC)"
 	find . -type d -name 'vectorstore' -exec rm -rf {} + 2>/dev/null || true
 	find . -type d -name 'chroma_db' -exec rm -rf {} + 2>/dev/null || true
 	@echo "$(GREEN)✓ 完全清理完成$(NC)"
+
+clean-venv: ## 刪除虛擬環境
+	@echo "$(YELLOW)刪除虛擬環境...$(NC)"
+	@read -p "確定要刪除虛擬環境嗎？ [y/N] " -n 1 -r; \
+	echo; \
+	if [[ $$REPLY =~ ^[Yy]$$ ]]; then \
+		rm -rf venv/; \
+		echo "$(GREEN)✓ 虛擬環境已刪除$(NC)"; \
+	else \
+		echo "$(YELLOW)取消操作$(NC)"; \
+	fi
+
+reset: clean-all clean-venv ## 完全重置專案（刪除所有生成文件和虛擬環境）
+	@echo "$(RED)專案已重置$(NC)"
 
 ##@ 開發工具
 
@@ -224,6 +346,22 @@ check-deps: ## 檢查依賴是否有更新
 	@echo "$(GREEN)檢查依賴更新...$(NC)"
 	$(PIP) list --outdated
 
+verify-env: ## 驗證環境配置
+	@echo "$(GREEN)驗證環境配置...$(NC)"
+	@if [ -f .env ]; then \
+		echo "$(GREEN)✓ .env 文件存在$(NC)"; \
+	else \
+		echo "$(RED)✗ .env 文件不存在$(NC)"; \
+		echo "$(YELLOW)  運行 'make setup-env' 創建$(NC)"; \
+	fi
+	@echo ""
+	@echo "$(BLUE)檢查必需的 API Keys:$(NC)"
+	@if [ -f .env ]; then \
+		grep -q "OPENAI_API_KEY" .env && echo "$(GREEN)✓ OPENAI_API_KEY$(NC)" || echo "$(YELLOW)○ OPENAI_API_KEY 未設置$(NC)"; \
+		grep -q "ANTHROPIC_API_KEY" .env && echo "$(GREEN)✓ ANTHROPIC_API_KEY$(NC)" || echo "$(YELLOW)○ ANTHROPIC_API_KEY 未設置$(NC)"; \
+		grep -q "GOOGLE_API_KEY" .env && echo "$(GREEN)✓ GOOGLE_API_KEY$(NC)" || echo "$(YELLOW)○ GOOGLE_API_KEY 未設置$(NC)"; \
+	fi
+
 count-lines: ## 統計代碼行數
 	@echo "$(GREEN)統計代碼行數...$(NC)"
 	@echo "Python 文件:"
@@ -234,6 +372,35 @@ count-lines: ## 統計代碼行數
 	@echo ""
 	@echo "Markdown 文件:"
 	@find . -name '*.md' -not -path '*/\.*' | wc -l
+
+tree: ## 顯示專案目錄結構
+	@echo "$(GREEN)專案目錄結構:$(NC)"
+	@if command -v tree > /dev/null; then \
+		tree -L 2 -I 'venv|__pycache__|*.egg-info|.git|.pytest_cache|.mypy_cache|.ruff_cache|htmlcov|node_modules' --dirsfirst; \
+	else \
+		echo "$(YELLOW)tree 命令未安裝，使用 ls 替代$(NC)"; \
+		ls -R | grep ":$$" | sed -e 's/:$$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/   /' -e 's/-/|/' | head -50; \
+	fi
+
+list-examples: ## 列出所有可用的示例
+	@echo "$(GREEN)可用的 LLM Agent 示例:$(NC)"
+	@echo ""
+	@echo "$(BLUE)1. LangChain Demos$(NC)"
+	@ls -1 "1.LangchainDemos" 2>/dev/null | head -5 || echo "  (查看 1.LangchainDemos 目錄)"
+	@echo ""
+	@echo "$(BLUE)2. Multi-modal RAG$(NC)"
+	@ls -1 "2.Multi_modal_RAG" 2>/dev/null | head -5 || echo "  (查看 2.Multi_modal_RAG 目錄)"
+	@echo ""
+	@echo "$(YELLOW)運行 'make help' 查看更多命令$(NC)"
+
+show-config: ## 顯示當前配置
+	@echo "$(BLUE)=== Python 環境 ===$(NC)"
+	@echo "Python 版本: $$($(PYTHON) --version)"
+	@echo "Python 路徑: $$(which $(PYTHON))"
+	@echo "Pip 版本: $$($(PIP) --version | cut -d' ' -f2)"
+	@echo ""
+	@echo "$(BLUE)=== 已安裝的主要框架 ===$(NC)"
+	@$(PIP) list | grep -E "(langchain|llama-index|autogen|crewai|metagpt)" || echo "尚未安裝框架"
 
 version: ## 顯示版本信息
 	@echo "$(BLUE)$(PROJECT_NAME) v$(VERSION)$(NC)"
@@ -257,18 +424,46 @@ info: ## 顯示專案信息
 
 ##@ 快速操作
 
-quick-start: install-dev setup-env ## 快速開始（安裝依賴並設置環境）
+quick-start: venv setup-env ## 快速開始（創建虛擬環境並設置環境）
 	@echo "$(GREEN)=== 快速開始完成 ===$(NC)"
-	@echo "接下來的步驟:"
-	@echo "  1. 編輯 .env 文件並添加你的 API keys"
-	@echo "  2. 運行 'make test' 確保一切正常"
-	@echo "  3. 查看 README.md 了解更多信息"
+	@echo ""
+	@echo "$(BLUE)接下來的步驟:$(NC)"
+	@echo "  1. 激活虛擬環境:"
+	@echo "     $(YELLOW)source venv/bin/activate$(NC)  (Linux/Mac)"
+	@echo "     $(YELLOW)venv\\Scripts\\activate$(NC)      (Windows)"
+	@echo ""
+	@echo "  2. 安裝依賴:"
+	@echo "     $(YELLOW)make install-all$(NC)"
+	@echo ""
+	@echo "  3. 編輯 .env 文件並添加你的 API keys"
+	@echo ""
+	@echo "  4. 運行測試確保一切正常:"
+	@echo "     $(YELLOW)make test$(NC)"
+	@echo ""
+	@echo "  5. 查看 README.md 了解更多信息"
+
+full-setup: venv install-all setup-env ## 完整設置（虛擬環境、依賴、環境配置）
+	@echo "$(GREEN)=== 完整設置完成 ===$(NC)"
+	@echo "$(YELLOW)請編輯 .env 文件並添加你的 API keys$(NC)"
+	@echo "$(YELLOW)然後運行 'make verify-env' 驗證配置$(NC)"
 
 dev: install-dev test lint ## 開發流程（安裝、測試、檢查）
 	@echo "$(GREEN)✓ 開發環境準備完成$(NC)"
 
+dev-check: format lint type-check ## 開發檢查（格式化、linting、類型檢查）
+	@echo "$(GREEN)✓ 開發檢查完成$(NC)"
+
 ci: format-check lint test ## CI 流程（格式檢查、linting、測試）
 	@echo "$(GREEN)✓ CI 檢查通過$(NC)"
 
+ci-full: format-check lint type-check security-check test-cov ## 完整 CI 流程
+	@echo "$(GREEN)✓ 完整 CI 檢查通過$(NC)"
+
 deploy-prep: clean test lint ## 部署前準備
 	@echo "$(GREEN)✓ 部署前檢查完成$(NC)"
+
+rebuild: clean-all install-all ## 重新構建（清理並重新安裝）
+	@echo "$(GREEN)✓ 重新構建完成$(NC)"
+
+daily: pull install format test ## 每日開發流程（拉取、安裝、格式化、測試）
+	@echo "$(GREEN)✓ 每日開發流程完成$(NC)"

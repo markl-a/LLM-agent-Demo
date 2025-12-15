@@ -13,6 +13,7 @@ try:
         reload_settings,
         get_openai_config,
     )
+    from src.llm_agent_demo.utils.exceptions import ConfigurationError, APIKeyError
 
     CORE_MODULE_AVAILABLE = True
 except ImportError:
@@ -68,7 +69,7 @@ class TestSettings:
         """測試無效的提供商"""
         settings = Settings()
 
-        with pytest.raises(ValueError, match="不支援的 LLM 提供商"):
+        with pytest.raises(ConfigurationError, match="不支援的 LLM 提供商"):
             settings.get_llm_config("invalid_provider")
 
     def test_get_llm_config_missing_key(self, monkeypatch):
@@ -78,7 +79,7 @@ class TestSettings:
         reload_settings()
         settings = Settings()
 
-        with pytest.raises(ValueError, match="API 金鑰未設定"):
+        with pytest.raises(APIKeyError, match="金鑰未設定"):
             settings.get_llm_config("anthropic")  # 沒有設置 Anthropic key
 
     def test_is_development(self, mock_env):

@@ -33,10 +33,16 @@ except ImportError:
 @pytest.fixture
 def clean_logger():
     """清理日誌配置的 fixture"""
+    import src.llm_agent_demo.utils.logger as logger_module
+
     # 保存原始 handlers
     root_logger = logging.getLogger()
     original_handlers = root_logger.handlers.copy()
     original_level = root_logger.level
+    original_configured = getattr(logger_module, '_logging_configured', False)
+
+    # 重置全局配置標誌以允許重新配置
+    logger_module._logging_configured = False
 
     yield
 
@@ -45,6 +51,7 @@ def clean_logger():
     for handler in original_handlers:
         root_logger.addHandler(handler)
     root_logger.setLevel(original_level)
+    logger_module._logging_configured = original_configured
 
 
 @pytest.fixture
@@ -186,9 +193,11 @@ class TestJSONFormatter:
         assert log_data["level"] == "INFO"
         assert log_data["logger"] == "test_logger"
         assert log_data["message"] == "Test message"
-        assert log_data["module"] == "test_module"
-        assert log_data["function"] == "test_function"
-        assert log_data["line"] == 42
+        # 新的結構化格式將模組信息放在 source 字典中
+        assert "source" in log_data
+        assert log_data["source"]["module"] == "test_module"
+        assert log_data["source"]["function"] == "test_function"
+        assert log_data["source"]["line"] == 42
 
     def test_format_with_exception(self, log_record):
         """測試包含異常信息的格式化"""
@@ -203,10 +212,12 @@ class TestJSONFormatter:
         formatted = formatter.format(log_record)
         log_data = json.loads(formatted)
 
-        # 驗證異常欄位存在
+        # 驗證異常欄位存在（新的結構化格式）
         assert "exception" in log_data
-        assert "ValueError" in log_data["exception"]
-        assert "Test error" in log_data["exception"]
+        assert log_data["exception"]["type"] == "ValueError"
+        assert log_data["exception"]["message"] == "Test error"
+        assert "traceback" in log_data["exception"]
+        assert "ValueError" in log_data["exception"]["traceback"]
 
     def test_format_with_extra_data(self, log_record):
         """測試包含額外數據的格式化"""
@@ -726,7 +737,8 @@ class TestEdgeCases:
 
     def test_invalid_log_level_string(self, clean_logger):
         """測試無效的日誌級別字串"""
-        with pytest.raises(AttributeError):
+        # 新的實現使用更合適的 ValueError 而不是 AttributeError
+        with pytest.raises(ValueError, match="無效的日誌級別"):
             setup_logging(level="INVALID_LEVEL")
 
     def test_empty_log_message(self, clean_logger, temp_log_file):
@@ -824,10 +836,10 @@ class TestEdgeCases:
         assert log_data["message"] == long_message
 
     def test_setup_logging_multiple_times(self, clean_logger):
-        """測試多次調用 setup_logging"""
+        """測試多次調用 setup_logging（使用 force_reconfigure）"""
         setup_logging(level="INFO")
-        setup_logging(level="DEBUG")
-        setup_logging(level="WARNING")
+        setup_logging(level="DEBUG", force_reconfigure=True)
+        setup_logging(level="WARNING", force_reconfigure=True)
 
         root_logger = logging.getLogger()
 

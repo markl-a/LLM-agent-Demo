@@ -24,6 +24,7 @@ try:
         escape_for_html,
         mask_sensitive_data,
     )
+    from src.llm_agent_demo.utils.exceptions import APIKeyError
 
     VALIDATORS_AVAILABLE = True
 except ImportError:
@@ -43,27 +44,27 @@ class TestValidateApiKey:
 
     def test_none_api_key(self):
         """測試 None 金鑰"""
-        with pytest.raises(ValidationError, match="API 金鑰不能為空"):
+        with pytest.raises(APIKeyError, match="金鑰不能為空"):
             validate_api_key(None)
 
     def test_empty_api_key(self):
         """測試空字符串金鑰"""
-        with pytest.raises(ValidationError, match="API 金鑰不能為空"):
+        with pytest.raises(APIKeyError, match="金鑰不能為空"):
             validate_api_key("")
 
     def test_whitespace_api_key(self):
         """測試只包含空白的金鑰"""
-        with pytest.raises(ValidationError, match="不能只包含空白字符"):
+        with pytest.raises(APIKeyError, match="只包含空白字符"):
             validate_api_key("   ")
 
     def test_short_api_key(self):
         """測試過短的金鑰"""
-        with pytest.raises(ValidationError, match="長度過短"):
+        with pytest.raises(APIKeyError, match="長度過短"):
             validate_api_key("short")
 
     def test_api_key_with_spaces(self):
         """測試包含空格的金鑰"""
-        with pytest.raises(ValidationError, match="包含無效字符"):
+        with pytest.raises(APIKeyError, match="無效字符"):
             validate_api_key("sk-1234567890abcdef 1234567890")
 
 
@@ -85,7 +86,7 @@ class TestValidateOpenAIApiKey:
 
     def test_invalid_prefix(self):
         """測試無效的前綴"""
-        with pytest.raises(ValidationError, match="必須以 'sk-' 或 'sk-proj-' 開頭"):
+        with pytest.raises(APIKeyError, match="必須以 'sk-' 或 'sk-proj-' 開頭"):
             validate_openai_api_key("invalid-1234567890abcdef1234567890")
 
 
@@ -101,7 +102,7 @@ class TestValidateAnthropicApiKey:
 
     def test_invalid_prefix(self):
         """測試無效的前綴"""
-        with pytest.raises(ValidationError, match="必須以 'sk-ant-' 開頭"):
+        with pytest.raises(APIKeyError, match="必須以 'sk-ant-' 開頭"):
             validate_anthropic_api_key("sk-1234567890abcdef1234567890")
 
 
