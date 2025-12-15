@@ -1,0 +1,53 @@
+# LLM Agent Demo - 開發環境依賴
+# 更新日期: 2025-12-15
+# 此文件包含所有開發和測試工具
+
+# ==================== 測試工具 ====================
+pytest>=8.3.0
+pytest-asyncio>=0.24.0
+pytest-cov>=6.0.0
+
+# ==================== 代碼質量和格式化 ====================
+black>=24.10.0
+flake8>=7.1.0
+mypy>=1.13.0
+ruff>=0.7.0
+isort>=5.13.0
+
+# ==================== 安全檢查 ====================
+bandit>=1.7.0
+safety>=3.2.0
+
+# ==================== Pre-commit 鉤子 ====================
+pre-commit>=3.8.0
+
+# ==================== 代碼覆蓋率 ====================
+coverage>=7.6.0
+
+# ==================== 開發工具 ====================
+jupyter>=1.1.0
+notebook>=7.2.0
+ipywidgets>=8.1.0
+jupyterlab>=4.3.0
+
+# ==================== 文檔生成 ====================
+mkdocs>=1.6.0
+mkdocs-material>=9.5.0
+mkdocstrings>=0.26.0
+mkdocstrings-python>=1.11.0
+
+# ==================== 調試和性能分析 ====================
+ipdb>=0.13.0
+line-profiler>=4.1.0
+memory-profiler>=0.61.0
+
+# ==================== 說明 ====================
+# 安裝方式:
+# pip install -r requirements-prod.txt
+# pip install -r requirements-dev.txt
+#
+# 或者一次性安裝所有依賴:
+# pip install -r requirements.txt
+#
+# Pre-commit 安裝後需要初始化:
+# pre-commit install

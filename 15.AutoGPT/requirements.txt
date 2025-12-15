@@ -1,7 +1,7 @@
 # AutoGPT 自主 AI Agent 框架依賴
 
 # 核心依賴
-openai>=1.0.0                    # OpenAI API 客戶端
+openai>=1.50.0                   # OpenAI API 客戶端
 langchain>=0.1.0                 # LangChain 框架
 langchain-openai>=0.0.2          # LangChain OpenAI 整合
 
