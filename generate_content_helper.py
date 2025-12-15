@@ -7,8 +7,15 @@ import google.generativeai as genai
 import os
 import json
 
-# 配置 Gemini API
-GEMINI_API_KEY = "AIzaSyCdEHuSZdPmppwd6xQWeZxJIUVT5UJmXHc"
+# 配置 Gemini API（從環境變數讀取，不要硬編碼密鑰）
+GEMINI_API_KEY = os.getenv("GOOGLE_API_KEY") or os.getenv("GEMINI_API_KEY")
+
+if not GEMINI_API_KEY:
+    raise ValueError(
+        "請設定 GOOGLE_API_KEY 或 GEMINI_API_KEY 環境變數。\n"
+        "取得方式：https://makersuite.google.com/app/apikey"
+    )
+
 genai.configure(api_key=GEMINI_API_KEY)
 
 # 使用 Gemini 1.5 Flash（免費且快速）

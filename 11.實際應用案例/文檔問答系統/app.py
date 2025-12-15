@@ -7,10 +7,18 @@
 
 import streamlit as st
 import os
+import html
 from pathlib import Path
 from dotenv import load_dotenv
 import time
 import yaml
+
+
+def escape_html(text: str) -> str:
+    """轉義 HTML 特殊字符以防止 XSS 攻擊"""
+    if text is None:
+        return ""
+    return html.escape(str(text))
 
 # 載入環境變數
 load_dotenv()
@@ -216,36 +224,39 @@ def render_main_content():
     # 顯示歷史對話
     for i, chat in enumerate(st.session_state.chat_history):
         with st.container():
-            # 用戶問題
+            # 用戶問題（使用 escape_html 防止 XSS）
             st.markdown(
                 f"""
             <div style="background-color: #e3f2fd; padding: 1rem; border-radius: 0.5rem; margin: 0.5rem 0;">
-                <strong>🧑 您:</strong> {chat['question']}
+                <strong>🧑 您:</strong> {escape_html(chat['question'])}
             </div>
             """,
                 unsafe_allow_html=True,
             )
 
-            # AI 回答
+            # AI 回答（使用 escape_html 防止 XSS）
             st.markdown(
                 f"""
             <div style="background-color: #f1f8e9; padding: 1rem; border-radius: 0.5rem; margin: 0.5rem 0;">
-                <strong>🤖 AI:</strong> {chat['answer']}
+                <strong>🤖 AI:</strong> {escape_html(chat['answer'])}
             </div>
             """,
                 unsafe_allow_html=True,
             )
 
-            # 來源信息
+            # 來源信息（使用 escape_html 防止 XSS）
             if chat.get("sources"):
                 with st.expander(f"📚 查看來源 ({len(chat['sources'])} 個文檔)"):
                     for j, source in enumerate(chat["sources"], 1):
+                        safe_file_name = escape_html(source.get('file_name', '未知文件'))
+                        safe_text_preview = escape_html(source.get('text_preview', ''))
+                        score = source.get('score', 0)
                         st.markdown(
                             f"""
                         <div class="source-box">
-                            <strong>{j}. {source['file_name']}</strong><br>
-                            相似度: {source['score']:.2%}<br>
-                            <small>{source['text_preview']}</small>
+                            <strong>{j}. {safe_file_name}</strong><br>
+                            相似度: {score:.2%}<br>
+                            <small>{safe_text_preview}</small>
                         </div>
                         """,
                             unsafe_allow_html=True,

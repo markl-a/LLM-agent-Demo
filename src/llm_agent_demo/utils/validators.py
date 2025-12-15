@@ -1,7 +1,12 @@
 """驗證器模組 - 提供各種輸入驗證功能"""
 
 import re
+import html
+import logging
 from typing import Optional, List
+from urllib.parse import urlparse, parse_qs
+
+logger = logging.getLogger(__name__)
 
 
 class ValidationError(Exception):
@@ -370,3 +375,207 @@ def validate_language_code(language_code: str) -> str:
         )
 
     return language_code
+
+
+# ============================================================================
+# 安全性相關驗證函數
+# ============================================================================
+
+
+def sanitize_user_input(
+    text: str,
+    max_length: int = 10000,
+    allow_newlines: bool = True,
+    strip_html: bool = True,
+) -> str:
+    """
+    清理和驗證用戶輸入，防止注入攻擊
+
+    Args:
+        text: 用戶輸入的文本
+        max_length: 最大允許長度（默認 10000 字符）
+        allow_newlines: 是否允許換行符（默認 True）
+        strip_html: 是否移除 HTML 標籤（默認 True）
+
+    Returns:
+        清理後的安全文本
+
+    Raises:
+        ValidationError: 如果輸入無效或包含可疑內容
+    """
+    if text is None:
+        return ""
+
+    if not isinstance(text, str):
+        raise ValidationError("輸入必須是字符串")
+
+    # 長度檢查
+    if len(text) > max_length:
+        raise ValidationError(f"輸入過長（最多 {max_length} 字符，實際 {len(text)} 字符）")
+
+    # 移除控制字符（保留換行符和製表符）
+    allowed_control_chars = {"\n", "\r", "\t"} if allow_newlines else {"\t"}
+    text = "".join(
+        char for char in text if ord(char) >= 32 or char in allowed_control_chars
+    )
+
+    # HTML 轉義（防止 XSS）
+    if strip_html:
+        text = html.escape(text)
+
+    # 移除多餘的空格
+    text = " ".join(text.split())
+
+    return text
+
+
+def validate_user_query(
+    query: str,
+    min_length: int = 1,
+    max_length: int = 2000,
+    check_suspicious: bool = True,
+) -> str:
+    """
+    驗證用戶查詢輸入
+
+    Args:
+        query: 用戶查詢字符串
+        min_length: 最小長度（默認 1）
+        max_length: 最大長度（默認 2000）
+        check_suspicious: 是否檢查可疑模式（默認 True）
+
+    Returns:
+        驗證後的查詢字符串
+
+    Raises:
+        ValidationError: 如果查詢無效
+    """
+    if not query:
+        raise ValidationError("查詢不能為空")
+
+    query = query.strip()
+
+    if len(query) < min_length:
+        raise ValidationError(f"查詢過短（最少 {min_length} 字符）")
+
+    if len(query) > max_length:
+        raise ValidationError(f"查詢過長（最多 {max_length} 字符）")
+
+    # 檢查可疑的注入模式
+    if check_suspicious:
+        suspicious_patterns = [
+            (r"<script", "檢測到可疑的 script 標籤"),
+            (r"javascript:", "檢測到可疑的 javascript: 協議"),
+            (r"on\w+\s*=", "檢測到可疑的事件處理器"),
+            (r"--\s*$", "檢測到可疑的 SQL 註釋"),
+            (r";\s*DROP\s+TABLE", "檢測到可疑的 SQL DROP 語句"),
+            (r";\s*DELETE\s+FROM", "檢測到可疑的 SQL DELETE 語句"),
+            (r"UNION\s+SELECT", "檢測到可疑的 SQL UNION 語句"),
+        ]
+
+        for pattern, message in suspicious_patterns:
+            if re.search(pattern, query, re.IGNORECASE):
+                logger.warning(f"檢測到可疑查詢: {message}, 查詢: {query[:100]}...")
+                raise ValidationError(f"查詢包含可疑內容: {message}")
+
+    return query
+
+
+def validate_url_safe(url: str, allowed_schemes: Optional[List[str]] = None) -> str:
+    """
+    安全的 URL 驗證，檢查路徑遍歷和其他攻擊
+
+    Args:
+        url: URL 字符串
+        allowed_schemes: 允許的協議列表（默認 ['http', 'https']）
+
+    Returns:
+        驗證後的安全 URL
+
+    Raises:
+        ValidationError: 如果 URL 無效或不安全
+    """
+    if allowed_schemes is None:
+        allowed_schemes = ["http", "https"]
+
+    if not url:
+        raise ValidationError("URL 不能為空")
+
+    url = url.strip()
+
+    try:
+        parsed = urlparse(url)
+    except Exception as e:
+        raise ValidationError(f"URL 解析失敗: {e}")
+
+    # 檢查協議
+    if not parsed.scheme:
+        raise ValidationError("URL 必須包含協議（如 http:// 或 https://）")
+
+    if parsed.scheme.lower() not in allowed_schemes:
+        raise ValidationError(
+            f"不支援的 URL 協議: {parsed.scheme}. "
+            f"允許的協議: {', '.join(allowed_schemes)}"
+        )
+
+    # 檢查主機名
+    if not parsed.netloc:
+        raise ValidationError("URL 必須包含主機名")
+
+    # 檢查路徑遍歷攻擊
+    if ".." in parsed.path:
+        raise ValidationError("URL 路徑包含可疑的目錄遍歷模式 (..)")
+
+    # 檢查查詢參數中的危險模式
+    if parsed.query:
+        try:
+            query_params = parse_qs(parsed.query)
+            for key, values in query_params.items():
+                # 檢查鍵名
+                if any(char in key for char in ["<", ">", '"', "'"]):
+                    raise ValidationError(f"URL 查詢參數包含無效字符: {key}")
+                # 檢查值
+                for value in values:
+                    if any(char in value for char in ["<", ">", '"', "'"]):
+                        logger.warning(f"URL 參數值包含可疑字符: {key}={value[:50]}...")
+        except ValidationError:
+            raise
+        except Exception as e:
+            logger.warning(f"URL 查詢參數解析警告: {e}")
+
+    return url
+
+
+def escape_for_html(text: str) -> str:
+    """
+    將文本轉義為安全的 HTML 內容
+
+    Args:
+        text: 要轉義的文本
+
+    Returns:
+        HTML 安全的文本
+    """
+    if text is None:
+        return ""
+    return html.escape(str(text))
+
+
+def mask_sensitive_data(data: str, visible_chars: int = 4) -> str:
+    """
+    遮蔽敏感數據（如 API 密鑰）
+
+    Args:
+        data: 要遮蔽的數據
+        visible_chars: 顯示的前幾個字符（默認 4）
+
+    Returns:
+        遮蔽後的字符串（例如：sk-a***）
+    """
+    if not data:
+        return ""
+
+    if len(data) <= visible_chars:
+        return "*" * len(data)
+
+    return data[:visible_chars] + "*" * (len(data) - visible_chars)
