@@ -129,7 +129,7 @@ jobs:
         mkdocs build --strict
 
     - name: Upload site artifacts
-      uses: actions/upload-artifact@v4
+      uses: actions/upload-artifact@v6
       with:
         name: mkdocs-site
         path: site/
