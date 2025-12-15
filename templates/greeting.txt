@@ -1,0 +1,16 @@
+你好，{name}！
+
+{?role}你的角色是：{role}{/role}
+
+{?tasks}
+你需要完成以下任務：
+{#tasks}
+{index1}. {item}
+{/tasks}
+{/tasks}
+
+{?!tasks}
+目前沒有待辦任務。
+{/tasks}
+
+祝你有美好的一天！

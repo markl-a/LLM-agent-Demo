@@ -144,20 +144,20 @@ class RateLimitError(APIError):
 
     def __init__(
         self,
-        provider: str,
-        retry_after: Optional[int] = None,
-        message: Optional[str] = None,
+        message: str,
+        provider: str = "API",
+        retry_after: Optional[float] = None,
         **kwargs,
     ):
-        msg = message or f"{provider} API 速率限制已達到"
-        if retry_after:
-            msg += f"，請在 {retry_after} 秒後重試"
+        self.retry_after = retry_after
+        if retry_after and "retry_after" not in message.lower():
+            message += f"，請在 {retry_after:.1f} 秒後重試"
         details = kwargs.pop("details", {})
         details["provider"] = provider
         if retry_after:
             details["retry_after"] = retry_after
         kwargs["details"] = details
-        super().__init__(msg, provider=provider, status_code=429, **kwargs)
+        super().__init__(message, provider=provider, status_code=429, **kwargs)
 
 
 class AuthenticationError(APIError):
