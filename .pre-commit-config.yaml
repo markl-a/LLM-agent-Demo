@@ -9,7 +9,7 @@ default_language_version:
 repos:
   # 基礎檢查
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.5.0
+    rev: v5.0.0
     hooks:
       - id: trailing-whitespace
         name: 移除尾隨空白
@@ -39,7 +39,7 @@ repos:
 
   # Python 代碼格式化
   - repo: https://github.com/psf/black
-    rev: 24.1.1
+    rev: 24.10.0
     hooks:
       - id: black
         name: Black 代碼格式化
@@ -56,7 +56,7 @@ repos:
 
   # Ruff Linting (快速的 Python linter)
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.2.1
+    rev: v0.8.4
     hooks:
       - id: ruff
         name: Ruff Linting
@@ -66,7 +66,7 @@ repos:
 
   # Flake8 代碼檢查
   - repo: https://github.com/pycqa/flake8
-    rev: 7.0.0
+    rev: 7.1.1
     hooks:
       - id: flake8
         name: Flake8 代碼檢查
@@ -76,9 +76,22 @@ repos:
           - flake8-bugbear
           - flake8-comprehensions
 
+  # Mypy 類型檢查
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.13.0
+    hooks:
+      - id: mypy
+        name: Mypy 類型檢查
+        args: ['--config-file=mypy.ini']
+        additional_dependencies:
+          - types-requests
+          - types-PyYAML
+          - types-toml
+        pass_filenames: false
+
   # 安全檢查
   - repo: https://github.com/PyCQA/bandit
-    rev: 1.7.6
+    rev: 1.7.10
     hooks:
       - id: bandit
         name: Bandit 安全掃描
@@ -98,7 +111,7 @@ repos:
 
   # Jupyter Notebook 檢查
   - repo: https://github.com/nbQA-dev/nbQA
-    rev: 1.7.1
+    rev: 1.9.1
     hooks:
       - id: nbqa-black
         name: Jupyter Notebook Black 格式化

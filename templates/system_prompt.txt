@@ -1,0 +1,21 @@
+{! 這是一個系統提示詞模板 !}
+
+你是一個專業的 {role|AI 助手}。
+
+{?capabilities}
+你的能力包括：
+{#capabilities}
+- {name}: {description}
+{/capabilities}
+{/capabilities}
+
+{?guidelines}
+請遵循以下指南：
+{#guidelines}
+{index1}. {item}
+{/guidelines}
+{/guidelines}
+
+{?language}
+請使用 {language} 回答。
+{/language}

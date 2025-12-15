@@ -48,6 +48,14 @@ jobs:
         python-version: "3.11"
         cache: 'pip'
 
+    - name: Cache pip packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-notebooks-${{ hashFiles('**/requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-notebooks-
+
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
@@ -95,6 +103,14 @@ jobs:
       with:
         python-version: "3.11"
         cache: 'pip'
+
+    - name: Cache pip packages
+      uses: actions/cache@v4
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-mkdocs-${{ hashFiles('**/requirements*.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-mkdocs-
 
     - name: Configure Git
       run: |

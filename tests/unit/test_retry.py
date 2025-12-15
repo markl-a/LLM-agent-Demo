@@ -10,6 +10,7 @@ try:
         retry_on_network_error,
         RetryContext,
     )
+    from src.llm_agent_demo.utils.exceptions import MaxRetriesExceededError
 
     CORE_MODULE_AVAILABLE = True
 except ImportError:
@@ -61,7 +62,7 @@ class TestRetryWithExponentialBackoff:
             call_count += 1
             raise ValueError("總是失敗")
 
-        with pytest.raises(ValueError, match="總是失敗"):
+        with pytest.raises(MaxRetriesExceededError):
             always_fail()
 
         # max_retries=2 意味著最多嘗試 3 次 (1 + 2 重試)
@@ -169,7 +170,7 @@ class TestRetryContext:
         """測試上下文管理器超過最大重試"""
         retry_ctx = RetryContext(max_retries=2, initial_delay=0.01)
 
-        with pytest.raises(ValueError, match="總是失敗"):
+        with pytest.raises(MaxRetriesExceededError):
             for attempt in retry_ctx:
                 try:
                     raise ValueError("總是失敗")

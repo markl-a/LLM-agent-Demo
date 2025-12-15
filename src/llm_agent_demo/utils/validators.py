@@ -1,13 +1,53 @@
 """驗證器模組 - 提供各種輸入驗證功能"""
 
+import html
+import logging
 import re
-from typing import Optional, List
+from typing import List, Literal, Optional, Tuple
+from urllib.parse import parse_qs, urlparse
 
+from .exceptions import ValidationError, APIKeyError
 
-class ValidationError(Exception):
-    """驗證錯誤異常"""
+logger = logging.getLogger(__name__)
 
-    pass
+# ============================================================================
+# 預編譯的正則表達式（效能優化）
+# ============================================================================
+_URL_PATTERN = re.compile(
+    r"^https?://"  # http:// 或 https://
+    r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|"  # 域名
+    r"localhost|"  # localhost
+    r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})"  # IP 地址
+    r"(?::\d+)?"  # 可選端口
+    r"(?:/?|[/?]\S+)$",
+    re.IGNORECASE,
+)
+
+_EMAIL_PATTERN = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
+
+# 可疑模式預編譯（用於檢測注入攻擊）
+_SUSPICIOUS_PATTERNS = [
+    (re.compile(r"<script", re.IGNORECASE), "檢測到可疑的 script 標籤"),
+    (re.compile(r"javascript:", re.IGNORECASE), "檢測到可疑的 javascript: 協議"),
+    (re.compile(r"on\w+\s*=", re.IGNORECASE), "檢測到可疑的事件處理器"),
+    (re.compile(r"--\s*$", re.IGNORECASE), "檢測到可疑的 SQL 註釋"),
+    (re.compile(r";\s*DROP\s+TABLE", re.IGNORECASE), "檢測到可疑的 SQL DROP 語句"),
+    (re.compile(r";\s*DELETE\s+FROM", re.IGNORECASE), "檢測到可疑的 SQL DELETE 語句"),
+    (re.compile(r"UNION\s+SELECT", re.IGNORECASE), "檢測到可疑的 SQL UNION 語句"),
+]
+
+# ============================================================================
+# 常量集合（效能優化）
+# ============================================================================
+# 常見的 ISO 639-1 語言代碼
+_VALID_LANGUAGE_CODES = frozenset({
+    "en", "zh", "ja", "ko", "fr", "de", "es", "it",
+    "pt", "ru", "ar", "hi", "th", "vi",
+})
+
+# 允許的控制字符
+_ALLOWED_CONTROL_CHARS_WITH_NEWLINES = frozenset({"\n", "\r", "\t"})
+_ALLOWED_CONTROL_CHARS_NO_NEWLINES = frozenset({"\t"})
 
 
 def validate_api_key(api_key: Optional[str], provider: str = "API") -> str:
@@ -22,24 +62,38 @@ def validate_api_key(api_key: Optional[str], provider: str = "API") -> str:
         驗證後的 API 金鑰
 
     Raises:
-        ValidationError: 如果 API 金鑰無效
+        APIKeyError: 如果 API 金鑰無效
     """
     if not api_key:
-        raise ValidationError(f"{provider} API 金鑰不能為空")
+        raise APIKeyError(
+            provider=provider,
+            message=f"{provider} API 金鑰不能為空，請設定環境變數或 .env 文件",
+        )
 
     api_key = api_key.strip()
 
     if not api_key:
-        raise ValidationError(f"{provider} API 金鑰不能只包含空白字符")
+        raise APIKeyError(
+            provider=provider,
+            message=f"{provider} API 金鑰不能只包含空白字符",
+        )
 
     # 檢查最小長度（大多數 API 金鑰至少 20 個字符）
     if len(api_key) < 20:
-        raise ValidationError(f"{provider} API 金鑰長度過短（至少需要 20 個字符）")
+        raise APIKeyError(
+            provider=provider,
+            message=f"{provider} API 金鑰長度過短（至少需要 20 個字符，實際長度: {len(api_key)}）",
+        )
 
     # 檢查是否包含可疑字符
-    if any(char in api_key for char in [" ", "\t", "\n", "\r"]):
-        raise ValidationError(f"{provider} API 金鑰包含無效字符（空格或換行符）")
+    invalid_chars = [char for char in [" ", "\t", "\n", "\r"] if char in api_key]
+    if invalid_chars:
+        raise APIKeyError(
+            provider=provider,
+            message=f"{provider} API 金鑰包含無效字符（空格、製表符或換行符），請檢查複製時是否有額外字符",
+        )
 
+    logger.debug(f"{provider} API 金鑰驗證通過（長度: {len(api_key)}）")
     return api_key
 
 
@@ -56,14 +110,18 @@ def validate_openai_api_key(api_key: Optional[str]) -> str:
         驗證後的 API 金鑰
 
     Raises:
-        ValidationError: 如果 API 金鑰無效
+        APIKeyError: 如果 API 金鑰無效
     """
     api_key = validate_api_key(api_key, "OpenAI")
 
     # 檢查前綴
     if not (api_key.startswith("sk-") or api_key.startswith("sk-proj-")):
-        raise ValidationError("OpenAI API 金鑰必須以 'sk-' 或 'sk-proj-' 開頭")
+        raise APIKeyError(
+            provider="OpenAI",
+            message=f"OpenAI API 金鑰格式錯誤，必須以 'sk-' 或 'sk-proj-' 開頭，當前前綴: {api_key[:10]}...",
+        )
 
+    logger.debug("OpenAI API 金鑰格式驗證通過")
     return api_key
 
 
@@ -80,14 +138,18 @@ def validate_anthropic_api_key(api_key: Optional[str]) -> str:
         驗證後的 API 金鑰
 
     Raises:
-        ValidationError: 如果 API 金鑰無效
+        APIKeyError: 如果 API 金鑰無效
     """
     api_key = validate_api_key(api_key, "Anthropic")
 
     # 檢查前綴
     if not api_key.startswith("sk-ant-"):
-        raise ValidationError("Anthropic API 金鑰必須以 'sk-ant-' 開頭")
+        raise APIKeyError(
+            provider="Anthropic",
+            message=f"Anthropic API 金鑰格式錯誤，必須以 'sk-ant-' 開頭，當前前綴: {api_key[:10]}...",
+        )
 
+    logger.debug("Anthropic API 金鑰格式驗證通過")
     return api_key
 
 
@@ -106,19 +168,33 @@ def validate_model_name(model: str, valid_models: Optional[List[str]] = None) ->
         ValidationError: 如果模型名稱無效
     """
     if not model:
-        raise ValidationError("模型名稱不能為空")
+        raise ValidationError(
+            "模型名稱不能為空，請提供有效的模型名稱",
+            field_name="model",
+        )
 
     model = model.strip()
 
     if not model:
-        raise ValidationError("模型名稱不能只包含空白字符")
+        raise ValidationError(
+            "模型名稱不能只包含空白字符",
+            field_name="model",
+            invalid_value="(空白字符)",
+        )
 
     # 如果提供了有效模型列表，檢查是否在列表中
     if valid_models and model not in valid_models:
+        # 提供相似的建議（簡單的字符串匹配）
+        suggestions = [m for m in valid_models if model.lower() in m.lower() or m.lower() in model.lower()]
+        suggestion_text = f" 您可能想使用: {', '.join(suggestions[:3])}" if suggestions else ""
+
         raise ValidationError(
-            f"無效的模型名稱: {model}. 有效的模型: {', '.join(valid_models)}"
+            f"無效的模型名稱: '{model}'.{suggestion_text} 有效的模型列表: {', '.join(valid_models)}",
+            field_name="model",
+            invalid_value=model,
         )
 
+    logger.debug(f"模型名稱驗證通過: {model}")
     return model
 
 
@@ -194,7 +270,7 @@ def validate_top_k(top_k: int) -> int:
     return top_k
 
 
-def validate_chunk_size(chunk_size: int, chunk_overlap: int) -> tuple[int, int]:
+def validate_chunk_size(chunk_size: int, chunk_overlap: int) -> Tuple[int, int]:
     """
     驗證分塊參數
 
@@ -203,7 +279,7 @@ def validate_chunk_size(chunk_size: int, chunk_overlap: int) -> tuple[int, int]:
         chunk_overlap: 分塊重疊大小
 
     Returns:
-        驗證後的 (chunk_size, chunk_overlap) 元組
+        Tuple[int, int]: 驗證後的 (chunk_size, chunk_overlap) 元組
 
     Raises:
         ValidationError: 如果分塊參數無效
@@ -277,18 +353,8 @@ def validate_url(url: str) -> str:
     if not url:
         raise ValidationError("URL 不能只包含空白字符")
 
-    # 簡單的 URL 格式檢查
-    url_pattern = re.compile(
-        r"^https?://"  # http:// 或 https://
-        r"(?:(?:[A-Z0-9](?:[A-Z0-9-]{0,61}[A-Z0-9])?\.)+[A-Z]{2,6}\.?|"  # 域名
-        r"localhost|"  # localhost
-        r"\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})"  # IP 地址
-        r"(?::\d+)?"  # 可選端口
-        r"(?:/?|[/?]\S+)$",
-        re.IGNORECASE,
-    )
-
-    if not url_pattern.match(url):
+    # 使用預編譯的正則表達式
+    if not _URL_PATTERN.match(url):
         raise ValidationError(f"無效的 URL 格式: {url}")
 
     return url
@@ -315,10 +381,8 @@ def validate_email(email: str) -> str:
     if not email:
         raise ValidationError("電子郵件地址不能只包含空白字符")
 
-    # 簡單的電子郵件格式檢查
-    email_pattern = re.compile(r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$")
-
-    if not email_pattern.match(email):
+    # 使用預編譯的正則表達式
+    if not _EMAIL_PATTERN.match(email):
         raise ValidationError(f"無效的電子郵件格式: {email}")
 
     return email
@@ -345,28 +409,210 @@ def validate_language_code(language_code: str) -> str:
     if not language_code:
         raise ValidationError("語言代碼不能只包含空白字符")
 
-    # 常見的 ISO 639-1 語言代碼
-    valid_language_codes = {
-        "en",
-        "zh",
-        "ja",
-        "ko",
-        "fr",
-        "de",
-        "es",
-        "it",
-        "pt",
-        "ru",
-        "ar",
-        "hi",
-        "th",
-        "vi",
-    }
-
-    if language_code not in valid_language_codes:
+    # 使用預定義的語言代碼集合
+    if language_code not in _VALID_LANGUAGE_CODES:
         raise ValidationError(
             f"不支援的語言代碼: {language_code}. "
-            f"支援的語言: {', '.join(sorted(valid_language_codes))}"
+            f"支援的語言: {', '.join(sorted(_VALID_LANGUAGE_CODES))}"
         )
 
     return language_code
+
+
+# ============================================================================
+# 安全性相關驗證函數
+# ============================================================================
+
+
+def sanitize_user_input(
+    text: str,
+    max_length: int = 10000,
+    allow_newlines: bool = True,
+    strip_html: bool = True,
+) -> str:
+    """
+    清理和驗證用戶輸入，防止注入攻擊
+
+    Args:
+        text: 用戶輸入的文本
+        max_length: 最大允許長度（默認 10000 字符）
+        allow_newlines: 是否允許換行符（默認 True）
+        strip_html: 是否移除 HTML 標籤（默認 True）
+
+    Returns:
+        清理後的安全文本
+
+    Raises:
+        ValidationError: 如果輸入無效或包含可疑內容
+    """
+    if text is None:
+        return ""
+
+    if not isinstance(text, str):
+        raise ValidationError("輸入必須是字符串")
+
+    # 長度檢查
+    if len(text) > max_length:
+        raise ValidationError(f"輸入過長（最多 {max_length} 字符，實際 {len(text)} 字符）")
+
+    # 移除控制字符（使用預定義的集合）
+    allowed_control_chars = (
+        _ALLOWED_CONTROL_CHARS_WITH_NEWLINES
+        if allow_newlines
+        else _ALLOWED_CONTROL_CHARS_NO_NEWLINES
+    )
+    # 使用 filter 而非列表推導來提高效能
+    text = "".join(
+        filter(lambda char: ord(char) >= 32 or char in allowed_control_chars, text)
+    )
+
+    # HTML 轉義（防止 XSS）
+    if strip_html:
+        text = html.escape(text)
+
+    # 移除多餘的空格
+    text = " ".join(text.split())
+
+    return text
+
+
+def validate_user_query(
+    query: str,
+    min_length: int = 1,
+    max_length: int = 2000,
+    check_suspicious: bool = True,
+) -> str:
+    """
+    驗證用戶查詢輸入
+
+    Args:
+        query: 用戶查詢字符串
+        min_length: 最小長度（默認 1）
+        max_length: 最大長度（默認 2000）
+        check_suspicious: 是否檢查可疑模式（默認 True）
+
+    Returns:
+        驗證後的查詢字符串
+
+    Raises:
+        ValidationError: 如果查詢無效
+    """
+    if not query:
+        raise ValidationError("查詢不能為空")
+
+    query = query.strip()
+
+    if len(query) < min_length:
+        raise ValidationError(f"查詢過短（最少 {min_length} 字符）")
+
+    if len(query) > max_length:
+        raise ValidationError(f"查詢過長（最多 {max_length} 字符）")
+
+    # 檢查可疑的注入模式（使用預編譯的正則表達式）
+    if check_suspicious:
+        for pattern, message in _SUSPICIOUS_PATTERNS:
+            if pattern.search(query):
+                logger.warning(f"檢測到可疑查詢: {message}, 查詢: {query[:100]}...")
+                raise ValidationError(f"查詢包含可疑內容: {message}")
+
+    return query
+
+
+def validate_url_safe(url: str, allowed_schemes: Optional[List[str]] = None) -> str:
+    """
+    安全的 URL 驗證，檢查路徑遍歷和其他攻擊
+
+    Args:
+        url: URL 字符串
+        allowed_schemes: 允許的協議列表（默認 ['http', 'https']）
+
+    Returns:
+        驗證後的安全 URL
+
+    Raises:
+        ValidationError: 如果 URL 無效或不安全
+    """
+    if allowed_schemes is None:
+        allowed_schemes = ["http", "https"]
+
+    if not url:
+        raise ValidationError("URL 不能為空")
+
+    url = url.strip()
+
+    try:
+        parsed = urlparse(url)
+    except Exception as e:
+        raise ValidationError(f"URL 解析失敗: {e}")
+
+    # 檢查協議
+    if not parsed.scheme:
+        raise ValidationError("URL 必須包含協議（如 http:// 或 https://）")
+
+    if parsed.scheme.lower() not in allowed_schemes:
+        raise ValidationError(
+            f"不支援的 URL 協議: {parsed.scheme}. "
+            f"允許的協議: {', '.join(allowed_schemes)}"
+        )
+
+    # 檢查主機名
+    if not parsed.netloc:
+        raise ValidationError("URL 必須包含主機名")
+
+    # 檢查路徑遍歷攻擊
+    if ".." in parsed.path:
+        raise ValidationError("URL 路徑包含可疑的目錄遍歷模式 (..)")
+
+    # 檢查查詢參數中的危險模式
+    if parsed.query:
+        try:
+            query_params = parse_qs(parsed.query)
+            for key, values in query_params.items():
+                # 檢查鍵名
+                if any(char in key for char in ["<", ">", '"', "'"]):
+                    raise ValidationError(f"URL 查詢參數包含無效字符: {key}")
+                # 檢查值
+                for value in values:
+                    if any(char in value for char in ["<", ">", '"', "'"]):
+                        logger.warning(f"URL 參數值包含可疑字符: {key}={value[:50]}...")
+        except ValidationError:
+            raise
+        except Exception as e:
+            logger.warning(f"URL 查詢參數解析警告: {e}")
+
+    return url
+
+
+def escape_for_html(text: str) -> str:
+    """
+    將文本轉義為安全的 HTML 內容
+
+    Args:
+        text: 要轉義的文本
+
+    Returns:
+        HTML 安全的文本
+    """
+    if text is None:
+        return ""
+    return html.escape(str(text))
+
+
+def mask_sensitive_data(data: str, visible_chars: int = 4) -> str:
+    """
+    遮蔽敏感數據（如 API 密鑰）
+
+    Args:
+        data: 要遮蔽的數據
+        visible_chars: 顯示的前幾個字符（默認 4）
+
+    Returns:
+        遮蔽後的字符串（例如：sk-a***）
+    """
+    if not data:
+        return ""
+
+    if len(data) <= visible_chars:
+        return "*" * len(data)
+
+    return data[:visible_chars] + "*" * (len(data) - visible_chars)

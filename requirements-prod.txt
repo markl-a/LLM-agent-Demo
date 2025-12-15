@@ -1,0 +1,139 @@
+# LLM Agent Demo - 生產環境依賴
+# 更新日期: 2025-12-15
+# 基於 2025 年最新版本
+# 包含 100 個示例的所有核心依賴
+
+# ==================== 核心 LLM 框架 ====================
+# LangChain 生態系統 (2025 最新: 1.0 穩定版)
+langchain>=1.0.0
+langchain-core>=1.0.0
+langchain-community>=1.0.0
+langgraph>=0.2.50
+langchain-openai>=0.2.5
+langchain-google-genai>=2.0.1
+langsmith>=0.2.0
+
+# LlamaIndex 生態系統 (2025 最新功能: AgentWorkflow, Memory API, FlowMaker)
+llama-index>=0.12.0
+llama-index-core>=0.12.0
+llama-index-embeddings-openai>=0.3.0
+llama-index-embeddings-huggingface>=0.4.0
+llama-index-llms-openai>=0.3.0
+llama-index-llms-anthropic>=0.4.0
+llama-index-vector-stores-chroma>=0.3.0
+llamaparse>=0.5.0
+
+# AutoGen (注意: 2025 年進入維護模式，建議關注 Microsoft Agent Framework)
+pyautogen>=0.3.0
+
+# CrewAI (2025 快速增長: 130萬+/月安裝量)
+crewai>=1.0.0
+crewai-tools>=0.15.0
+
+# MetaGPT (軟體開發自動化)
+metagpt>=0.8.0
+
+# Semantic Kernel (Microsoft Agent Framework)
+semantic-kernel>=1.0.0
+azure-identity>=1.14.0
+
+# LangFlow (視覺化低代碼平台)
+langflow>=1.0.0
+
+# Haystack (RAG 原生框架)
+farm-haystack>=1.20.0
+haystack-ai>=2.0.0
+
+# ==================== LLM 服務提供商 ====================
+openai>=1.50.0
+anthropic>=0.37.0
+google-generativeai>=0.8.0
+groq>=0.11.0
+cohere>=5.11.0
+
+# ==================== 向量數據庫 ====================
+chromadb>=0.5.0
+faiss-cpu>=1.8.0
+pinecone-client>=5.0.0
+qdrant-client>=1.11.0
+weaviate-client>=4.8.0
+
+# ==================== 嵌入模型 ====================
+sentence-transformers>=3.2.0
+tiktoken>=0.7.0
+
+# ==================== 文檔處理 ====================
+pypdf>=5.0.0
+pdfplumber>=0.11.0
+python-docx>=1.1.0
+unstructured>=0.16.0
+markdown>=3.7
+html2text>=2024.2.26
+
+# ==================== 數據處理 ====================
+pandas>=2.2.0
+numpy>=1.26.0
+openpyxl>=3.1.0
+
+# ==================== Web 和 API ====================
+requests>=2.32.0
+httpx>=0.27.0
+beautifulsoup4>=4.12.0
+playwright>=1.48.0
+
+# ==================== 資料庫 ====================
+sqlalchemy>=2.0.0
+pymongo>=4.10.0
+
+# ==================== CRM 和外部服務集成 ====================
+# Airtable
+pyairtable>=2.3.0
+
+# Google APIs
+google-auth>=2.35.0
+google-auth-oauthlib>=1.2.0
+google-auth-httplib2>=0.2.0
+google-api-python-client>=2.150.0
+
+# Email
+email-validator>=2.2.0
+
+# ==================== 環境和配置 ====================
+python-dotenv>=1.0.0
+pydantic>=2.9.0
+pydantic-settings>=2.6.0
+
+# ==================== 可視化 ====================
+matplotlib>=3.9.0
+plotly>=5.24.0
+graphviz>=0.20.0
+
+# ==================== 工具 ====================
+rich>=13.9.0
+tqdm>=4.67.0
+tenacity>=9.0.0
+
+# ==================== 特定 Demo 依賴 ====================
+# Sales Outreach Automation
+rapidapi>=0.1.0
+
+# ==================== 可選：GPU 加速 ====================
+# 取消註釋以使用 GPU 版本的 FAISS
+# faiss-gpu>=1.8.0
+
+# ==================== 說明 ====================
+# 安裝方式:
+# pip install -r requirements-prod.txt
+#
+# OpenAI Swarm 需要單獨從 GitHub 安裝:
+# pip install git+https://github.com/openai/swarm.git
+#
+# Playwright 安裝後需要額外步驟:
+# playwright install
+#
+# 如果只需要特定框架，可以安裝對應目錄下的 requirements.txt:
+# pip install -r "12.Semantic Kernel/requirements.txt"
+# pip install -r "13.LangFlow/requirements.txt"
+# pip install -r "14.Haystack/requirements.txt"
+# pip install -r "15.AutoGPT/requirements.txt"
+# pip install -r "16.OpenAI Swarm/requirements.txt"
