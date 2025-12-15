@@ -71,8 +71,11 @@ class TestSettings:
         with pytest.raises(ValueError, match="不支援的 LLM 提供商"):
             settings.get_llm_config("invalid_provider")
 
-    def test_get_llm_config_missing_key(self):
+    def test_get_llm_config_missing_key(self, monkeypatch):
         """測試缺少 API 金鑰"""
+        # 確保環境變數中沒有 Anthropic API 金鑰
+        monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+        reload_settings()
         settings = Settings()
 
         with pytest.raises(ValueError, match="API 金鑰未設定"):
