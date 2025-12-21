@@ -43,7 +43,7 @@ print(f"\n快取統計: {stats}")
 print("\n\n2. 測試檔案快取 (FileCache)")
 print("-" * 60)
 cache_dir = Path("/tmp/test_cache")
-file_cache = FileCache(cache_dir, default_ttl=10, serializer="pickle")
+file_cache = FileCache(cache_dir, default_ttl=10, serializer="json")
 
 # 設置快取
 file_cache.set("config", {"debug": True, "timeout": 30})

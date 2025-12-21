@@ -114,7 +114,7 @@ jobs:
 
     - name: Type check with mypy
       run: |
-        mypy . --config-file pyproject.toml || true
+        mypy . --config-file pyproject.toml
 
   docker:
     name: Docker Build
@@ -313,7 +313,7 @@ jobs:
 
     - name: Check manifest
       run: |
-        check-manifest || true
+        check-manifest
 
     - name: Build package
       run: |
