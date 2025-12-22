@@ -9,6 +9,7 @@ from pathlib import Path
 from threading import Lock
 from typing import Any, Callable, Dict, Optional, Union
 from abc import ABC, abstractmethod
+from collections import OrderedDict
 
 from .logger import get_logger
 from .exceptions import DataError
@@ -77,7 +78,8 @@ class BaseCache(ABC):
 class MemoryCache(BaseCache):
     """記憶體快取實現
 
-    使用字典存儲快取數據，支援 TTL 過期機制和容量限制。
+    使用 OrderedDict 存儲快取數據，支援 TTL 過期機制和容量限制。
+    實現了高效的 LRU (Least Recently Used) 驅逐策略，時間複雜度 O(1)。
     線程安全，適合單機應用的快取需求。
 
     Example:
@@ -95,7 +97,8 @@ class MemoryCache(BaseCache):
             default_ttl: 預設過期時間（秒），None 表示永不過期
             max_size: 最大快取項目數量，None 表示無限制
         """
-        self._cache: Dict[str, CacheEntry] = {}
+        # 使用 OrderedDict 實現 O(1) 的 LRU 驅逐策略
+        self._cache: OrderedDict[str, CacheEntry] = OrderedDict()
         self._lock = Lock()
         self.default_ttl = default_ttl
         self.max_size = max_size
@@ -129,6 +132,9 @@ class MemoryCache(BaseCache):
                 logger.debug(f"快取已過期: {key}")
                 return None
 
+            # LRU 策略：將最近訪問的項目移到末尾（O(1) 操作）
+            self._cache.move_to_end(key)
+
             self._hits += 1
             logger.debug(f"快取命中: {key}")
             return entry.value
@@ -143,12 +149,16 @@ class MemoryCache(BaseCache):
             ttl: 過期時間（秒），覆蓋預設 TTL
         """
         with self._lock:
-            # 如果達到最大容量，移除最舊的項目
+            # 如果達到最大容量且是新鍵，移除最舊的項目
             if self.max_size and len(self._cache) >= self.max_size and key not in self._cache:
                 self._evict_oldest()
 
             ttl = ttl if ttl is not None else self.default_ttl
             self._cache[key] = CacheEntry(value, ttl)
+
+            # LRU 策略：將新設置或更新的項目移到末尾（O(1) 操作）
+            self._cache.move_to_end(key)
+
             logger.debug(f"設置快取: {key}, TTL: {ttl}")
 
     def delete(self, key: str) -> bool:
@@ -199,15 +209,17 @@ class MemoryCache(BaseCache):
             return True
 
     def _evict_oldest(self) -> None:
-        """移除最舊的快取項目（LRU 策略）"""
+        """
+        移除最舊的快取項目（LRU 策略）- O(1) 時間複雜度
+
+        使用 OrderedDict.popitem(last=False) 直接移除最舊（最前面）的項目，
+        相比之前的 O(n) min() 操作，性能顯著提升。
+        """
         if not self._cache:
             return
 
-        oldest_key = min(
-            self._cache.keys(),
-            key=lambda k: self._cache[k].created_at
-        )
-        del self._cache[oldest_key]
+        # O(1) 操作：移除最舊（最前面）的項目
+        oldest_key, _ = self._cache.popitem(last=False)
         logger.debug(f"移除最舊快取項目: {oldest_key}")
 
     def cleanup_expired(self) -> int:
@@ -255,11 +267,12 @@ class MemoryCache(BaseCache):
 class FileCache(BaseCache):
     """檔案快取實現
 
-    將快取數據序列化到檔案系統，支援 pickle 和 JSON 兩種序列化方式。
+    將快取數據序列化到檔案系統，支援 JSON 序列化方式（推薦）。
+    pickle 已棄用（安全風險：RCE 漏洞）。
     適合需要持久化或跨進程共享的快取場景。
 
     Example:
-        >>> cache = FileCache("/tmp/cache", default_ttl=3600, serializer="pickle")
+        >>> cache = FileCache("/tmp/cache", default_ttl=3600, serializer="json")
         >>> cache.set("result", {"data": [1, 2, 3]})
         >>> result = cache.get("result")
     """
@@ -268,7 +281,7 @@ class FileCache(BaseCache):
         self,
         cache_dir: Union[str, Path],
         default_ttl: Optional[float] = None,
-        serializer: str = "pickle"
+        serializer: str = "json"
     ):
         """
         初始化檔案快取
@@ -276,18 +289,28 @@ class FileCache(BaseCache):
         Args:
             cache_dir: 快取目錄路徑
             default_ttl: 預設過期時間（秒）
-            serializer: 序列化方式 ("pickle" 或 "json")
+            serializer: 序列化方式（推薦使用 "json"，"pickle" 已棄用）
         """
         self.cache_dir = Path(cache_dir)
         self.cache_dir.mkdir(parents=True, exist_ok=True)
         self.default_ttl = default_ttl
-        self.serializer = serializer
         self._lock = Lock()
 
         if serializer not in ["pickle", "json"]:
             raise ValueError(f"不支援的序列化方式: {serializer}")
 
-        logger.info(f"初始化檔案快取 - 目錄: {self.cache_dir}, 序列化: {serializer}")
+        # 安全警告：pickle 已棄用
+        if serializer == "pickle":
+            logger.warning(
+                "WARNING: pickle serialization is deprecated due to RCE security risks. "
+                "Please migrate to 'json' serializer. "
+                "Automatically using 'json' instead for security."
+            )
+            self.serializer = "json"
+        else:
+            self.serializer = serializer
+
+        logger.info(f"初始化檔案快取 - 目錄: {self.cache_dir}, 序列化: {self.serializer}")
 
     def _get_cache_path(self, key: str) -> Path:
         """根據鍵生成快取檔案路徑"""
@@ -296,18 +319,20 @@ class FileCache(BaseCache):
         return self.cache_dir / f"{key_hash}.cache"
 
     def _serialize(self, data: Any) -> bytes:
-        """序列化數據"""
-        if self.serializer == "pickle":
-            return pickle.dumps(data)
-        else:  # json
+        """序列化數據（僅支援 JSON）"""
+        try:
             return json.dumps(data).encode('utf-8')
+        except (TypeError, ValueError) as e:
+            logger.error(f"JSON 序列化失敗: {e}")
+            raise DataError(f"序列化失敗: {e}") from e
 
     def _deserialize(self, data: bytes) -> Any:
-        """反序列化數據"""
-        if self.serializer == "pickle":
-            return pickle.loads(data)
-        else:  # json
+        """反序列化數據（僅支援 JSON）"""
+        try:
             return json.loads(data.decode('utf-8'))
+        except (json.JSONDecodeError, UnicodeDecodeError) as e:
+            logger.error(f"JSON 反序列化失敗: {e}")
+            raise DataError(f"反序列化失敗: {e}") from e
 
     def get(self, key: str) -> Optional[Any]:
         """

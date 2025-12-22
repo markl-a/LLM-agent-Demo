@@ -429,11 +429,13 @@ class TestTypeSafeSerialization:
         serialized = serialize_with_type(obj, use_json=True)
         assert isinstance(serialized, str)
 
-    def test_serialize_with_type_pickle(self):
-        """測試帶類型的 Pickle 序列化"""
+    def test_serialize_with_type_pickle_deprecated(self):
+        """測試帶類型的 Pickle 序列化（已棄用，自動使用 JSON）"""
         obj = TestDataClass("test", 123)
+        # use_json=False 現在會自動使用 JSON（安全考慮）
         serialized = serialize_with_type(obj, use_json=False)
-        assert isinstance(serialized, bytes)
+        # 現在應該返回字符串（JSON）而不是 bytes
+        assert isinstance(serialized, str)
 
     def test_deserialize_with_type_json(self):
         """測試帶類型的 JSON 反序列化"""
@@ -444,24 +446,28 @@ class TestTypeSafeSerialization:
         assert deserialized["name"] == "test"
         assert deserialized["value"] == 123
 
-    def test_deserialize_with_type_pickle(self):
-        """測試帶類型的 Pickle 反序列化"""
+    def test_deserialize_with_type_pickle_deprecated(self):
+        """測試帶類型的 Pickle 反序列化（已棄用，自動使用 JSON）"""
         obj = TestDataClass("test", 123)
+        # use_json=False 現在會自動使用 JSON（安全考慮）
         serialized = serialize_with_type(obj, use_json=False)
         deserialized = deserialize_with_type(serialized, TestDataClass, use_json=False)
-        assert deserialized == obj
+        # JSON 返回字典而不是對象
+        assert deserialized["name"] == "test"
+        assert deserialized["value"] == 123
 
     def test_deserialize_with_wrong_type(self):
         """測試類型不匹配的反序列化"""
         obj = TestDataClass("test", 123)
-        serialized = serialize_with_type(obj, use_json=False)
+        # 使用 JSON（安全）
+        serialized = serialize_with_type(obj, use_json=True)
 
         # 創建一個不同的類
         class DifferentClass:
             pass
 
         with pytest.raises(DataError):
-            deserialize_with_type(serialized, DifferentClass, use_json=False)
+            deserialize_with_type(serialized, DifferentClass, use_json=True)
 
 
 # ============================================================================

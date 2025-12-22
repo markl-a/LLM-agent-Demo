@@ -60,14 +60,15 @@ def print_step(step_num, total_steps, message):
     """打印步驟信息"""
     print(f"\n{Colors.OKBLUE}{Colors.BOLD}[步驟 {step_num}/{total_steps}] {message}{Colors.ENDC}")
 
-def run_command(command, description="", show_output=True):
+def run_command(command, description="", show_output=True, timeout=300):
     """
     執行 shell 命令並處理輸出
 
     Args:
-        command: 要執行的命令
+        command: 要執行的命令（列表形式）
         description: 命令描述
         show_output: 是否顯示命令輸出
+        timeout: 命令超時時間（秒），預設 300 秒
 
     Returns:
         bool: 命令是否成功執行
@@ -79,17 +80,17 @@ def run_command(command, description="", show_output=True):
         if show_output:
             result = subprocess.run(
                 command,
-                shell=True,
                 check=True,
-                text=True
+                text=True,
+                timeout=timeout
             )
         else:
             result = subprocess.run(
                 command,
-                shell=True,
                 capture_output=True,
                 text=True,
-                check=True
+                check=True,
+                timeout=timeout
             )
 
         if result.returncode == 0:
@@ -97,9 +98,12 @@ def run_command(command, description="", show_output=True):
                 print_success(f"{description} - 完成")
             return True
     except subprocess.CalledProcessError as e:
-        print_error(f"命令執行失敗: {command}")
+        print_error(f"命令執行失敗: {' '.join(command)}")
         if e.stderr:
             print_error(f"錯誤信息: {e.stderr}")
+        return False
+    except subprocess.TimeoutExpired:
+        print_error(f"命令執行超時 ({timeout}秒): {' '.join(command)}")
         return False
     except Exception as e:
         print_error(f"未預期的錯誤: {str(e)}")
@@ -128,17 +132,27 @@ def check_git_installed():
 
     try:
         result = subprocess.run(
-            "git --version",
-            shell=True,
+            ["git", "--version"],
             capture_output=True,
             text=True,
-            check=True
+            check=True,
+            timeout=10
         )
         print_success(f"Git 已安裝: {result.stdout.strip()}")
         return True
-    except:
+    except subprocess.CalledProcessError:
         print_error("Git 未安裝或未添加到 PATH")
         print_info("請訪問 https://git-scm.com/downloads 安裝 Git")
+        return False
+    except subprocess.TimeoutExpired:
+        print_error("Git 版本檢查超時")
+        return False
+    except FileNotFoundError:
+        print_error("Git 未安裝或未添加到 PATH")
+        print_info("請訪問 https://git-scm.com/downloads 安裝 Git")
+        return False
+    except Exception as e:
+        print_error(f"檢查 Git 時發生錯誤: {str(e)}")
         return False
 
 def check_internet_connection():
@@ -172,7 +186,7 @@ def clone_repository():
 
             if response.lower() == 'y':
                 os.chdir(repo_dir)
-                if run_command("git pull", "更新倉庫", show_output=False):
+                if run_command(["git", "pull"], "更新倉庫", show_output=False):
                     os.chdir("..")
                     return True
                 else:
@@ -198,7 +212,7 @@ def clone_repository():
                 return True
 
     print_info(f"正在克隆倉庫: {repo_url}")
-    if run_command(f"git clone {repo_url}", "克隆倉庫", show_output=False):
+    if run_command(["git", "clone", repo_url], "克隆倉庫", show_output=False):
         print_success("倉庫克隆成功")
         return True
     else:
@@ -229,7 +243,7 @@ def create_virtual_environment():
 
     os.chdir(repo_dir)
 
-    if run_command("python -m venv venv", "創建虛擬環境", show_output=False):
+    if run_command([sys.executable, "-m", "venv", "venv"], "創建虛擬環境", show_output=False):
         print_success("虛擬環境創建成功")
         os.chdir("..")
         return True
@@ -262,11 +276,11 @@ def install_dependencies():
 
     # 升級 pip
     print_info("升級 pip...")
-    run_command(f"{pip_path} install --upgrade pip", show_output=False)
+    run_command([pip_path, "install", "--upgrade", "pip"], show_output=False, timeout=120)
 
     # 安裝依賴
     print_info("安裝專案依賴（這可能需要幾分鐘）...")
-    if not run_command(f"{pip_path} install -r {requirements_file}", show_output=False):
+    if not run_command([pip_path, "install", "-r", requirements_file], show_output=False, timeout=600):
         print_error("依賴安裝失敗")
         return False
 
@@ -276,7 +290,7 @@ def install_dependencies():
     print_step(5, 8, "安裝額外依賴")
     print_info("安裝 html2text...")
 
-    if run_command(f"{pip_path} install html2text", show_output=False):
+    if run_command([pip_path, "install", "html2text"], show_output=False, timeout=120):
         print_success("html2text 安裝完成")
         return True
     else:

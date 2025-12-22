@@ -8,8 +8,9 @@
 langchain>=1.0.0
 langchain-core>=1.0.0
 langchain-community>=1.0.0
-langgraph>=0.2.50
-langchain-openai>=0.2.5
+langgraph>=0.3.0
+langchain-openai>=0.3.0
+langchain-anthropic>=0.3.0
 langchain-google-genai>=2.0.1
 langsmith>=0.2.0
 
@@ -109,13 +110,14 @@ plotly>=5.24.0
 graphviz>=0.20.0
 
 # ==================== 工具 ====================
+click>=8.1.0
 rich>=13.9.0
 tqdm>=4.67.0
 tenacity>=9.0.0
 
 # ==================== 特定 Demo 依賴 ====================
 # Sales Outreach Automation
-rapidapi>=0.1.0
+# RapidAPI 通過 HTTP API 調用，不需要專用 Python 包
 
 # ==================== 可選：GPU 加速 ====================
 # 取消註釋以使用 GPU 版本的 FAISS

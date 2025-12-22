@@ -590,7 +590,7 @@ def serialize_with_type(
     Args:
         obj: 要序列化的對象
         compress: 是否壓縮
-        use_json: 使用 JSON（True）或 Pickle（False）
+        use_json: 使用 JSON（建議使用，安全）。pickle 已棄用（安全風險）
 
     Returns:
         序列化後的字符串或 bytes
@@ -607,10 +607,12 @@ def serialize_with_type(
         if use_json:
             return serialize_json(data, compress=compress)
         else:
-            serialized = pickle.dumps(data)
-            if compress:
-                return gzip.compress(serialized)
-            return serialized
+            # 不再支援 pickle 序列化（安全風險）
+            logger.warning(
+                "pickle serialization is deprecated due to security risks. "
+                "Using JSON instead."
+            )
+            return serialize_json(data, compress=compress)
 
     except Exception as e:
         raise DataError(f"Type-safe serialization failed: {e}") from e
@@ -629,7 +631,7 @@ def deserialize_with_type(
         data: 序列化的數據
         expected_type: 期望的類型
         decompress: 是否解壓縮
-        use_json: 使用 JSON（True）或 Pickle（False）
+        use_json: 使用 JSON（建議使用，安全）。pickle 已棄用（安全風險）
 
     Returns:
         反序列化的對象
@@ -642,9 +644,12 @@ def deserialize_with_type(
         if use_json:
             obj_data = deserialize_json(data, decompress=decompress)
         else:
-            if decompress:
-                data = gzip.decompress(data)  # type: ignore
-            obj_data = pickle.loads(data)  # type: ignore
+            # 不再支援 pickle 反序列化（RCE 安全風險）
+            logger.warning(
+                "pickle deserialization is deprecated due to RCE security risks. "
+                "Using JSON instead."
+            )
+            obj_data = deserialize_json(data, decompress=decompress)
 
         # 驗證類型
         expected_type_name = f"{expected_type.__module__}.{expected_type.__name__}"
@@ -692,7 +697,7 @@ def from_json_string(json_str: str) -> Any:
 
 
 def get_size_info(data: Any) -> Dict[str, int]:
-    """獲取數據大小信息（原始、JSON、壓縮）
+    """獲取數據大小信息（JSON、壓縮）
 
     Args:
         data: 要分析的數據
@@ -701,9 +706,6 @@ def get_size_info(data: Any) -> Dict[str, int]:
         包含大小信息的字典
     """
     try:
-        # Pickle 大小（原始）
-        pickle_size = len(pickle.dumps(data))
-
         # JSON 大小
         json_str = serialize_json(data)
         json_size = len(json_str.encode('utf-8'))  # type: ignore
@@ -713,7 +715,6 @@ def get_size_info(data: Any) -> Dict[str, int]:
         compressed_size = len(compressed)  # type: ignore
 
         return {
-            "pickle_bytes": pickle_size,
             "json_bytes": json_size,
             "compressed_bytes": compressed_size,
             "compression_ratio": round(compressed_size / json_size * 100, 2),
