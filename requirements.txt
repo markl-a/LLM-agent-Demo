@@ -152,6 +152,30 @@ haystack-ai>=2.0.0
 # CrewAI (角色扮演 AI Agent 協作框架)
 # 注意：CrewAI 已在上方「核心 LLM 框架」部分定義 (crewai>=1.0.0, crewai-tools>=0.15.0)
 
+# ==================== 🔥 2025-12 最新追加框架 ====================
+# Agno (高性能多模態 Agent 框架)
+agno>=1.0.0
+
+# Pydantic AI (類型安全的 Agent 框架)
+pydantic-ai>=0.1.0
+
+# OpenAI Agents SDK (OpenAI 官方 Agent SDK)
+openai-agents>=0.1.0
+
+# smolagents (Hugging Face 極簡框架)
+smolagents>=1.0.0
+transformers>=4.40.0
+
+# MCP Protocol (模型上下文協議)
+mcp>=1.0.0
+
+# Goose (Block 開發者 Agent)
+goose-ai>=1.0.0
+
+# Rasa (對話式 AI 框架)
+rasa>=3.6.0
+rasa-sdk>=3.6.0
+
 # ==================== 可選：GPU 加速 ====================
 # 取消註釋以使用 GPU 版本的 FAISS
 # faiss-gpu>=1.8.0
@@ -169,6 +193,14 @@ haystack-ai>=2.0.0
 # pip install -r "14.Haystack/requirements.txt"
 # pip install -r "15.AutoGPT/requirements.txt"
 # pip install -r "16.OpenAI Swarm/requirements.txt"
+# pip install -r "25.Agno/requirements.txt"
+# pip install -r "26.PydanticAI/requirements.txt"
+# pip install -r "27.OpenAI-Agents-SDK/requirements.txt"
+# pip install -r "28.smolagents/requirements.txt"
+# pip install -r "29.MCP-Protocol/requirements.txt"
+# pip install -r "30.Goose/requirements.txt"
+# pip install -r "31.Rasa/requirements.txt"
+# pip install -r "32.Magentic-One/requirements.txt"
 #
 # 對於開發環境，建議使用虛擬環境:
 # python -m venv venv
@@ -178,3 +210,9 @@ haystack-ai>=2.0.0
 #
 # Playwright 安裝後需要額外步驟:
 # playwright install
+#
+# 🔥 2025-12 新增框架注意事項:
+# - Agno: 需要額外配置多模態模型
+# - Pydantic AI: 需要 Python 3.10+
+# - Rasa: 建議使用獨立環境安裝
+# - MCP Protocol: 可能需要額外的協議配置

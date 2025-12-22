@@ -80,12 +80,12 @@
 
 | 統計項 | 數量 |
 |--------|------|
-| 🎯 **支持框架** | 13 個 |
-| 📝 **完整示例** | 140+ 個 |
-| 📄 **代碼行數** | 17,500+ 行 |
-| 📚 **文檔字數** | 60,000+ 字 |
-| 🎓 **教程數量** | 60+ 個 |
-| 🌟 **覆蓋場景** | 140+ 個 |
+| 🎯 **支持框架** | 21 個 |
+| 📝 **完整示例** | 160+ 個 |
+| 📄 **代碼行數** | 20,000+ 行 |
+| 📚 **文檔字數** | 75,000+ 字 |
+| 🎓 **教程數量** | 80+ 個 |
+| 🌟 **覆蓋場景** | 160+ 個 |
 
 </div>
 
@@ -217,6 +217,46 @@ LLM-agent-Demo/
 ├── 16.OpenAI Swarm/               # 🔥 輕量級協作
 │   ├── README.md
 │   ├── 01_多Agent協作.py
+│   └── requirements.txt
+│
+├── 25.Agno/                       # 🆕 高性能多模態 Agent
+│   ├── README.md
+│   ├── examples/
+│   └── requirements.txt
+│
+├── 26.PydanticAI/                 # 🆕 類型安全的 Agent 框架
+│   ├── README.md
+│   ├── examples/
+│   └── requirements.txt
+│
+├── 27.OpenAI-Agents-SDK/          # 🆕 OpenAI 官方 Agent SDK
+│   ├── README.md
+│   ├── examples/
+│   └── requirements.txt
+│
+├── 28.smolagents/                 # 🆕 Hugging Face 極簡框架
+│   ├── README.md
+│   ├── examples/
+│   └── requirements.txt
+│
+├── 29.MCP-Protocol/               # 🆕 模型上下文協議
+│   ├── README.md
+│   ├── examples/
+│   └── requirements.txt
+│
+├── 30.Goose/                      # 🆕 Block 開發者 Agent
+│   ├── README.md
+│   ├── examples/
+│   └── requirements.txt
+│
+├── 31.Rasa/                       # 🆕 對話式 AI 框架
+│   ├── README.md
+│   ├── examples/
+│   └── requirements.txt
+│
+├── 32.Magentic-One/               # 🆕 Microsoft 多 Agent 系統
+│   ├── README.md
+│   ├── examples/
 │   └── requirements.txt
 │
 ├── src/llm_agent_demo/            # 🔥 核心庫
@@ -392,23 +432,36 @@ jupyter notebook
 | **CrewAI** | 角色扮演 Agent | 中 | ⭐⭐⭐ | 較低 | ⭐⭐⭐ |
 | **MetaGPT** | 軟體開發流程 | 高 | ⭐⭐⭐ | 較高 | ⭐⭐⭐ |
 | **LangGraph** | 複雜狀態管理 | 中-高 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
-| **Semantic Kernel** 🆕 | 企業級 AI 集成 | 中 | ⭐⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
-| **LangFlow** 🆕 | 視覺化快速開發 | 低 | ⭐⭐⭐ | 極低 | ⭐⭐⭐ |
-| **Haystack** 🆕 | RAG 專注型 | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
-| **AutoGPT** 🆕 | 自主 Agent | 高 | ⭐⭐⭐⭐ | 較高 | ⭐⭐ |
-| **OpenAI Swarm** 🆕 | 輕量級協作 | 低 | ⭐⭐⭐ | 較低 | ⭐⭐ |
+| **Semantic Kernel** | 企業級 AI 集成 | 中 | ⭐⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **LangFlow** | 視覺化快速開發 | 低 | ⭐⭐⭐ | 極低 | ⭐⭐⭐ |
+| **Haystack** | RAG 專注型 | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **AutoGPT** | 自主 Agent | 高 | ⭐⭐⭐⭐ | 較高 | ⭐⭐ |
+| **OpenAI Swarm** | 輕量級協作 | 低 | ⭐⭐⭐ | 較低 | ⭐⭐ |
+| **Agno** 🔥 | 高性能多模態 | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **Pydantic AI** 🔥 | 類型安全 Agent | 低-中 | ⭐⭐⭐⭐ | 較低 | ⭐⭐⭐⭐ |
+| **OpenAI Agents SDK** 🔥 | 官方 Agent SDK | 中 | ⭐⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **smolagents** 🔥 | 極簡輕量級 | 低 | ⭐⭐⭐⭐ | 極低 | ⭐⭐⭐ |
+| **MCP Protocol** 🔥 | 模型上下文協議 | 中-高 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **Goose** 🔥 | 開發者 Agent | 中 | ⭐⭐⭐ | 中等 | ⭐⭐⭐ |
+| **Rasa** 🔥 | 對話式 AI | 中-高 | ⭐⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **Magentic-One** 🔥 | 多 Agent 系統 | 高 | ⭐⭐⭐⭐ | 較高 | ⭐⭐⭐⭐ |
 
 ### 選擇建議
 
 - **RAG 應用**: LangChain、LlamaIndex 或 Haystack
-- **聊天機器人**: LangChain + LangGraph
-- **多 Agent 協作**: AutoGen、CrewAI 或 OpenAI Swarm
+- **聊天機器人**: LangChain + LangGraph 或 Rasa
+- **多 Agent 協作**: AutoGen、CrewAI、OpenAI Swarm 或 Magentic-One
 - **軟體開發**: MetaGPT 或 AutoGPT
 - **複雜工作流**: LangGraph
-- **企業級應用**: Semantic Kernel 或 Haystack
-- **快速原型**: LangFlow
+- **企業級應用**: Semantic Kernel、Haystack 或 Rasa
+- **快速原型**: LangFlow 或 smolagents
 - **視覺化設計**: LangFlow
 - **自主決策**: AutoGPT
+- **類型安全**: Pydantic AI
+- **多模態處理**: Agno
+- **開發者工具**: Goose
+- **模型互操作**: MCP Protocol
+- **官方支持**: OpenAI Agents SDK
 
 ## 💼 實際應用案例
 
@@ -470,6 +523,52 @@ jupyter notebook
   - Agent 切換和上下文共享
   - 適合快速構建協作系統
 
+### 🔥 2025 年 12 月最新追加 - 8 個前沿框架
+
+#### 高性能與類型安全
+- ✨ **Agno** - 高性能多模態 Agent 框架
+  - 支援文本、圖像、音頻、視頻等多模態
+  - 高性能異步處理
+  - 靈活的 Agent 組合和工作流
+
+- ✨ **Pydantic AI** - 類型安全的 Agent 框架
+  - 基於 Pydantic v2 的嚴格類型檢查
+  - 自動數據驗證和序列化
+  - 完美的 IDE 支持和自動補全
+
+#### 官方與標準化
+- ✨ **OpenAI Agents SDK** - OpenAI 官方 Agent SDK
+  - OpenAI 官方支持和維護
+  - 與 GPT-4/4.5/o1 系列完美集成
+  - 標準化的 Agent 開發範式
+
+- ✨ **MCP (Model Context Protocol)** - 模型上下文協議
+  - Anthropic 推出的開放標準
+  - 實現不同 AI 系統間的互操作
+  - 統一的上下文共享機制
+
+#### 輕量級與極簡設計
+- ✨ **smolagents** - Hugging Face 極簡框架
+  - 僅 1000 行代碼的核心實現
+  - 完整的工具調用和代碼生成
+  - 支援 80+ Hugging Face 模型
+
+- ✨ **Goose** - Block 開發者 Agent
+  - 專為軟體開發優化
+  - 終端操作和代碼編輯
+  - 完整的開發工作流支持
+
+#### 企業級對話與協作
+- ✨ **Rasa** - 對話式 AI 框架
+  - 成熟的開源對話系統
+  - 完整的 NLU 和對話管理
+  - 企業級部署和擴展能力
+
+- ✨ **Magentic-One** - Microsoft 多 Agent 系統
+  - Microsoft 最新多 Agent 協作框架
+  - 通用任務解決能力
+  - 先進的 Agent 編排機制
+
 ### 基礎設施
 - ✅ 最新的向量數據庫集成
 - ✅ Docker 容器化支持
@@ -530,6 +629,14 @@ jupyter notebook
 - [x] Haystack RAG 框架 🆕
 - [x] AutoGPT 自主 Agent 🆕
 - [x] OpenAI Swarm 協作框架 🆕
+- [x] Agno 高性能多模態框架 🔥
+- [x] Pydantic AI 類型安全框架 🔥
+- [x] OpenAI Agents SDK 官方 SDK 🔥
+- [x] smolagents 極簡框架 🔥
+- [x] MCP Protocol 模型上下文協議 🔥
+- [x] Goose 開發者 Agent 🔥
+- [x] Rasa 對話式 AI 框架 🔥
+- [x] Magentic-One 多 Agent 系統 🔥
 - [ ] 更多實際應用案例
 - [ ] 視頻教程
 - [ ] 英文版本
@@ -539,4 +646,4 @@ jupyter notebook
 
 ⭐ 如果這個專案對你有幫助，請給我們一個 Star！
 
-📖 持續更新中... 最後更新: 2025-01-14
+📖 持續更新中... 最後更新: 2025-12-22
