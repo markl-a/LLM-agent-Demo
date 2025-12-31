@@ -1,0 +1,71 @@
+# Cline Python SDK 依賴
+
+# 核心依賴
+anthropic>=0.25.0           # Anthropic Claude API
+openai>=1.12.0              # OpenAI API
+requests>=2.31.0            # HTTP 請求
+websockets>=12.0            # WebSocket 連接
+aiohttp>=3.9.0              # 異步 HTTP
+python-dotenv>=1.0.0        # 環境變量管理
+
+# VS Code 集成
+vscode-extension>=0.1.0     # VS Code 擴展 API（如果可用）
+
+# 文件處理
+gitignore-parser>=0.1.0     # 解析 .gitignore
+pathspec>=0.12.0            # 路徑匹配
+
+# JSON/YAML 處理
+pyyaml>=6.0                 # YAML 支持
+jsonschema>=4.20.0          # JSON Schema 驗證
+
+# 代碼分析
+tree-sitter>=0.20.0         # 語法樹解析
+pygments>=2.17.0            # 語法高亮
+astroid>=3.0.0              # Python AST 分析
+
+# 終端和進程
+pexpect>=4.9.0              # 進程控制
+ptyprocess>=0.7.0           # 偽終端
+
+# 工具集成
+subprocess-tee>=0.4.0       # 子進程輸出捕獲
+
+# 日誌和調試
+loguru>=0.7.0               # 日誌記錄
+rich>=13.7.0                # 終端美化輸出
+
+# 異步支持
+asyncio>=3.4.3              # 異步 IO
+aiofiles>=23.2.0            # 異步文件操作
+
+# 測試工具（可選）
+pytest>=7.4.0               # 測試框架
+pytest-asyncio>=0.21.0      # 異步測試
+pytest-mock>=3.12.0         # Mock 支持
+
+# 類型檢查（可選）
+mypy>=1.8.0                 # 靜態類型檢查
+typing-extensions>=4.9.0    # 類型擴展
+
+# 代碼質量（可選）
+black>=24.1.0               # 代碼格式化
+ruff>=0.2.0                 # Linter
+isort>=5.13.0               # Import 排序
+
+# 文檔生成（可選）
+sphinx>=7.2.0               # 文檔生成
+mkdocs>=1.5.0               # Markdown 文檔
+
+# 性能優化
+orjson>=3.9.0               # 快速 JSON 解析
+ujson>=5.9.0                # 替代 JSON 庫
+
+# 配置管理
+pydantic>=2.5.0             # 數據驗證
+pydantic-settings>=2.1.0    # 設置管理
+
+# 其他工具
+click>=8.1.0                # CLI 工具
+tqdm>=4.66.0                # 進度條
+colorama>=0.4.6             # 跨平台終端顏色

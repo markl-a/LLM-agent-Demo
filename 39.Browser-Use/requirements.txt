@@ -1,0 +1,60 @@
+# Browser-Use 核心依賴
+browser-use>=1.0.0
+
+# 瀏覽器自動化
+playwright>=1.40.0
+selenium>=4.15.0
+
+# LLM 模型支援
+openai>=1.3.0
+anthropic>=0.7.0
+google-generativeai>=0.3.0
+
+# 異步支援
+asyncio>=3.4.3
+aiohttp>=3.9.0
+
+# 網頁解析
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+html5lib>=1.1
+
+# 數據處理
+pandas>=2.1.0
+numpy>=1.24.0
+
+# 圖像處理和 OCR
+Pillow>=10.1.0
+pytesseract>=0.3.10
+opencv-python>=4.8.0
+
+# 工具庫
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+tenacity>=8.2.0
+
+# 日誌和監控
+loguru>=0.7.0
+structlog>=23.2.0
+
+# HTTP 請求
+requests>=2.31.0
+httpx>=0.25.0
+
+# 配置管理
+pyyaml>=6.0.0
+toml>=0.10.2
+
+# 測試工具（開發用）
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-playwright>=0.4.0
+
+# 類型檢查（開發用）
+mypy>=1.7.0
+types-requests>=2.31.0
+
+# 代碼格式化（開發用）
+black>=23.11.0
+isort>=5.12.0
+flake8>=6.1.0
