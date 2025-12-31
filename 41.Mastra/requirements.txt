@@ -9,7 +9,7 @@ aiohttp==3.9.1
 asyncio==3.4.3
 
 # OpenAI SDK（用於直接調用）
-openai==1.6.1
+openai==2.14.0
 
 # 環境變量管理
 python-dotenv==1.0.0
@@ -28,7 +28,7 @@ qdrant-client==1.7.0
 
 # 文本處理
 tiktoken==0.5.2
-langchain-text-splitters==0.0.1
+langchain-text-splitters==0.3.11
 
 # 日誌和監控
 loguru==0.7.2
