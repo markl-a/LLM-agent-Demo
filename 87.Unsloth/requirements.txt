@@ -1,0 +1,24 @@
+# Unsloth 核心
+unsloth[colab-new] @ git+https://github.com/unslothai/unsloth.git
+
+# 深度學習框架
+torch>=2.1.0
+transformers>=4.36.0
+peft>=0.7.0
+
+# 訓練工具
+trl>=0.7.0
+datasets>=2.14.0
+accelerate>=0.24.0
+
+# 量化支持
+bitsandbytes>=0.41.0
+
+# 優化庫
+xformers>=0.0.22
+triton>=2.1.0
+
+# 工具
+rich>=13.0.0
+tqdm>=4.66.0
+numpy>=1.24.0
