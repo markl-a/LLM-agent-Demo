@@ -1,0 +1,19 @@
+# LangSmith - LangChain 可觀測性平台依賴項
+
+# 核心依賴
+langsmith>=0.1.0
+langchain>=0.3.0
+langchain-openai>=0.2.0
+langchain-core>=0.3.0
+
+# LLM 提供商
+openai>=1.50.0
+
+# 工具庫
+python-dotenv>=1.0.0
+rich>=13.0.0
+
+# 可選依賴（用於特定示例）
+pandas>=2.0.0
+numpy>=1.24.0
+requests>=2.31.0
