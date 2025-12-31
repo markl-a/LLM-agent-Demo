@@ -1,6 +1,6 @@
 # LLM Agent Demo - Dockerfile
 # 基於 Python 3.11 的官方映像
-FROM python:3.11-slim AS base
+FROM python:3.14-slim AS base
 
 # 設置工作目錄
 WORKDIR /app
