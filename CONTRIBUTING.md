@@ -65,12 +65,56 @@ pip install pre-commit black flake8 mypy pytest pytest-cov ruff isort
 
 ### 4. 設置 Pre-commit Hooks
 
+Pre-commit hooks 會在每次 commit 前自動運行代碼檢查和格式化。
+
 ```bash
 # 安裝 pre-commit hooks
 pre-commit install
 
 # (可選) 對所有文件運行一次
 pre-commit run --all-files
+
+# 手動運行特定 hook
+pre-commit run black --all-files
+pre-commit run flake8 --all-files
+```
+
+**Pre-commit 配置說明**（`.pre-commit-config.yaml`）：
+
+```yaml
+repos:
+  # 代碼格式化
+  - repo: https://github.com/psf/black
+    hooks:
+      - id: black
+        args: ['--line-length=100']
+
+  # 導入排序
+  - repo: https://github.com/pycqa/isort
+    hooks:
+      - id: isort
+        args: ['--profile=black']
+
+  # 代碼檢查
+  - repo: https://github.com/pycqa/flake8
+    hooks:
+      - id: flake8
+        args: ['--max-line-length=100', '--extend-ignore=E203,W503']
+
+  # Markdown 檢查
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    hooks:
+      - id: trailing-whitespace
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-added-large-files
+```
+
+**跳過 Pre-commit**（不推薦）：
+
+```bash
+# 緊急情況下可以跳過
+git commit --no-verify -m "message"
 ```
 
 ### 5. 配置環境變數
@@ -97,11 +141,25 @@ nano .env  # 或使用你喜歡的編輯器
 
 ### 代碼風格要求
 
+#### 基本規範
+
+1. **行長度**: 最大 100 字符（由 Black 自動處理）
+2. **縮進**: 使用 4 個空格
+3. **引號**: 優先使用雙引號
+4. **命名規範**:
+   - 變量/函數: `snake_case`
+   - 類: `PascalCase`
+   - 常量: `UPPER_SNAKE_CASE`
+   - 私有成員: `_leading_underscore`
+
+#### 代碼示例
+
 ```python
 # ✅ 好的範例
 def calculate_embedding(
     text: str,
-    model: str = "text-embedding-ada-002"
+    model: str = "text-embedding-ada-002",
+    temperature: float = 0.0
 ) -> list[float]:
     """
     計算文本的嵌入向量。
@@ -109,24 +167,76 @@ def calculate_embedding(
     Args:
         text: 要處理的文本
         model: 使用的嵌入模型名稱
+        temperature: 模型溫度參數
 
     Returns:
         嵌入向量列表
 
     Raises:
         ValueError: 當文本為空時
+        APIError: 當 API 調用失敗時
+
+    Example:
+        >>> embedding = calculate_embedding("Hello world")
+        >>> len(embedding)
+        1536
     """
     if not text:
         raise ValueError("文本不能為空")
 
-    # 實現邏輯
-    return []
+    try:
+        # 調用 API 獲取嵌入
+        response = openai.Embedding.create(
+            input=text,
+            model=model
+        )
+        return response["data"][0]["embedding"]
+    except Exception as e:
+        raise APIError(f"API 調用失敗: {e}")
 
 
 # ❌ 不好的範例
 def calc_emb(t,m="text-embedding-ada-002"):
     if not t:raise ValueError("文本不能為空")
     return []
+```
+
+#### 類型提示
+
+強烈建議使用類型提示：
+
+```python
+from typing import Optional, Union, List, Dict
+
+def process_documents(
+    docs: List[str],
+    config: Optional[Dict[str, any]] = None
+) -> Union[List[str], None]:
+    """處理文檔列表"""
+    if config is None:
+        config = {}
+    # ...
+```
+
+#### 錯誤處理
+
+```python
+# ✅ 明確的錯誤處理
+try:
+    result = llm.invoke(prompt)
+except RateLimitError:
+    logger.warning("達到速率限制，等待重試...")
+    time.sleep(60)
+    result = llm.invoke(prompt)
+except Exception as e:
+    logger.error(f"LLM 調用失敗: {e}")
+    raise
+
+# ❌ 過於寬泛的異常捕獲
+try:
+    result = llm.invoke(prompt)
+except:  # 不要這樣做
+    pass
 ```
 
 ### 文檔字串（Docstring）
@@ -191,6 +301,8 @@ git checkout -b fix/bug-description
 
 ### 3. 運行測試
 
+#### 基本測試命令
+
 ```bash
 # 運行所有測試
 pytest
@@ -198,9 +310,107 @@ pytest
 # 運行特定測試
 pytest tests/test_basic.py
 
+# 運行特定測試函數
+pytest tests/test_basic.py::test_function_name
+
+# 顯示詳細輸出
+pytest -v
+
+# 顯示 print 輸出
+pytest -s
+```
+
+#### 代碼覆蓋率
+
+```bash
 # 檢查代碼覆蓋率
 pytest --cov=. --cov-report=html
+
+# 生成覆蓋率報告
+pytest --cov=src --cov-report=term-missing
+
+# 要求最低覆蓋率
+pytest --cov=src --cov-fail-under=80
 ```
+
+#### 測試要求
+
+**必須測試的內容**：
+
+1. **核心功能**
+   - 主要函數的正常流程
+   - 邊界條件
+   - 錯誤處理
+
+2. **集成測試**
+   - API 調用（使用 mock）
+   - 數據庫操作
+   - 文件 I/O
+
+3. **示例代碼**
+   - 確保所有示例可運行
+   - 驗證輸出格式
+   - 檢查錯誤處理
+
+**測試示例**：
+
+```python
+import pytest
+from unittest.mock import Mock, patch
+
+def test_calculate_embedding():
+    """測試嵌入計算"""
+    # Arrange
+    text = "Hello world"
+    expected_length = 1536
+
+    # Act
+    with patch('openai.Embedding.create') as mock_create:
+        mock_create.return_value = {
+            "data": [{"embedding": [0.1] * expected_length}]
+        }
+        result = calculate_embedding(text)
+
+    # Assert
+    assert len(result) == expected_length
+    mock_create.assert_called_once()
+
+
+def test_calculate_embedding_empty_text():
+    """測試空文本錯誤處理"""
+    with pytest.raises(ValueError, match="文本不能為空"):
+        calculate_embedding("")
+
+
+@pytest.fixture
+def sample_documents():
+    """測試數據 fixture"""
+    return [
+        "Document 1",
+        "Document 2",
+        "Document 3"
+    ]
+
+
+def test_process_documents(sample_documents):
+    """測試文檔處理"""
+    result = process_documents(sample_documents)
+    assert len(result) == 3
+```
+
+**測試覆蓋率目標**：
+
+- 核心功能: 90%+
+- 工具函數: 80%+
+- 示例代碼: 基本可運行性測試
+
+**持續集成**：
+
+所有 Pull Request 必須通過 CI 測試：
+- 所有測試通過
+- 代碼覆蓋率達標
+- Lint 檢查通過
+- 類型檢查通過
 
 ### 4. 檢查代碼品質
 

@@ -1,0 +1,43 @@
+# Txtai 項目依賴
+
+# Txtai 核心框架 - 語義搜索引擎
+txtai>=7.0.0
+
+# 句子轉換器 - 提供嵌入模型
+sentence-transformers>=2.2.0
+
+# Transformers 庫 - Hugging Face 模型支持
+transformers>=4.30.0
+
+# PyTorch - 深度學習框架
+torch>=2.0.0
+
+# NumPy - 數值計算庫
+numpy>=1.24.0
+
+# Pandas - 數據處理和分析
+pandas>=2.0.0
+
+# FAISS - 高效向量相似度搜索
+faiss-cpu>=1.7.4
+
+# NetworkX - 圖分析庫
+networkx>=3.0
+
+# FastAPI - 構建 API 服務
+fastapi>=0.100.0
+
+# Uvicorn - ASGI 服務器
+uvicorn>=0.23.0
+
+# Pillow - 圖像處理（多模態支持）
+Pillow>=10.0.0
+
+# Requests - HTTP 請求庫
+requests>=2.31.0
+
+# YAML 解析器 - 配置文件支持
+PyYAML>=6.0
+
+# Rich - 終端美化輸出
+rich>=13.0.0

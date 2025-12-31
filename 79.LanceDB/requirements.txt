@@ -1,0 +1,44 @@
+# LanceDB 項目依賴
+
+# LanceDB 核心框架 - 嵌入式向量數據庫
+lancedb>=0.3.0
+
+# OpenAI API 客戶端 - 用於生成嵌入
+openai>=1.0.0
+
+# Pandas - 數據處理和分析
+pandas>=2.0.0
+
+# PyArrow - 列式數據格式支持
+pyarrow>=14.0.0
+
+# NumPy - 數值計算
+numpy>=1.24.0
+
+# Sentence Transformers - 本地嵌入模型
+sentence-transformers>=2.2.0
+
+# LangChain - LLM 應用框架整合
+langchain>=0.1.0
+langchain-community>=0.0.10
+
+# LlamaIndex - 數據框架整合
+llama-index>=0.9.0
+
+# Pillow - 圖像處理（多模態支持）
+Pillow>=10.0.0
+
+# Requests - HTTP 請求庫
+requests>=2.31.0
+
+# Rich - 終端美化輸出
+rich>=13.0.0
+
+# Python-dotenv - 環境變量管理
+python-dotenv>=1.0.0
+
+# Transformers - Hugging Face 模型支持
+transformers>=4.30.0
+
+# Torch - 深度學習框架（用於某些嵌入模型）
+torch>=2.0.0

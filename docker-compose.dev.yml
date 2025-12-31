@@ -1,0 +1,187 @@
+version: '3.8'
+
+# LLM Agent Demo - Docker Compose 開發環境配置
+# 用於本地開發，包含熱重載和調試功能
+#
+# 使用方式：
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+
+services:
+  # ==================== 主應用服務（開發模式）====================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+      args:
+        - BUILDKIT_INLINE_CACHE=1
+    container_name: llm-agent-demo-app-dev
+    ports:
+      - "${APP_PORT:-8888}:8888"  # Jupyter Lab
+      - "${API_PORT:-8080}:8080"  # API 服務
+      - "${DEBUG_PORT:-5678}:5678"  # Python 調試端口
+    volumes:
+      # 開發環境掛載源代碼以支持熱重載
+      - .:/app
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./logs:/app/logs
+      # 防止容器內的包覆蓋本地包
+      - /app/.venv
+      - /app/__pycache__
+      - /app/.pytest_cache
+      - /app/.mypy_cache
+      - /app/.ruff_cache
+    environment:
+      # 開發模式設置
+      - ENVIRONMENT=development
+      - DEBUG=true
+      - LOG_LEVEL=DEBUG
+
+      # 熱重載設置
+      - WATCHFILES_FORCE_POLLING=true
+      - JUPYTER_ENABLE_LAB=yes
+
+      # LLM 服務提供商（從 .env 文件加載）
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - COHERE_API_KEY=${COHERE_API_KEY}
+
+      # 向量數據庫
+      - PINECONE_API_KEY=${PINECONE_API_KEY}
+      - PINECONE_ENVIRONMENT=${PINECONE_ENVIRONMENT}
+
+      # 搜索和數據源
+      - SERPER_API_KEY=${SERPER_API_KEY}
+      - TAVILY_API_KEY=${TAVILY_API_KEY}
+
+      # CRM 和辦公工具
+      - AIRTABLE_ACCESS_TOKEN=${AIRTABLE_ACCESS_TOKEN}
+      - AIRTABLE_BASE_ID=${AIRTABLE_BASE_ID}
+      - HUBSPOT_API_KEY=${HUBSPOT_API_KEY}
+
+      # LangSmith 追蹤（開發模式啟用）
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+      - LANGCHAIN_TRACING_V2=true
+      - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT:-llm-agent-demo-dev}
+
+      # 服務連接
+      - CHROMADB_HOST=chromadb
+      - CHROMADB_PORT=8000
+      - OLLAMA_HOST=http://ollama:11434
+
+      # Python 調試配置
+      - PYTHONDONTWRITEBYTECODE=1
+      - PYTHONUNBUFFERED=1
+    command: >
+      jupyter lab
+      --ip=0.0.0.0
+      --port=8888
+      --no-browser
+      --allow-root
+      --autoreload
+      --NotebookApp.token=''
+      --NotebookApp.password=''
+    stdin_open: true
+    tty: true
+    depends_on:
+      - chromadb
+      - ollama
+
+  # ==================== Ollama 服務（開發模式）====================
+  ollama:
+    environment:
+      - OLLAMA_DEBUG=1
+      - OLLAMA_MODELS=/root/.ollama/models
+    # 開發環境可以不啟用 GPU 限制
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+
+  # ==================== ChromaDB 服務（開發模式）====================
+  chromadb:
+    environment:
+      - CHROMA_SERVER_AUTH_CREDENTIALS_PROVIDER=chromadb.auth.token.TokenAuthServerProvider
+      - CHROMA_SERVER_AUTH_CREDENTIALS=
+      - ANONYMIZED_TELEMETRY=FALSE
+    ports:
+      - "${CHROMADB_PORT:-8000}:8000"
+
+  # ==================== Adminer（數據庫管理）====================
+  adminer:
+    image: adminer:latest
+    container_name: llm-agent-adminer
+    ports:
+      - "${ADMINER_PORT:-8081}:8080"
+    networks:
+      - llm-network
+    restart: unless-stopped
+    environment:
+      - ADMINER_DEFAULT_SERVER=postgres
+      - ADMINER_DESIGN=pepa-linha
+
+  # ==================== PostgreSQL（可選，用於數據存儲）====================
+  postgres:
+    image: postgres:16-alpine
+    container_name: llm-agent-postgres
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./docker/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB:-llm_agent_demo}
+      - POSTGRES_USER=${POSTGRES_USER:-postgres}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD:-postgres}
+    networks:
+      - llm-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # ==================== Redis（可選，用於緩存）====================
+  redis:
+    image: redis:7-alpine
+    container_name: llm-agent-redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    volumes:
+      - redis-data:/data
+    networks:
+      - llm-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    command: redis-server --appendonly yes
+
+  # ==================== Portainer（容器管理界面）====================
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: llm-agent-portainer
+    ports:
+      - "${PORTAINER_PORT:-9000}:9000"
+      - "${PORTAINER_EDGE_PORT:-8000}:8000"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer-data:/data
+    networks:
+      - llm-network
+    restart: unless-stopped
+
+# ==================== 開發環境額外數據卷 ====================
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
+  portainer-data:
+    driver: local

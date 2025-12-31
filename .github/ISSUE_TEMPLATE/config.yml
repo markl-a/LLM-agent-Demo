@@ -1,0 +1,13 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📚 查看文檔
+    url: https://github.com/markl-a/LLM-agent-Demo/blob/main/README.md
+    about: 請先查看專案文檔，可能已經有你需要的答案
+
+  - name: 💬 討論區
+    url: https://github.com/markl-a/LLM-agent-Demo/discussions
+    about: 如果你有問題或想法，歡迎在討論區分享
+
+  - name: ❓ 常見問題
+    url: https://github.com/markl-a/LLM-agent-Demo/blob/main/FAQ.md
+    about: 查看常見問題解答

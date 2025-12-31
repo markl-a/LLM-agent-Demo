@@ -1,0 +1,18 @@
+# Marvin 框架依賴
+
+# 核心庫
+marvin>=2.3.0
+openai>=1.0.0
+pydantic>=2.0.0
+
+# 圖像處理
+pillow>=10.0.0
+
+# 語音功能（可選）
+# marvin[audio]
+
+# 視頻處理（可選）
+# marvin[video]
+
+# 開發工具
+python-dotenv>=1.0.0

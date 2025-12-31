@@ -1,0 +1,26 @@
+# Burr 核心
+burr[start]>=0.22.0
+
+# LLM 支持
+openai>=1.0.0
+
+# 數據驗證
+pydantic>=2.0.0
+
+# 環境變量管理
+python-dotenv>=1.0.0
+
+# 美化輸出
+rich>=13.0.0
+
+# 異步支持
+aiohttp>=3.9.0
+
+# 持久化支持
+sqlalchemy>=2.0.0
+
+# 序列化
+msgpack>=1.0.0
+
+# 日誌
+structlog>=24.0.0

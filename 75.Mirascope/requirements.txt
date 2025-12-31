@@ -1,0 +1,20 @@
+# Mirascope 框架依賴
+
+# 核心庫
+mirascope>=0.9.0
+
+# LLM 提供商
+openai>=1.0.0
+anthropic>=0.7.0
+
+# 數據驗證
+pydantic>=2.0.0
+
+# 模板引擎
+jinja2>=3.0.0
+
+# 重試機制
+tenacity>=8.0.0
+
+# 開發工具
+python-dotenv>=1.0.0

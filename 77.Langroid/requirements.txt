@@ -1,0 +1,29 @@
+# Langroid 核心
+langroid>=0.1.0
+
+# LLM 支持
+openai>=1.0.0
+
+# 向量存儲（可選）
+chromadb>=0.4.0
+qdrant-client>=1.7.0
+
+# 文檔處理
+pypdf>=3.17.0
+python-docx>=1.1.0
+
+# 環境變量管理
+python-dotenv>=1.0.0
+
+# 美化輸出
+rich>=13.0.0
+
+# 異步支持
+aiohttp>=3.9.0
+
+# 數據驗證
+pydantic>=2.0.0
+
+# 工具類
+requests>=2.31.0
+beautifulsoup4>=4.12.0

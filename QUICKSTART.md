@@ -96,6 +96,81 @@ cd "18.CrewAI"
 python 01_快速開始.py
 ```
 
+## 🐳 Docker 快速啟動（推薦）
+
+如果您想使用 Docker 快速開始，無需手動安裝 Python 環境：
+
+### 方法 A: 使用 Docker Compose（完整環境）
+
+```bash
+# 1. 克隆項目
+git clone https://github.com/markl-a/LLM-agent-Demo.git
+cd LLM-agent-Demo
+
+# 2. 配置環境變量
+cp .env.example .env
+# 編輯 .env 文件，添加你的 API Keys
+
+# 3. 啟動 Jupyter Lab 環境
+docker-compose up -d
+
+# 4. 訪問 Jupyter Lab
+# 在瀏覽器中打開 http://localhost:8888
+# 密碼可在 docker-compose.yml 中查看或設置
+```
+
+### 方法 B: 快速測試單個框架
+
+```bash
+# 測試 Semantic Kernel
+docker run -it --rm \
+  -e OPENAI_API_KEY=your_key_here \
+  -v $(pwd):/workspace \
+  python:3.10 bash -c "cd /workspace/12.Semantic\ Kernel && pip install -r requirements.txt && python 01_快速開始.py"
+
+# 測試 OpenAI Swarm
+docker run -it --rm \
+  -e OPENAI_API_KEY=your_key_here \
+  -v $(pwd):/workspace \
+  python:3.10 bash -c "cd /workspace/16.OpenAI\ Swarm && pip install -r requirements.txt && python 01_多Agent協作.py"
+```
+
+### 方法 C: 啟動 Jupyter Notebook 環境
+
+```bash
+# 使用官方 Jupyter 鏡像
+docker run -it --rm \
+  -p 8888:8888 \
+  -v $(pwd):/home/jovyan/work \
+  -e OPENAI_API_KEY=your_key_here \
+  -e ANTHROPIC_API_KEY=your_key_here \
+  jupyter/scipy-notebook
+
+# 訪問終端顯示的 URL，例如：
+# http://127.0.0.1:8888/?token=...
+```
+
+### 方法 D: 啟動 Chainlit 聊天界面
+
+```bash
+# 啟動 Chainlit 應用
+docker run -it --rm \
+  -p 8000:8000 \
+  -v $(pwd)/71.Chainlit:/app \
+  -e OPENAI_API_KEY=your_key_here \
+  python:3.10 bash -c "cd /app && pip install -r requirements.txt && chainlit run 01_快速開始.py -h 0.0.0.0"
+
+# 訪問 http://localhost:8000
+```
+
+### Docker 優勢
+
+- 無需安裝 Python 環境
+- 環境隔離，不污染系統
+- 一致的運行環境
+- 快速清理和重建
+- 適合測試和演示
+
 ## 🎯 選擇您的學習路徑
 
 ### 🌱 初學者路徑 (第 1 週)

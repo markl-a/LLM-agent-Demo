@@ -1,44 +1,166 @@
 version: '3.8'
 
+# LLM Agent Demo - Docker Compose 配置
+# 生產環境部署配置
+
 services:
-  jupyter:
-    build: .
-    container_name: llm-agent-demo
+  # ==================== 主應用服務 ====================
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: llm-agent-demo-app
+    hostname: llm-agent-demo
     ports:
-      - "8888:8888"
+      - "${APP_PORT:-8888}:8888"  # Jupyter Lab
+      - "${API_PORT:-8080}:8080"  # API 服務（如果需要）
     volumes:
-      - .:/app
-      - jupyter-data:/app/data
-      - jupyter-outputs:/app/outputs
+      - ./data:/app/data
+      - ./outputs:/app/outputs
+      - ./logs:/app/logs
+      # 只在開發模式下掛載源代碼
+      # - .:/app
     environment:
+      # LLM 服務提供商
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - GOOGLE_API_KEY=${GOOGLE_API_KEY}
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
       - GROQ_API_KEY=${GROQ_API_KEY}
+      - COHERE_API_KEY=${COHERE_API_KEY}
+
+      # 向量數據庫
       - PINECONE_API_KEY=${PINECONE_API_KEY}
       - PINECONE_ENVIRONMENT=${PINECONE_ENVIRONMENT}
+      - QDRANT_URL=${QDRANT_URL}
+      - QDRANT_API_KEY=${QDRANT_API_KEY}
+      - WEAVIATE_URL=${WEAVIATE_URL}
+      - WEAVIATE_API_KEY=${WEAVIATE_API_KEY}
+
+      # 搜索和數據源
       - SERPER_API_KEY=${SERPER_API_KEY}
+      - TAVILY_API_KEY=${TAVILY_API_KEY}
+
+      # CRM 和辦公工具
+      - AIRTABLE_ACCESS_TOKEN=${AIRTABLE_ACCESS_TOKEN}
+      - AIRTABLE_BASE_ID=${AIRTABLE_BASE_ID}
+      - HUBSPOT_API_KEY=${HUBSPOT_API_KEY}
+      - SHEET_ID=${SHEET_ID}
+
+      # LangSmith 追蹤
+      - LANGCHAIN_API_KEY=${LANGCHAIN_API_KEY}
+      - LANGCHAIN_TRACING_V2=${LANGCHAIN_TRACING_V2:-false}
+      - LANGCHAIN_PROJECT=${LANGCHAIN_PROJECT:-llm-agent-demo}
+
+      # 服務連接
+      - CHROMADB_HOST=chromadb
+      - CHROMADB_PORT=8000
+      - OLLAMA_HOST=http://ollama:11434
+
+      # 應用配置
+      - LOG_LEVEL=${LOG_LEVEL:-INFO}
+      - DEFAULT_LLM_MODEL=${DEFAULT_LLM_MODEL:-gpt-4}
+      - DEFAULT_EMBEDDING_MODEL=${DEFAULT_EMBEDDING_MODEL:-text-embedding-3-small}
+      - JUPYTER_ENABLE_LAB=yes
+    networks:
+      - llm-network
+    depends_on:
+      chromadb:
+        condition: service_healthy
+      ollama:
+        condition: service_healthy
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "/healthcheck.py"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # ==================== Ollama 服務（本地 LLM）====================
+  ollama:
+    image: ollama/ollama:latest
+    container_name: llm-agent-ollama
+    hostname: ollama
+    ports:
+      - "${OLLAMA_PORT:-11434}:11434"
+    volumes:
+      - ollama-data:/root/.ollama
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+      - OLLAMA_ORIGINS=*
     networks:
       - llm-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    deploy:
+      resources:
+        limits:
+          memory: 8G
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    # 如果沒有 GPU，註釋掉上面的 deploy 部分
 
-  # 可選：Chroma 向量數據庫
+  # ==================== ChromaDB 服務（向量數據庫）====================
   chromadb:
     image: chromadb/chroma:latest
-    container_name: chromadb
+    container_name: llm-agent-chromadb
+    hostname: chromadb
     ports:
-      - "8000:8000"
+      - "${CHROMADB_PORT:-8000}:8000"
     volumes:
       - chroma-data:/chroma/chroma
+    environment:
+      - CHROMA_SERVER_AUTH_CREDENTIALS_PROVIDER=${CHROMA_AUTH_PROVIDER:-chromadb.auth.token.TokenAuthServerProvider}
+      - CHROMA_SERVER_AUTH_CREDENTIALS=${CHROMA_AUTH_TOKEN:-}
+      - CHROMA_SERVER_AUTH_TOKEN_TRANSPORT_HEADER=${CHROMA_AUTH_HEADER:-X-Chroma-Token}
+      - IS_PERSISTENT=TRUE
+      - ANONYMIZED_TELEMETRY=${CHROMA_TELEMETRY:-FALSE}
     networks:
       - llm-network
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/heartbeat"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
 
+  # ==================== Nginx 反向代理（可選）====================
+  # nginx:
+  #   image: nginx:alpine
+  #   container_name: llm-agent-nginx
+  #   ports:
+  #     - "80:80"
+  #     - "443:443"
+  #   volumes:
+  #     - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+  #     - ./docker/ssl:/etc/nginx/ssl:ro
+  #   networks:
+  #     - llm-network
+  #   depends_on:
+  #     - app
+  #   restart: unless-stopped
+
+# ==================== 數據卷 ====================
 volumes:
-  jupyter-data:
-  jupyter-outputs:
   chroma-data:
+    driver: local
+  ollama-data:
+    driver: local
 
+# ==================== 網絡 ====================
 networks:
   llm-network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

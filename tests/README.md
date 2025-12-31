@@ -10,12 +10,30 @@ tests/
 ├── conftest.py              # Pytest 配置和共享 fixtures
 ├── README.md                # 本文件
 ├── test_basic.py            # 基礎測試範例
+├── test_imports.py          # 測試所有框架文件的導入和語法
+├── test_examples.py         # 測試示例文件的語法和結構
+├── test_logging.py          # 測試日誌系統功能
 ├── unit/                    # 單元測試
-│   └── test_utils.py
+│   ├── __init__.py
+│   ├── test_async_utils.py
+│   ├── test_cli.py
+│   ├── test_config.py
+│   ├── test_cost_tracker.py
+│   ├── test_events.py
+│   ├── test_logger.py
+│   ├── test_rate_limiter.py
+│   ├── test_retry.py
+│   ├── test_serialization.py
+│   ├── test_utils.py
+│   └── test_validators.py
 ├── integration/             # 整合測試
-│   └── test_langchain_integration.py
-└── data/                    # 測試數據
-    └── sample.txt
+│   ├── __init__.py
+│   ├── conftest.py
+│   ├── test_config_logger_validators.py
+│   ├── test_cost_tracker_retry.py
+│   ├── test_full_config_loading.py
+│   └── test_import.py
+└── data/                    # 測試數據（如需要）
 ```
 
 ## 運行測試
@@ -58,12 +76,33 @@ pytest --cov=. --cov-report=html
 pytest --cov=. --cov-report=term-missing
 ```
 
+## 測試文件說明
+
+### 核心測試文件
+
+- **test_basic.py** - 專案基礎結構和配置測試
+- **test_imports.py** - 掃描所有框架目錄，檢查 Python 文件語法和導入
+- **test_examples.py** - 驗證示例文件的語法、結構和最佳實踐
+- **test_logging.py** - 測試日誌系統的各項功能（日誌器、裝飾器、工具類等）
+
+### 單元測試 (unit/)
+
+單元測試專注於測試個別組件和函數的正確性。
+
+### 整合測試 (integration/)
+
+整合測試驗證多個組件協同工作的情況。
+
 ## 測試標記 (Markers)
 
 - `@pytest.mark.unit` - 單元測試
 - `@pytest.mark.integration` - 整合測試
 - `@pytest.mark.slow` - 運行時間較長的測試
 - `@pytest.mark.requires_api_key` - 需要真實 API Key 的測試
+- `@pytest.mark.requires_network` - 需要網絡連接的測試
+- `@pytest.mark.skip_in_ci` - 在 CI 環境中跳過的測試
+- `@pytest.mark.asyncio` - 異步測試
+- `@pytest.mark.mock` - 使用 mock 的測試
 
 ## 編寫測試的最佳實踐
 
