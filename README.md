@@ -51,7 +51,7 @@
 | **RAG技術** | - | ✅ 完整 | 基礎RAG、多模態RAG、進階檢索 |
 | **向量數據庫** | - | ✅ 完整 | Chroma, FAISS, Pinecone, Qdrant |
 
-🎉 **2025 年新增**: 7 個最熱門的 AI Agent 框架全面覆蓋！**140 個完整示例**！
+🎉 **2025 年 12 月最新更新**: 60 個 AI Agent 框架全面覆蓋！**440+ 個完整示例**！
 
 ## 🔥 快速導航
 
@@ -60,7 +60,7 @@
 - [📊 項目完成總結](PROJECT_SUMMARY.md) - 完整的項目概覽和統計
 - [🤝 貢獻指南](CONTRIBUTING.md) - 如何為項目貢獻
 
-### 🆕 新框架示例 (140 個示例)
+### 🆕 新框架示例 (440+ 個示例)
 
 | 框架 | 示例數 | 適用場景 | README | 快速開始 |
 |------|--------|---------|--------|---------|
@@ -72,6 +72,39 @@
 | [LangGraph](17.LangGraph/) | 20 ✅ | 狀態管理 | [查看](17.LangGraph/README.md) | [01_狀態圖基礎.py](17.LangGraph/01_狀態圖基礎.py) |
 | [CrewAI](18.CrewAI/) | 20 ✅ | 角色扮演 | [查看](18.CrewAI/README.md) | [01_快速開始.py](18.CrewAI/01_快速開始.py) |
 
+### 🔥 2025 年 12 月最新新增框架
+
+| 框架 | 示例數 | 適用場景 | README | 說明 |
+|------|--------|---------|--------|------|
+| [Agent-S](33.Agent-S/) | 12 🆕 | 電腦使用 Agent | [查看](33.Agent-S/README.md) | ICLR 2025，超越人類水平 (72.6%) |
+| [CopilotKit](34.CopilotKit/) | 10 🆕 | React AI 整合 | [查看](34.CopilotKit/README.md) | 26.8K GitHub Stars |
+| [n8n](35.n8n/) | 10 🆕 | 工作流自動化 | [查看](35.n8n/README.md) | 150K+ Stars，400+ 整合 |
+| [Google ADK](36.Google-ADK/) | 10 🆕 | Gemini/Vertex AI | [查看](36.Google-ADK/README.md) | Google 官方 Agent 框架 |
+| [SuperAGI](37.SuperAGI/) | 10 🆕 | 企業級 Agent | [查看](37.SuperAGI/README.md) | 生產就緒，圖形界面 |
+| [Camel-AI](38.Camel-AI/) | 10 🆕 | 多 Agent 研究 | [查看](38.Camel-AI/README.md) | 角色扮演，社會模擬 |
+| [Browser-Use](39.Browser-Use/) | 10 🆕 | 瀏覽器自動化 | [查看](39.Browser-Use/README.md) | 超越 OpenAI Operator |
+| [Cline](40.Cline/) | 10 🆕 | VS Code 編程助手 | [查看](40.Cline/README.md) | 自主編程，MCP 支持 |
+| [Mastra](41.Mastra/) | 10 🆕 | TypeScript AI 框架 | [查看](41.Mastra/README.md) | 工作流，整合，Agent |
+| [Atomic-Agents](42.Atomic-Agents/) | 10 🆕 | 模組化 Agent | [查看](42.Atomic-Agents/README.md) | Schema 驅動，可測試 |
+| [Browserbase](43.Browserbase/) | 10 🆕 | 雲端瀏覽器基礎設施 | [查看](43.Browserbase/README.md) | 隱身模式，Session 管理 |
+| [DSPy](44.DSPy/) | 10 🆕 | LLM 編程框架 | [查看](44.DSPy/README.md) | Stanford，自動提示優化 |
+| [Letta](45.Letta/) | 10 🆕 | 有狀態 Agent | [查看](45.Letta/README.md) | MemGPT，持久記憶 |
+| [Julep](46.Julep/) | 10 🆕 | AI 應用平台 | [查看](46.Julep/README.md) | 90+ 整合，任務系統 |
+| [Instructor](47.Instructor/) | 10 🆕 | 結構化輸出 | [查看](47.Instructor/README.md) | 3M+ 下載，Pydantic |
+| [ControlFlow](48.ControlFlow/) | 10 🆕 | 工作流編排 | [查看](48.ControlFlow/README.md) | 流程控制，任務管理 |
+| [SWE-Agent](49.SWE-Agent/) | 10 🆕 | 軟體工程 Agent | [查看](49.SWE-Agent/README.md) | Princeton，SWE-bench |
+| [PhiData](50.PhiData/) | 10 🆕 | 多模態 Agent | [查看](50.PhiData/README.md) | 高性能，知識庫 |
+| [MS-Agent-Framework](51.MS-Agent-Framework/) | 10 🆕 | 統一 Agent 框架 | [查看](51.MS-Agent-Framework/README.md) | AutoGen + SK 融合 |
+| [LiteLLM](52.LiteLLM/) | 10 🆕 | LLM API 網關 | [查看](52.LiteLLM/README.md) | 100+ 模型，8ms 延遲 |
+| [Outlines](53.Outlines/) | 10 🆕 | 結構化生成 | [查看](53.Outlines/README.md) | JSON/CFG 約束 |
+| [Strands-Agents](54.Strands-Agents/) | 10 🆕 | AWS Agent SDK | [查看](54.Strands-Agents/README.md) | 企業級，Bedrock |
+| [Guidance](55.Guidance/) | 10 🆕 | LLM 控制 | [查看](55.Guidance/README.md) | 受控解碼，90% 降錯 |
+| [Langfuse](56.Langfuse/) | 10 🆕 | LLM 可觀測性 | [查看](56.Langfuse/README.md) | 開源，追蹤評估 |
+| [Aider](57.Aider/) | 10 🆕 | 終端編程助手 | [查看](57.Aider/README.md) | 多文件，Git 整合 |
+| [Continue](58.Continue/) | 10 🆕 | IDE 編程助手 | [查看](58.Continue/README.md) | 開源，20K+ Stars |
+| [Composio](59.Composio/) | 10 🆕 | 工具整合平台 | [查看](59.Composio/README.md) | 250+ 應用整合 |
+| [Helicone](60.Helicone/) | 10 🆕 | AI 網關 | [查看](60.Helicone/README.md) | 路由，快取，限流 |
+
 💡 **提示**: 所有示例都包含完整代碼和詳細中文註釋！
 
 ### 📊 項目統計
@@ -80,12 +113,12 @@
 
 | 統計項 | 數量 |
 |--------|------|
-| 🎯 **支持框架** | 21 個 |
-| 📝 **完整示例** | 160+ 個 |
-| 📄 **代碼行數** | 20,000+ 行 |
-| 📚 **文檔字數** | 75,000+ 字 |
-| 🎓 **教程數量** | 80+ 個 |
-| 🌟 **覆蓋場景** | 160+ 個 |
+| 🎯 **支持框架** | 60 個 |
+| 📝 **完整示例** | 440+ 個 |
+| 📄 **代碼行數** | 180,000+ 行 |
+| 📚 **文檔字數** | 350,000+ 字 |
+| 🎓 **教程數量** | 200+ 個 |
+| 🌟 **覆蓋場景** | 400+ 個 |
 
 </div>
 
@@ -445,6 +478,28 @@ jupyter notebook
 | **Goose** 🔥 | 開發者 Agent | 中 | ⭐⭐⭐ | 中等 | ⭐⭐⭐ |
 | **Rasa** 🔥 | 對話式 AI | 中-高 | ⭐⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
 | **Magentic-One** 🔥 | 多 Agent 系統 | 高 | ⭐⭐⭐⭐ | 較高 | ⭐⭐⭐⭐ |
+| **Browser-Use** 🔥 | 瀏覽器自動化 | 中 | ⭐⭐⭐ | 中等 | ⭐⭐⭐ |
+| **Cline** 🔥 | 編程助手 | 中 | ⭐⭐⭐⭐ | 較低 | ⭐⭐⭐⭐ |
+| **Mastra** 🔥 | TypeScript AI | 中 | ⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **Atomic-Agents** 🔥 | 模組化 Agent | 低-中 | ⭐⭐⭐ | 較低 | ⭐⭐⭐⭐ |
+| **Browserbase** 🔥 | 雲端瀏覽器 | 中 | ⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **DSPy** 🔥 | LLM 編程 | 中 | ⭐⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **Letta** 🔥 | 有狀態 Agent | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **Julep** 🔥 | AI 應用平台 | 中 | ⭐⭐⭐ | 較低 | ⭐⭐⭐⭐ |
+| **Instructor** 🔥 | 結構化輸出 | 低 | ⭐⭐⭐⭐⭐ | 極低 | ⭐⭐⭐⭐⭐ |
+| **ControlFlow** 🔥 | 工作流編排 | 中 | ⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **SWE-Agent** 🔥 | 軟體工程 | 高 | ⭐⭐⭐⭐ | 較高 | ⭐⭐⭐⭐ |
+| **PhiData** 🔥 | 多模態 Agent | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **MS Agent Framework** 🔥 | 統一 Agent | 中 | ⭐⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **LiteLLM** 🔥 | LLM 網關 | 低-中 | ⭐⭐⭐⭐⭐ | 較低 | ⭐⭐⭐⭐⭐ |
+| **Outlines** 🔥 | 結構化生成 | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **Strands Agents** 🔥 | AWS Agent | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **Guidance** 🔥 | LLM 控制 | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **Langfuse** 🔥 | LLM 可觀測性 | 中 | ⭐⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **Aider** 🔥 | 終端編程 | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **Continue** 🔥 | IDE 助手 | 低-中 | ⭐⭐⭐⭐ | 較低 | ⭐⭐⭐⭐ |
+| **Composio** 🔥 | 工具整合 | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **Helicone** 🔥 | AI 網關 | 低 | ⭐⭐⭐⭐ | 極低 | ⭐⭐⭐⭐⭐ |
 
 ### 選擇建議
 
@@ -462,6 +517,20 @@ jupyter notebook
 - **開發者工具**: Goose
 - **模型互操作**: MCP Protocol
 - **官方支持**: OpenAI Agents SDK
+- **瀏覽器自動化**: Browser-Use、Browserbase
+- **編程助手**: Cline、Goose、SWE-Agent
+- **模組化設計**: Atomic-Agents
+- **LLM 編程**: DSPy
+- **有狀態 Agent**: Letta (MemGPT)
+- **結構化輸出**: Instructor、Outlines、Guidance
+- **工作流編排**: ControlFlow
+- **LLM 網關**: LiteLLM
+- **AWS 生態**: Strands Agents
+- **Microsoft 生態**: MS Agent Framework
+- **LLM 可觀測性**: Langfuse、Helicone
+- **工具整合**: Composio
+- **終端編程**: Aider
+- **IDE 編程助手**: Continue
 
 ## 💼 實際應用案例
 
@@ -569,6 +638,32 @@ jupyter notebook
   - 通用任務解決能力
   - 先進的 Agent 編排機制
 
+#### 瀏覽器自動化與編程助手
+- ✨ **Browser-Use** - 瀏覽器自動化框架
+  - 超越 OpenAI Operator 的 WebVoyager 基準
+  - 支援多種 LLM 後端
+  - 智能網頁交互
+
+- ✨ **Cline** - VS Code 自主編程助手
+  - Plan/Act 雙模式運作
+  - MCP 協議原生支持
+  - 終端和瀏覽器整合
+
+- ✨ **Mastra** - TypeScript-First AI 框架
+  - 完整的 Agent 工作流系統
+  - 1,000+ 應用整合
+  - 記憶和知識圖譜支持
+
+- ✨ **Atomic-Agents** - 模組化 Agent 框架
+  - Schema 驅動設計
+  - 高度可測試和可預測
+  - 清晰的輸入輸出接口
+
+- ✨ **Browserbase** - 雲端瀏覽器基礎設施
+  - 隱身模式和反檢測
+  - Session 持久化管理
+  - 代理輪換和並行執行
+
 ### 基礎設施
 - ✅ 最新的向量數據庫集成
 - ✅ Docker 容器化支持
@@ -637,6 +732,34 @@ jupyter notebook
 - [x] Goose 開發者 Agent 🔥
 - [x] Rasa 對話式 AI 框架 🔥
 - [x] Magentic-One 多 Agent 系統 🔥
+- [x] Agent-S 電腦使用 Agent 🔥🆕
+- [x] CopilotKit React AI 整合 🔥🆕
+- [x] n8n 工作流自動化 🔥🆕
+- [x] Google ADK Gemini 框架 🔥🆕
+- [x] SuperAGI 企業級 Agent 🔥🆕
+- [x] Camel-AI 多 Agent 研究 🔥🆕
+- [x] Browser-Use 瀏覽器自動化 🔥🆕
+- [x] Cline VS Code 編程助手 🔥🆕
+- [x] Mastra TypeScript AI 框架 🔥🆕
+- [x] Atomic-Agents 模組化 Agent 🔥🆕
+- [x] Browserbase 雲端瀏覽器 🔥🆕
+- [x] DSPy LLM 編程框架 🔥🆕
+- [x] Letta 有狀態 Agent 🔥🆕
+- [x] Julep AI 應用平台 🔥🆕
+- [x] Instructor 結構化輸出 🔥🆕
+- [x] ControlFlow 工作流編排 🔥🆕
+- [x] SWE-Agent 軟體工程 Agent 🔥🆕
+- [x] PhiData 多模態 Agent 🔥🆕
+- [x] MS Agent Framework 統一框架 🔥🆕
+- [x] LiteLLM LLM API 網關 🔥🆕
+- [x] Outlines 結構化生成 🔥🆕
+- [x] Strands Agents AWS SDK 🔥🆕
+- [x] Guidance LLM 控制 🔥🆕
+- [x] Langfuse LLM 可觀測性 🔥🆕
+- [x] Aider 終端編程助手 🔥🆕
+- [x] Continue IDE 編程助手 🔥🆕
+- [x] Composio 工具整合平台 🔥🆕
+- [x] Helicone AI 網關 🔥🆕
 - [ ] 更多實際應用案例
 - [ ] 視頻教程
 - [ ] 英文版本
@@ -646,4 +769,4 @@ jupyter notebook
 
 ⭐ 如果這個專案對你有幫助，請給我們一個 Star！
 
-📖 持續更新中... 最後更新: 2025-12-22
+📖 持續更新中... 最後更新: 2025-12-31

@@ -1,0 +1,41 @@
+# Atomic Agents 核心依賴
+atomic-agents>=1.0.0
+
+# Schema 驗證和結構化輸出
+instructor>=1.0.0
+pydantic>=2.0.0
+
+# LLM 提供商支持
+openai>=1.50.0
+anthropic>=0.37.0
+
+# 測試框架
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
+pytest-cov>=4.1.0
+
+# 類型檢查
+mypy>=1.8.0
+types-requests>=2.31.0
+
+# 日誌和監控
+structlog>=24.1.0
+python-json-logger>=2.0.7
+
+# 工具和實用程序
+python-dotenv>=1.0.0
+rich>=13.7.0
+tenacity>=8.2.3
+
+# 可選：向量數據庫支持
+chromadb>=0.4.22
+qdrant-client>=1.7.0
+
+# 可選：異步支持
+httpx>=0.26.0
+aiofiles>=23.2.1
+
+# 開發工具
+black>=24.1.0
+ruff>=0.1.14
+pre-commit>=3.6.0

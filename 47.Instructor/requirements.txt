@@ -1,0 +1,30 @@
+# Instructor 核心依賴
+instructor>=1.13.0
+
+# LLM 提供商 SDK
+openai>=1.50.0
+anthropic>=0.37.0
+
+# 數據驗證和模型
+pydantic>=2.0.0
+
+# 可選依賴（用於特定示例）
+# Google Gemini 支持
+# google-generativeai>=0.3.0
+
+# Cohere 支持
+# cohere>=4.0.0
+
+# 異步支持
+# aiohttp>=3.8.0
+# httpx>=0.24.0
+
+# 工具和輔助
+python-dotenv>=1.0.0
+rich>=13.0.0
+
+# 開發依賴
+# pytest>=7.0.0
+# pytest-asyncio>=0.21.0
+# black>=23.0.0
+# mypy>=1.0.0

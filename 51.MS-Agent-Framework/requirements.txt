@@ -1,0 +1,56 @@
+# Microsoft Agent Framework 核心套件
+agent-framework>=1.0.0
+
+# Azure AI 整合
+agent-framework-azure-ai>=1.0.0
+
+# OpenAI API 支援
+openai>=1.50.0
+
+# 資料驗證和序列化
+pydantic>=2.0.0
+
+# 環境變數管理
+python-dotenv>=1.0.0
+
+# 非同步支援
+aiohttp>=3.9.0
+asyncio>=3.4.3
+
+# JSON Schema 驗證
+jsonschema>=4.20.0
+
+# YAML 支援 (用於工作流定義)
+pyyaml>=6.0.1
+
+# 日誌和監控
+structlog>=24.1.0
+opentelemetry-api>=1.22.0
+opentelemetry-sdk>=1.22.0
+
+# HTTP 請求
+httpx>=0.26.0
+requests>=2.31.0
+
+# 資料處理
+pandas>=2.1.0
+numpy>=1.26.0
+
+# Azure SDK (可選)
+azure-identity>=1.15.0
+azure-ai-inference>=1.0.0
+azure-core>=1.29.0
+
+# MCP 協議支援
+mcp-client>=0.1.0
+
+# 狀態持久化
+redis>=5.0.0
+sqlalchemy>=2.0.0
+
+# 工作流編排
+prefect>=2.14.0
+
+# 測試工具
+pytest>=7.4.0
+pytest-asyncio>=0.23.0

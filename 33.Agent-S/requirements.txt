@@ -1,0 +1,49 @@
+# Agent S 框架依賴
+# ==================
+
+# 核心框架（注意：agent-s 是模擬套件名稱，實際請參考官方文檔）
+# agent-s>=1.0.0
+
+# LLM 提供商
+openai>=1.50.0
+anthropic>=0.37.0
+google-generativeai>=0.8.0
+
+# 螢幕捕獲和圖像處理
+pillow>=10.0.0
+opencv-python>=4.8.0
+mss>=9.0.0              # 跨平台螢幕捕獲
+
+# 輸入控制
+pyautogui>=0.9.54       # 跨平台滑鼠鍵盤控制
+pynput>=1.7.6           # 輸入監聽和控制
+
+# UI 元素檢測
+# ultralytics>=8.0.0    # YOLO 模型（可選）
+
+# 向量數據庫（經驗存儲）
+chromadb>=0.5.0
+lancedb>=0.3.0
+
+# 異步支持
+asyncio-throttle>=1.0.0
+aiohttp>=3.9.0
+
+# 數據處理
+numpy>=1.24.0
+pandas>=2.0.0
+
+# 環境管理
+python-dotenv>=1.0.0
+pydantic>=2.9.0
+pydantic-settings>=2.6.0
+
+# 日誌和監控
+loguru>=0.7.0
+rich>=13.0.0
+
+# 開發依賴
+pytest>=8.0.0
+pytest-asyncio>=0.24.0
+black>=24.0.0
+ruff>=0.7.0

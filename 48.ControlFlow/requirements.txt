@@ -1,0 +1,33 @@
+# ControlFlow 核心依賴
+controlflow>=0.10.0
+
+# AI 模型接口
+openai>=1.50.0
+
+# 數據驗證
+pydantic>=2.0.0
+
+# 工作流編排引擎
+prefect>=3.0.0
+
+# 額外推薦依賴
+# 環境變量管理
+python-dotenv>=1.0.0
+
+# HTTP 請求
+httpx>=0.25.0
+
+# 異步支持
+asyncio>=3.4.3
+
+# 日誌增強
+loguru>=0.7.0
+
+# 數據處理
+pandas>=2.0.0
+
+# 配置管理
+pyyaml>=6.0
+
+# 類型檢查
+typing-extensions>=4.8.0

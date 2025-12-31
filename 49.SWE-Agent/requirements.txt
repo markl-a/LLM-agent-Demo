@@ -1,0 +1,54 @@
+# SWE-Agent 核心依賴
+sweagent>=0.6.0
+
+# LLM API 客戶端
+openai>=1.50.0
+anthropic>=0.37.0
+
+# Docker 容器管理
+docker>=7.0.0
+
+# Git 操作
+gitpython>=3.1.0
+
+# 網頁請求
+requests>=2.31.0
+aiohttp>=3.9.0
+
+# 數據處理
+pandas>=2.0.0
+numpy>=1.24.0
+
+# 代碼解析
+tree-sitter>=0.20.0
+astroid>=3.0.0
+
+# 測試框架
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+
+# 日誌和監控
+loguru>=0.7.0
+rich>=13.7.0
+
+# 配置管理
+pydantic>=2.5.0
+python-dotenv>=1.0.0
+
+# 工具函數
+tenacity>=8.2.0
+jinja2>=3.1.0
+pyyaml>=6.0.0
+
+# 數據庫 (可選)
+sqlalchemy>=2.0.0
+
+# 向量數據庫 (可選)
+chromadb>=0.4.0
+
+# 代碼格式化
+black>=23.12.0
+isort>=5.13.0
+
+# 安全性
+cryptography>=41.0.0

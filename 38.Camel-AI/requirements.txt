@@ -1,0 +1,63 @@
+# CAMEL-AI 框架依賴
+
+# 核心框架
+camel-ai>=0.1.5.1
+camel-ai[all]>=0.1.5.1
+
+# LLM API
+openai>=1.12.0
+anthropic>=0.18.0
+
+# LangChain 整合
+langchain>=0.1.0
+langchain-community>=0.0.20
+langchain-openai>=0.0.5
+
+# 向量數據庫和 RAG
+chromadb>=0.4.22
+faiss-cpu>=1.7.4
+sentence-transformers>=2.3.0
+
+# 數據處理
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Token 處理
+tiktoken>=0.5.2
+
+# HTTP 請求
+requests>=2.31.0
+httpx>=0.26.0
+
+# 工具和實用程式
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+typing-extensions>=4.9.0
+
+# 日誌和監控
+colorlog>=6.8.0
+tenacity>=8.2.3
+
+# 搜尋整合（可選）
+google-search-results>=2.4.2
+duckduckgo-search>=4.1.0
+
+# 代碼執行（可選）
+jupyter>=1.0.0
+ipython>=8.20.0
+
+# 文件處理
+PyPDF2>=3.0.0
+python-docx>=1.1.0
+openpyxl>=3.1.2
+
+# 網頁抓取（可選）
+beautifulsoup4>=4.12.0
+playwright>=1.41.0
+
+# 圖像處理（可選）
+Pillow>=10.2.0
+
+# 測試
+pytest>=8.0.0
+pytest-asyncio>=0.23.0
