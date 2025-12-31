@@ -15,7 +15,7 @@ openai==1.6.1
 python-dotenv==1.0.0
 
 # 數據處理
-pandas==2.1.4
+pandas==2.3.3
 numpy==1.26.2
 
 # JSON 處理
