@@ -1,0 +1,68 @@
+# Helicone AI Gateway 依賴項
+# 更新日期: 2025-12-31
+
+# 核心依賴
+helicone>=1.0.0              # Helicone AI Gateway SDK
+openai>=1.50.0               # OpenAI API 客戶端
+anthropic>=0.37.0            # Anthropic Claude API 客戶端
+httpx>=0.27.0                # 現代 HTTP 客戶端
+
+# 額外的 AI 模型提供商 (可選)
+google-generativeai>=0.3.0   # Google Gemini API
+cohere>=5.0.0                # Cohere API
+together>=1.0.0              # Together AI API
+
+# 數據處理和分析
+pandas>=2.0.0                # 數據分析
+numpy>=1.24.0                # 數值計算
+matplotlib>=3.7.0            # 數據可視化
+seaborn>=0.12.0              # 統計數據可視化
+
+# 環境管理
+python-dotenv>=1.0.0         # 環境變量管理
+pydantic>=2.0.0              # 數據驗證
+pydantic-settings>=2.0.0     # 設置管理
+
+# 日誌和監控
+loguru>=0.7.0                # 增強日誌記錄
+rich>=13.0.0                 # 美化終端輸出
+prometheus-client>=0.19.0    # Prometheus 指標導出
+
+# 異步支持
+asyncio>=3.4.3               # 異步 I/O
+aiohttp>=3.9.0               # 異步 HTTP 客戶端
+asyncpg>=0.29.0              # 異步 PostgreSQL 驅動
+
+# 快取
+redis>=5.0.0                 # Redis 客戶端
+diskcache>=5.6.0             # 磁盤快取
+
+# 配置和部署
+pyyaml>=6.0.0                # YAML 配置文件支持
+toml>=0.10.2                 # TOML 配置文件支持
+click>=8.1.0                 # CLI 工具構建
+
+# 測試 (開發依賴)
+pytest>=7.4.0                # 測試框架
+pytest-asyncio>=0.21.0       # 異步測試支持
+pytest-cov>=4.1.0            # 測試覆蓋率
+pytest-mock>=3.12.0          # Mock 支持
+
+# 代碼質量 (開發依賴)
+black>=23.0.0                # 代碼格式化
+flake8>=6.1.0                # 代碼檢查
+mypy>=1.7.0                  # 類型檢查
+isort>=5.13.0                # Import 排序
+
+# 文檔 (開發依賴)
+sphinx>=7.2.0                # 文檔生成
+sphinx-rtd-theme>=2.0.0      # Read the Docs 主題
+
+# Docker 支持
+docker>=7.0.0                # Docker Python SDK
+docker-compose>=1.29.0       # Docker Compose Python API
+
+# 安全
+cryptography>=41.0.0         # 加密庫
+python-jose>=3.3.0           # JWT 處理
+passlib>=1.7.4               # 密碼哈希

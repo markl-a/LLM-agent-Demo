@@ -51,7 +51,7 @@
 | **RAG技術** | - | ✅ 完整 | 基礎RAG、多模態RAG、進階檢索 |
 | **向量數據庫** | - | ✅ 完整 | Chroma, FAISS, Pinecone, Qdrant |
 
-🎉 **2025 年 12 月最新更新**: 55 個 AI Agent 框架全面覆蓋！**390+ 個完整示例**！
+🎉 **2025 年 12 月最新更新**: 60 個 AI Agent 框架全面覆蓋！**440+ 個完整示例**！
 
 ## 🔥 快速導航
 
@@ -60,7 +60,7 @@
 - [📊 項目完成總結](PROJECT_SUMMARY.md) - 完整的項目概覽和統計
 - [🤝 貢獻指南](CONTRIBUTING.md) - 如何為項目貢獻
 
-### 🆕 新框架示例 (390+ 個示例)
+### 🆕 新框架示例 (440+ 個示例)
 
 | 框架 | 示例數 | 適用場景 | README | 快速開始 |
 |------|--------|---------|--------|---------|
@@ -99,6 +99,11 @@
 | [Outlines](53.Outlines/) | 10 🆕 | 結構化生成 | [查看](53.Outlines/README.md) | JSON/CFG 約束 |
 | [Strands-Agents](54.Strands-Agents/) | 10 🆕 | AWS Agent SDK | [查看](54.Strands-Agents/README.md) | 企業級，Bedrock |
 | [Guidance](55.Guidance/) | 10 🆕 | LLM 控制 | [查看](55.Guidance/README.md) | 受控解碼，90% 降錯 |
+| [Langfuse](56.Langfuse/) | 10 🆕 | LLM 可觀測性 | [查看](56.Langfuse/README.md) | 開源，追蹤評估 |
+| [Aider](57.Aider/) | 10 🆕 | 終端編程助手 | [查看](57.Aider/README.md) | 多文件，Git 整合 |
+| [Continue](58.Continue/) | 10 🆕 | IDE 編程助手 | [查看](58.Continue/README.md) | 開源，20K+ Stars |
+| [Composio](59.Composio/) | 10 🆕 | 工具整合平台 | [查看](59.Composio/README.md) | 250+ 應用整合 |
+| [Helicone](60.Helicone/) | 10 🆕 | AI 網關 | [查看](60.Helicone/README.md) | 路由，快取，限流 |
 
 💡 **提示**: 所有示例都包含完整代碼和詳細中文註釋！
 
@@ -108,12 +113,12 @@
 
 | 統計項 | 數量 |
 |--------|------|
-| 🎯 **支持框架** | 55 個 |
-| 📝 **完整示例** | 390+ 個 |
-| 📄 **代碼行數** | 150,000+ 行 |
-| 📚 **文檔字數** | 300,000+ 字 |
-| 🎓 **教程數量** | 180+ 個 |
-| 🌟 **覆蓋場景** | 350+ 個 |
+| 🎯 **支持框架** | 60 個 |
+| 📝 **完整示例** | 440+ 個 |
+| 📄 **代碼行數** | 180,000+ 行 |
+| 📚 **文檔字數** | 350,000+ 字 |
+| 🎓 **教程數量** | 200+ 個 |
+| 🌟 **覆蓋場景** | 400+ 個 |
 
 </div>
 
@@ -490,6 +495,11 @@ jupyter notebook
 | **Outlines** 🔥 | 結構化生成 | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
 | **Strands Agents** 🔥 | AWS Agent | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
 | **Guidance** 🔥 | LLM 控制 | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **Langfuse** 🔥 | LLM 可觀測性 | 中 | ⭐⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **Aider** 🔥 | 終端編程 | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **Continue** 🔥 | IDE 助手 | 低-中 | ⭐⭐⭐⭐ | 較低 | ⭐⭐⭐⭐ |
+| **Composio** 🔥 | 工具整合 | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **Helicone** 🔥 | AI 網關 | 低 | ⭐⭐⭐⭐ | 極低 | ⭐⭐⭐⭐⭐ |
 
 ### 選擇建議
 
@@ -517,6 +527,10 @@ jupyter notebook
 - **LLM 網關**: LiteLLM
 - **AWS 生態**: Strands Agents
 - **Microsoft 生態**: MS Agent Framework
+- **LLM 可觀測性**: Langfuse、Helicone
+- **工具整合**: Composio
+- **終端編程**: Aider
+- **IDE 編程助手**: Continue
 
 ## 💼 實際應用案例
 
@@ -741,6 +755,11 @@ jupyter notebook
 - [x] Outlines 結構化生成 🔥🆕
 - [x] Strands Agents AWS SDK 🔥🆕
 - [x] Guidance LLM 控制 🔥🆕
+- [x] Langfuse LLM 可觀測性 🔥🆕
+- [x] Aider 終端編程助手 🔥🆕
+- [x] Continue IDE 編程助手 🔥🆕
+- [x] Composio 工具整合平台 🔥🆕
+- [x] Helicone AI 網關 🔥🆕
 - [ ] 更多實際應用案例
 - [ ] 視頻教程
 - [ ] 英文版本
