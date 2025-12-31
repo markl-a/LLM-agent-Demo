@@ -51,7 +51,7 @@
 | **RAG技術** | - | ✅ 完整 | 基礎RAG、多模態RAG、進階檢索 |
 | **向量數據庫** | - | ✅ 完整 | Chroma, FAISS, Pinecone, Qdrant |
 
-🎉 **2025 年新增**: 7 個最熱門的 AI Agent 框架全面覆蓋！**140 個完整示例**！
+🎉 **2025 年 12 月最新更新**: 38 個 AI Agent 框架全面覆蓋！**220+ 個完整示例**！
 
 ## 🔥 快速導航
 
@@ -60,7 +60,7 @@
 - [📊 項目完成總結](PROJECT_SUMMARY.md) - 完整的項目概覽和統計
 - [🤝 貢獻指南](CONTRIBUTING.md) - 如何為項目貢獻
 
-### 🆕 新框架示例 (140 個示例)
+### 🆕 新框架示例 (220+ 個示例)
 
 | 框架 | 示例數 | 適用場景 | README | 快速開始 |
 |------|--------|---------|--------|---------|
@@ -72,6 +72,17 @@
 | [LangGraph](17.LangGraph/) | 20 ✅ | 狀態管理 | [查看](17.LangGraph/README.md) | [01_狀態圖基礎.py](17.LangGraph/01_狀態圖基礎.py) |
 | [CrewAI](18.CrewAI/) | 20 ✅ | 角色扮演 | [查看](18.CrewAI/README.md) | [01_快速開始.py](18.CrewAI/01_快速開始.py) |
 
+### 🔥 2025 年 12 月最新新增框架
+
+| 框架 | 示例數 | 適用場景 | README | 說明 |
+|------|--------|---------|--------|------|
+| [Agent-S](33.Agent-S/) | 12 🆕 | 電腦使用 Agent | [查看](33.Agent-S/README.md) | ICLR 2025，超越人類水平 (72.6%) |
+| [CopilotKit](34.CopilotKit/) | 10 🆕 | React AI 整合 | [查看](34.CopilotKit/README.md) | 26.8K GitHub Stars |
+| [n8n](35.n8n/) | 10 🆕 | 工作流自動化 | [查看](35.n8n/README.md) | 150K+ Stars，400+ 整合 |
+| [Google ADK](36.Google-ADK/) | 10 🆕 | Gemini/Vertex AI | [查看](36.Google-ADK/README.md) | Google 官方 Agent 框架 |
+| [SuperAGI](37.SuperAGI/) | 10 🆕 | 企業級 Agent | [查看](37.SuperAGI/README.md) | 生產就緒，圖形界面 |
+| [Camel-AI](38.Camel-AI/) | 10 🆕 | 多 Agent 研究 | [查看](38.Camel-AI/README.md) | 角色扮演，社會模擬 |
+
 💡 **提示**: 所有示例都包含完整代碼和詳細中文註釋！
 
 ### 📊 項目統計
@@ -80,12 +91,12 @@
 
 | 統計項 | 數量 |
 |--------|------|
-| 🎯 **支持框架** | 21 個 |
-| 📝 **完整示例** | 160+ 個 |
-| 📄 **代碼行數** | 20,000+ 行 |
-| 📚 **文檔字數** | 75,000+ 字 |
-| 🎓 **教程數量** | 80+ 個 |
-| 🌟 **覆蓋場景** | 160+ 個 |
+| 🎯 **支持框架** | 38 個 |
+| 📝 **完整示例** | 220+ 個 |
+| 📄 **代碼行數** | 50,000+ 行 |
+| 📚 **文檔字數** | 150,000+ 字 |
+| 🎓 **教程數量** | 100+ 個 |
+| 🌟 **覆蓋場景** | 200+ 個 |
 
 </div>
 
@@ -637,6 +648,12 @@ jupyter notebook
 - [x] Goose 開發者 Agent 🔥
 - [x] Rasa 對話式 AI 框架 🔥
 - [x] Magentic-One 多 Agent 系統 🔥
+- [x] Agent-S 電腦使用 Agent 🔥🆕
+- [x] CopilotKit React AI 整合 🔥🆕
+- [x] n8n 工作流自動化 🔥🆕
+- [x] Google ADK Gemini 框架 🔥🆕
+- [x] SuperAGI 企業級 Agent 🔥🆕
+- [x] Camel-AI 多 Agent 研究 🔥🆕
 - [ ] 更多實際應用案例
 - [ ] 視頻教程
 - [ ] 英文版本
@@ -646,4 +663,4 @@ jupyter notebook
 
 ⭐ 如果這個專案對你有幫助，請給我們一個 Star！
 
-📖 持續更新中... 最後更新: 2025-12-22
+📖 持續更新中... 最後更新: 2025-12-31

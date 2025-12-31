@@ -1,0 +1,73 @@
+# Google ADK (Agent Development Kit) 依賴包
+
+# 核心依賴
+google-adk>=1.0.0
+google-generativeai>=0.3.0
+google-cloud-aiplatform>=1.38.0
+
+# Google Cloud SDK
+google-cloud-core>=2.4.0
+google-cloud-storage>=2.14.0
+google-auth>=2.25.0
+google-auth-oauthlib>=1.2.0
+google-auth-httplib2>=0.2.0
+
+# Vertex AI 相關
+vertexai>=1.38.0
+google-cloud-bigquery>=3.13.0
+google-cloud-logging>=3.8.0
+
+# A2A 協議支持
+grpcio>=1.60.0
+protobuf>=4.25.0
+
+# 數據處理
+numpy>=1.24.0
+pandas>=2.1.0
+pydantic>=2.5.0
+
+# 異步支持
+asyncio>=3.4.3
+aiohttp>=3.9.0
+
+# 記憶和緩存
+redis>=5.0.0
+diskcache>=5.6.0
+
+# 工具和實用程序
+python-dotenv>=1.0.0
+pyyaml>=6.0.0
+click>=8.1.0
+rich>=13.7.0
+
+# HTTP 客戶端
+requests>=2.31.0
+httpx>=0.25.0
+
+# 監控和日誌
+opentelemetry-api>=1.21.0
+opentelemetry-sdk>=1.21.0
+opentelemetry-instrumentation>=0.42b0
+
+# 安全
+cryptography>=41.0.0
+pyjwt>=2.8.0
+
+# 測試工具
+pytest>=7.4.0
+pytest-asyncio>=0.21.0
+pytest-mock>=3.12.0
+
+# 開發工具
+black>=23.12.0
+flake8>=6.1.0
+mypy>=1.7.0
+isort>=5.13.0
+
+# 文檔生成
+sphinx>=7.2.0
+sphinx-rtd-theme>=2.0.0
+
+# 性能分析
+memory-profiler>=0.61.0
+py-spy>=0.3.14
