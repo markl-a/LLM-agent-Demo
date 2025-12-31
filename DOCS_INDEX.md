@@ -1,0 +1,99 @@
+# 📚 文檔導航索引
+
+> 快速找到您需要的文檔資源
+
+---
+
+## 🚀 新手入門（必讀）
+
+| 文檔 | 說明 | 預計時間 |
+|------|------|----------|
+| [📘 快速開始指南](QUICKSTART.md) | 5分鐘開始第一個示例 | 5 分鐘 |
+| [📦 安裝指南](INSTALL.md) | 環境設置（本地/Docker/Conda） | 10-30 分鐘 |
+| [📖 項目 README](README.md) | 項目完整介紹 | 15 分鐘 |
+
+---
+
+## 🎓 學習路徑
+
+### 初學者路線（1-2 週）
+1. **基礎概念** → [0.從AI到LLM基礎](0.從AI到LLM基礎/)
+2. **第一個框架** → [16.OpenAI Swarm](16.OpenAI%20Swarm/) （最簡單）
+3. **框架選擇** → [10.框架對比與選擇指南](10.框架對比與選擇指南/)
+
+### 進階路線（2-4 週）
+1. **RAG 技術** → [2.Multi_modal_RAG](2.Multi_modal_RAG/)
+2. **多 Agent** → [8.CrewAI](8.CrewAI/) 或 [7.AutoGen](7.AutoGen/)
+3. **狀態管理** → [17.LangGraph](17.LangGraph/)
+
+### 專家路線（4+ 週）
+1. **企業級框架** → [12.Semantic Kernel](12.Semantic%20Kernel/)
+2. **生產部署** → [14.Haystack](14.Haystack/)
+3. **實際應用** → [11.實際應用案例](11.實際應用案例/)
+
+---
+
+## 📂 框架分類導航
+
+### 🔵 核心框架
+| 框架 | 難度 | 適用場景 |
+|------|------|----------|
+| [LangChain](1.LangchainDemos/) | ⭐⭐ | 通用 LLM 應用開發 |
+| [LlamaIndex](6.LlamaIndex/) | ⭐⭐ | 數據索引和查詢 |
+| [AutoGen](7.AutoGen/) | ⭐⭐⭐ | 多 Agent 對話 |
+| [CrewAI](8.CrewAI/) | ⭐⭐ | 角色扮演協作 |
+
+### 🟢 企業級框架
+| 框架 | 難度 | 適用場景 |
+|------|------|----------|
+| [Semantic Kernel](12.Semantic%20Kernel/) | ⭐⭐⭐ | Microsoft 生態整合 |
+| [Haystack](14.Haystack/) | ⭐⭐⭐ | 企業 RAG 系統 |
+| [Dify](19.Dify/) | ⭐ | 低代碼 AI 平台 |
+
+### 🟡 新興框架（2025）
+| 框架 | 難度 | 適用場景 |
+|------|------|----------|
+| [OpenAI Swarm](16.OpenAI%20Swarm/) | ⭐ | 輕量多 Agent |
+| [PydanticAI](26.PydanticAI/) | ⭐⭐ | 類型安全 Agent |
+| [Agno](25.Agno/) | ⭐⭐ | 高性能 Agent |
+
+### 🔴 編碼輔助
+| 框架 | 難度 | 適用場景 |
+|------|------|----------|
+| [Aider](57.Aider/) | ⭐⭐ | AI 編程助手 |
+| [Continue](58.Continue/) | ⭐ | IDE 整合 |
+| [SWE-Agent](49.SWE-Agent/) | ⭐⭐⭐ | 軟體工程 Agent |
+
+---
+
+## 📋 參考文檔
+
+| 文檔 | 說明 |
+|------|------|
+| [API 指南](API_GUIDE.md) | API 使用說明 |
+| [貢獻指南](CONTRIBUTING.md) | 如何貢獻代碼 |
+| [更新日誌](CHANGELOG_2025.md) | 版本更新記錄 |
+| [常見問題](FAQ.md) | 常見問題解答 |
+
+---
+
+## 🔧 技術文檔（進階）
+
+| 文檔 | 說明 |
+|------|------|
+| [架構優化總結](ARCHITECTURE_OPTIMIZATION_SUMMARY.md) | 項目架構設計 |
+| [緩存優化報告](CACHE_OPTIMIZATION_REPORT.md) | 性能優化 |
+| [項目改進分析](PROJECT_IMPROVEMENT_ANALYSIS.md) | 改進建議 |
+
+---
+
+## 🆘 需要幫助？
+
+1. **查看 FAQ** → [FAQ.md](FAQ.md)
+2. **搜索問題** → 使用 `Ctrl+F` 在 README 中搜索
+3. **提交 Issue** → [GitHub Issues](https://github.com/your-repo/issues)
+4. **參與討論** → [Discussions](https://github.com/your-repo/discussions)
+
+---
+
+*最後更新：2025-12-31*

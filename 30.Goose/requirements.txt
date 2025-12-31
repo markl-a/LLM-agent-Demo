@@ -1,0 +1,23 @@
+# Goose 框架依赖配置
+# AI Agent 框架核心依赖
+
+# Goose AI 核心库 - 用于 AI Agent 开发
+goose-ai>=0.5.0
+
+# OpenAI API 客户端 - 集成 OpenAI 模型和 API
+openai>=1.50.0
+
+# Anthropic Claude API 客户端 - 集成 Claude 模型
+anthropic>=0.37.0
+
+# 环境变量管理 - 安全存储和加载配置信息
+python-dotenv>=1.0.0
+
+# 终端输出美化 - 提高命令行界面的可读性
+rich>=13.0.0
+
+# 命令行工具框架 - 简化 CLI 应用开发
+click>=8.0.0
+
+# 数据验证和序列化 - 提供强大的数据校验功能
+pydantic>=2.0.0

@@ -1,0 +1,24 @@
+# vLLM 核心依賴
+vllm>=0.4.0
+
+# PyTorch 深度學習框架
+torch>=2.0.0
+
+# Transformers 模型庫
+transformers>=4.40.0
+
+# 分佈式計算框架
+ray>=2.9.0
+
+# OpenAI 客戶端（用於兼容性測試）
+openai>=1.50.0
+
+# 環境變量管理
+python-dotenv>=1.0.0
+
+# 其他有用的依賴
+numpy>=1.24.0
+requests>=2.31.0
+fastapi>=0.109.0
+uvicorn>=0.27.0
+pydantic>=2.0.0

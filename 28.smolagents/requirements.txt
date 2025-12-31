@@ -1,0 +1,23 @@
+# Smolagents AI Agent 框架依赖
+# 这是一个轻量级的 AI Agent 开发框架
+
+# 核心框架：smolagents - 轻量级 AI Agent 框架
+smolagents>=1.0.0
+
+# 深度学习模型库：transformers - Hugging Face 的变换器模型库
+transformers>=4.40.0
+
+# Hugging Face 生态工具：huggingface-hub - 访问和管理 Hugging Face 模型仓库
+huggingface-hub>=0.20.0
+
+# API 客户端：openai - OpenAI 官方 Python 客户端库
+openai>=1.50.0
+
+# 环境变量管理：python-dotenv - 从 .env 文件加载环境变量
+python-dotenv>=1.0.0
+
+# 终端输出美化：rich - 用于在终端输出富文本和漂亮的格式
+rich>=13.0.0
+
+# HTTP 请求库：requests - Python HTTP 客户端库
+requests>=2.31.0

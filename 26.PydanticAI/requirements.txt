@@ -1,0 +1,25 @@
+# PydanticAI 項目依賴
+
+# PydanticAI 核心框架 - AI 代理開發工具
+pydantic-ai>=0.1.0
+
+# Pydantic 數據驗證庫 - 用於數據模型驗證和序列化
+pydantic>=2.0.0
+
+# OpenAI API 客戶端 - 與 OpenAI API 交互
+openai>=1.50.0
+
+# Anthropic API 客戶端 - 與 Anthropic Claude API 交互
+anthropic>=0.37.0
+
+# HTTP 客戶端庫 - 處理 HTTP 請求
+httpx>=0.25.0
+
+# 環境變量加載工具 - 從 .env 文件加載配置
+python-dotenv>=1.0.0
+
+# 終端美化庫 - 增強控制台輸出效果
+rich>=13.0.0
+
+# 類型提示擴展 - 提供額外的類型提示支持
+typing-extensions>=4.0.0

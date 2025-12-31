@@ -1,0 +1,23 @@
+# OpenAI Agents SDK 項目依賴
+# Python 3.8+ 需求
+
+# OpenAI Agents SDK - AI 智能代理框架
+openai-agents>=0.1.0
+
+# OpenAI Python 客戶端庫 - 與 OpenAI API 進行交互
+openai>=1.50.0
+
+# Pydantic - 數據驗證和設置管理
+pydantic>=2.0.0
+
+# HTTPX - 異步 HTTP 客戶端
+httpx>=0.25.0
+
+# Python Dotenv - 環境變量管理
+python-dotenv>=1.0.0
+
+# Rich - 終端輸出美化和進度條
+rich>=13.0.0
+
+# Asyncio - 異步編程支持（標準庫，版本號供參考）
+asyncio>=3.4.3

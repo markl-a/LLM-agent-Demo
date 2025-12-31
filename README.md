@@ -46,12 +46,10 @@
 | **Haystack** | 2.0+ | 🆕 最新 | RAG 原生的企業級框架 |
 | **AutoGPT** | Latest | 🆕 最新 | 自主 AI Agent 框架 |
 | **OpenAI Swarm** | Latest | 🆕 最新 | 輕量級多 Agent 協作框架 |
-| **LangGraph** | 0.2+ | 🆕 最新 | 狀態管理與工作流編排框架 |
-| **CrewAI** | 0.28+ | 🆕 最新 | 角色扮演 AI Agent 協作框架 |
 | **RAG技術** | - | ✅ 完整 | 基礎RAG、多模態RAG、進階檢索 |
 | **向量數據庫** | - | ✅ 完整 | Chroma, FAISS, Pinecone, Qdrant |
 
-🎉 **2025 年 12 月最新更新**: 60 個 AI Agent 框架全面覆蓋！**440+ 個完整示例**！
+🎉 **2025 年 12 月最新更新**: 60 個 AI Agent 框架全面覆蓋！**450+ 個完整示例**！
 
 ## 🔥 快速導航
 
@@ -70,7 +68,7 @@
 | [AutoGPT](15.AutoGPT/) | 20 ✅ | 自主 Agent | [查看](15.AutoGPT/README.md) | [01_自主Agent.py](15.AutoGPT/01_自主Agent.py) |
 | [OpenAI Swarm](16.OpenAI%20Swarm/) | 20 ✅ | 輕量協作 | [查看](16.OpenAI%20Swarm/README.md) | [01_多Agent協作.py](16.OpenAI%20Swarm/01_多Agent協作.py) |
 | [LangGraph](17.LangGraph/) | 20 ✅ | 狀態管理 | [查看](17.LangGraph/README.md) | [01_狀態圖基礎.py](17.LangGraph/01_狀態圖基礎.py) |
-| [CrewAI](18.CrewAI/) | 20 ✅ | 角色扮演 | [查看](18.CrewAI/README.md) | [01_快速開始.py](18.CrewAI/01_快速開始.py) |
+| [CrewAI](8.CrewAI/) | 20 ✅ | 角色扮演 | [查看](8.CrewAI/README.md) | [0.快速開始.ipynb](8.CrewAI/0.快速開始.ipynb) |
 
 ### 🔥 2025 年 12 月最新新增框架
 
@@ -114,10 +112,10 @@
 | 統計項 | 數量 |
 |--------|------|
 | 🎯 **支持框架** | 60 個 |
-| 📝 **完整示例** | 440+ 個 |
-| 📄 **代碼行數** | 180,000+ 行 |
-| 📚 **文檔字數** | 350,000+ 字 |
-| 🎓 **教程數量** | 200+ 個 |
+| 📝 **完整示例** | 450+ 個 |
+| 📄 **代碼行數** | 190,000+ 行 |
+| 📚 **文檔字數** | 360,000+ 字 |
+| 🎓 **教程數量** | 210+ 個 |
 | 🌟 **覆蓋場景** | 400+ 個 |
 
 </div>

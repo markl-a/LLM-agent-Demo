@@ -1,0 +1,6 @@
+pandasai>=2.0.0
+pandas>=2.0.0
+openai>=1.50.0
+sqlalchemy>=2.0.0
+matplotlib>=3.7.0
+python-dotenv>=1.0.0

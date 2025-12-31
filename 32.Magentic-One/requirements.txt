@@ -1,0 +1,24 @@
+# Magentic-One 项目依赖文件
+# Python AI Agent 框架依赖配置
+
+# AutoGen 核心库 - 用于多智能体编排和通信
+autogen-agentchat>=0.4.0
+autogen-ext>=0.4.0
+
+# OpenAI API 客户端 - 与 OpenAI 模型集成
+openai>=1.50.0
+
+# Anthropic API 客户端 - 与 Claude 模型集成
+anthropic>=0.37.0
+
+# 环境变量管理 - 安全管理 API 密钥和配置
+python-dotenv>=1.0.0
+
+# 浏览器自动化 - 网页爬取和自动化交互
+playwright>=1.40.0
+
+# 终端输出美化 - 增强命令行界面显示效果
+rich>=13.0.0
+
+# 数据验证和序列化 - 强类型数据模型定义
+pydantic>=2.0.0
