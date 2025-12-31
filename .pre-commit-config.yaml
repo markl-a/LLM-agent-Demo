@@ -37,24 +37,7 @@ repos:
       - id: check-docstring-first
         name: 檢查 docstring 位置
 
-  # Python 代碼格式化
-  - repo: https://github.com/psf/black
-    rev: 24.10.0
-    hooks:
-      - id: black
-        name: Black 代碼格式化
-        language_version: python3.11
-        args: ['--line-length=100']
-
-  # Import 排序
-  - repo: https://github.com/pycqa/isort
-    rev: 5.13.2
-    hooks:
-      - id: isort
-        name: isort 導入排序
-        args: ['--profile', 'black', '--line-length', '100']
-
-  # Ruff Linting (快速的 Python linter)
+  # Ruff - 統一的 linter 和 formatter（取代 Black、isort、flake8）
   - repo: https://github.com/astral-sh/ruff-pre-commit
     rev: v0.8.4
     hooks:
@@ -64,25 +47,13 @@ repos:
       - id: ruff-format
         name: Ruff 格式化
 
-  # Flake8 代碼檢查
-  - repo: https://github.com/pycqa/flake8
-    rev: 7.1.1
-    hooks:
-      - id: flake8
-        name: Flake8 代碼檢查
-        args: ['--max-line-length=100', '--extend-ignore=E203,W503']
-        additional_dependencies:
-          - flake8-docstrings
-          - flake8-bugbear
-          - flake8-comprehensions
-
   # Mypy 類型檢查
   - repo: https://github.com/pre-commit/mirrors-mypy
     rev: v1.13.0
     hooks:
       - id: mypy
         name: Mypy 類型檢查
-        args: ['--config-file=mypy.ini']
+        args: ['--config-file=mypy.ini', '--ignore-missing-imports']
         additional_dependencies:
           - types-requests
           - types-PyYAML
@@ -113,13 +84,9 @@ repos:
   - repo: https://github.com/nbQA-dev/nbQA
     rev: 1.9.1
     hooks:
-      - id: nbqa-black
-        name: Jupyter Notebook Black 格式化
-      - id: nbqa-isort
-        name: Jupyter Notebook isort 排序
-      - id: nbqa-flake8
-        name: Jupyter Notebook Flake8 檢查
-        args: ['--max-line-length=100', '--extend-ignore=E203,W503']
+      - id: nbqa-ruff
+        name: Jupyter Notebook Ruff 檢查
+        args: ['--fix']
 
   # Jupyter Notebook 輸出清理
   - repo: https://github.com/kynan/nbstripout

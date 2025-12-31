@@ -1,0 +1,220 @@
+# LLM Agent Demo - .dockerignore
+# 定義哪些文件和目錄不應該被複製到 Docker 鏡像中
+
+# ==================== Git 相關 ====================
+.git
+.gitignore
+.gitattributes
+.github
+
+# ==================== 環境和配置 ====================
+.env
+.env.*
+!.env.example
+*.env
+credentials.json
+secrets.json
+*.key
+*.pem
+*.crt
+
+# ==================== Python 相關 ====================
+# 虛擬環境
+venv/
+env/
+.venv/
+ENV/
+env.bak/
+venv.bak/
+__pypackages__/
+
+# 字節碼和緩存
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+*.egg
+dist/
+build/
+*.whl
+
+# 測試和覆蓋率
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+.hypothesis/
+.cache
+
+# 類型檢查
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+.pytype/
+
+# Linting
+.ruff_cache/
+.flake8
+.pylintrc
+
+# ==================== IDE 和編輯器 ====================
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Sublime Text
+*.sublime-project
+*.sublime-workspace
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+.\#*
+
+# JetBrains
+.idea/
+*.iml
+
+# ==================== Jupyter 相關 ====================
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+Untitled*.ipynb
+
+# ==================== 操作系統 ====================
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# ==================== 日誌和輸出 ====================
+logs/
+*.log
+*.out
+*.err
+log/
+
+# 臨時輸出
+outputs/
+tmp/
+temp/
+*.tmp
+
+# ==================== 數據文件 ====================
+# 大型數據文件（根據需要調整）
+data/
+*.csv
+*.xlsx
+*.db
+*.sqlite
+*.sqlite3
+
+# 向量數據庫數據
+chroma_db/
+chromadb/
+*.index
+*.faiss
+
+# ==================== Docker 相關 ====================
+docker-compose.override.yml
+.dockerignore
+Dockerfile*
+!Dockerfile
+
+# ==================== 文檔和說明 ====================
+# 保留重要文檔，但排除大型或臨時文檔
+*.md
+!README.md
+!CHANGELOG.md
+docs/
+*.txt
+!requirements.txt
+!requirements-*.txt
+
+# ==================== 項目特定 ====================
+# 封面圖片（很大）
+cover.png
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.svg
+!docs/**/*.png
+!docs/**/*.jpg
+
+# 測試文件
+tests/
+test_*.py
+*_test.py
+
+# 臨時文件
+*.bak
+*.backup
+*.swp
+*.swo
+
+# 緩存和臨時目錄
+.cache/
+cache/
+.temp/
+.tmp/
+
+# ==================== CI/CD ====================
+.travis.yml
+.gitlab-ci.yml
+.circleci/
+azure-pipelines.yml
+.pre-commit-config.yaml
+
+# ==================== 其他 ====================
+# 鎖文件（通常不需要複製）
+poetry.lock
+Pipfile.lock
+package-lock.json
+yarn.lock
+
+# Node modules（如果有前端部分）
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# 許可證和貢獻指南
+LICENSE
+CONTRIBUTING.md
+
+# 項目改進和分析文檔
+PROJECT_*.md
+OPTIMIZATION_*.txt
+IMPROVEMENT_*.md
+MAKEFILE_*.md
+ARCHITECTURE_*.md
+CACHE_*.md
+DEPENDENCY_*.md

@@ -1,0 +1,45 @@
+# Gradio 核心依賴
+gradio>=4.0.0
+
+# LLM 提供商
+openai>=1.50.0
+
+# 圖像處理
+pillow>=10.0.0
+opencv-python>=4.8.0
+
+# 音頻處理
+numpy>=1.24.0
+scipy>=1.11.0
+
+# 數據處理
+pandas>=2.0.0
+
+# 圖表繪製
+matplotlib>=3.7.0
+plotly>=5.17.0
+
+# HuggingFace 整合
+transformers>=4.35.0
+torch>=2.1.0
+
+# 環境變量管理
+python-dotenv>=1.0.0
+
+# 終端美化輸出
+rich>=13.0.0
+
+# HTTP 請求
+requests>=2.31.0
+httpx>=0.25.0
+
+# 文件處理
+pypdf>=4.0.0
+python-multipart>=0.0.6
+
+# 異步支持
+aiofiles>=24.0.0
+
+# 部署相關（可選）
+uvicorn>=0.25.0
+fastapi>=0.104.0

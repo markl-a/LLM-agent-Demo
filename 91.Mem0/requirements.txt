@@ -1,0 +1,7 @@
+mem0ai>=0.1.0
+openai>=1.50.0
+python-dotenv>=1.0.0
+rich>=13.0.0
+qdrant-client>=1.7.0
+numpy>=1.24.0
+pandas>=2.0.0

@@ -1,0 +1,39 @@
+# Flower 聯邦學習框架依賴
+
+# 核心框架
+flwr>=1.7.0
+
+# 深度學習框架
+torch>=2.0.0
+torchvision>=0.15.0
+
+# 數據處理
+numpy>=1.24.0
+pandas>=2.0.0
+
+# 環境配置
+python-dotenv>=1.0.0
+
+# 終端美化輸出
+rich>=13.0.0
+
+# 隱私保護
+opacus>=1.4.0  # 差分隱私
+
+# 數據可視化
+matplotlib>=3.7.0
+tensorboard>=2.13.0
+
+# 網絡通信
+grpcio>=1.54.0
+protobuf>=4.23.0
+
+# 序列化
+pickle5>=0.0.12
+
+# 日誌
+loguru>=0.7.0
+
+# 測試
+pytest>=7.3.0
+pytest-cov>=4.1.0

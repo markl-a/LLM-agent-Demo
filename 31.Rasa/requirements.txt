@@ -1,0 +1,22 @@
+# Rasa 框架依賴
+
+# Rasa 核心框架 - 開源對話AI框架
+rasa>=3.6.0
+
+# Rasa SDK - Rasa 動作服務端點
+rasa-sdk>=3.6.0
+
+# spaCy - 自然語言處理庫，用於文本解析和NER
+spacy>=3.7.0
+
+# TensorFlow - 深度學習框架，支持神經網絡模型訓練
+tensorflow>=2.15.0
+
+# python-dotenv - 環境變量管理工具，用於載入 .env 文件
+python-dotenv>=1.0.0
+
+# requests - HTTP 請求庫，用於API調用
+requests>=2.31.0
+
+# PyYAML - YAML 格式文件解析器，用於讀取配置文件
+pyyaml>=6.0.0

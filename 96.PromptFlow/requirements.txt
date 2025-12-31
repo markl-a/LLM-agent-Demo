@@ -1,0 +1,12 @@
+promptflow>=1.8.0
+promptflow-tools>=1.4.0
+promptflow-azure>=1.8.0
+openai>=1.50.0
+azure-ai-ml>=1.12.0
+azure-identity>=1.15.0
+python-dotenv>=1.0.0
+rich>=13.0.0
+pyyaml>=6.0.0
+jinja2>=3.1.0
+pandas>=2.0.0
+numpy>=1.24.0

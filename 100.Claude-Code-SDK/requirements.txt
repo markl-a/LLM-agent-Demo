@@ -1,0 +1,23 @@
+# Claude Code SDK 核心依賴
+anthropic>=0.18.0
+
+# 工具和實用程序
+rich>=13.0.0
+python-dotenv>=1.0.0
+pydantic>=2.0.0
+
+# 異步支持
+aiohttp>=3.9.0
+httpx>=0.25.0
+
+# 文件處理
+pillow>=10.0.0
+pypdf>=3.17.0
+python-magic>=0.4.27
+
+# MCP 協議支持
+mcp>=0.1.0
+
+# 可選：代碼執行
+jupyter>=1.0.0
+ipykernel>=6.26.0

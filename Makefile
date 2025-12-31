@@ -138,9 +138,8 @@ benchmark: ## 運行性能基準測試
 
 ##@ 代碼質量
 
-lint: ## 運行所有 linting 檢查
-	@echo "$(GREEN)運行 linting 檢查...$(NC)"
-	$(PYTHON) -m flake8 .
+lint: ## 運行 Ruff linting 檢查
+	@echo "$(GREEN)運行 Ruff linting 檢查...$(NC)"
 	$(PYTHON) -m ruff check .
 	@echo "$(GREEN)✓ Linting 完成$(NC)"
 
@@ -149,16 +148,14 @@ lint-fix: ## 自動修復 linting 問題
 	$(PYTHON) -m ruff check --fix .
 	@echo "$(GREEN)✓ 自動修復完成$(NC)"
 
-format: ## 格式化代碼
+format: ## 使用 Ruff 格式化代碼
 	@echo "$(GREEN)格式化代碼...$(NC)"
-	$(PYTHON) -m black .
-	$(PYTHON) -m isort .
+	$(PYTHON) -m ruff format .
 	@echo "$(GREEN)✓ 代碼格式化完成$(NC)"
 
 format-check: ## 檢查代碼格式（不修改）
 	@echo "$(GREEN)檢查代碼格式...$(NC)"
-	$(PYTHON) -m black --check .
-	$(PYTHON) -m isort --check-only .
+	$(PYTHON) -m ruff format --check .
 
 type-check: ## 運行類型檢查
 	@echo "$(GREEN)運行類型檢查...$(NC)"
@@ -169,6 +166,9 @@ security-check: ## 運行安全檢查
 	@echo "$(GREEN)運行安全檢查...$(NC)"
 	$(PYTHON) -m bandit -r . -f json -o bandit-report.json || true
 	@echo "$(GREEN)✓ 安全檢查完成（報告: bandit-report.json）$(NC)"
+
+check: lint test ## 運行 linting 和測試
+	@echo "$(GREEN)✓ 代碼檢查和測試完成$(NC)"
 
 check-all: format-check lint type-check security-check ## 運行所有檢查
 
@@ -467,3 +467,70 @@ rebuild: clean-all install-all ## 重新構建（清理並重新安裝）
 
 daily: pull install format test ## 每日開發流程（拉取、安裝、格式化、測試）
 	@echo "$(GREEN)✓ 每日開發流程完成$(NC)"
+
+# ==================== Docker 相關命令 ====================
+.PHONY: docker-build docker-up docker-down docker-restart docker-logs docker-shell docker-clean docker-dev
+
+docker-build:  ## 構建 Docker 鏡像
+	@echo "Building Docker images..."
+	docker-compose build
+
+docker-up:  ## 啟動 Docker 服務（生產模式）
+	@echo "Starting Docker services (production)..."
+	docker-compose up -d
+
+docker-dev:  ## 啟動 Docker 服務（開發模式）
+	@echo "Starting Docker services (development)..."
+	docker-compose -f docker-compose.yml -f docker-compose.dev.yml up -d
+
+docker-down:  ## 停止 Docker 服務
+	@echo "Stopping Docker services..."
+	docker-compose down
+
+docker-restart:  ## 重啟 Docker 服務
+	@echo "Restarting Docker services..."
+	docker-compose restart
+
+docker-logs:  ## 查看 Docker 日誌
+	docker-compose logs -f
+
+docker-shell:  ## 進入應用容器
+	docker-compose exec app bash
+
+docker-clean:  ## 清理 Docker 資源（保留數據卷）
+	@echo "Cleaning Docker resources..."
+	docker-compose down --rmi local
+	docker system prune -f
+
+docker-clean-all:  ## 清理所有 Docker 資源（包括數據卷）
+	@echo "⚠️  WARNING: This will delete all data!"
+	@read -p "Are you sure? [y/N] " -n 1 -r; \
+	echo; \
+	if [[ $$REPLY =~ ^[Yy]$$ ]]; then \
+		docker-compose down -v --rmi all; \
+		docker system prune -af; \
+	fi
+
+docker-status:  ## 查看 Docker 服務狀態
+	docker-compose ps
+
+docker-pull:  ## 拉取最新的基礎鏡像
+	docker-compose pull
+
+docker-health:  ## 運行健康檢查
+	docker-compose exec app python /healthcheck.py
+
+docker-ollama-pull:  ## 拉取 Ollama 模型
+	@read -p "Enter model name (e.g., llama2): " model; \
+	docker-compose exec ollama ollama pull $$model
+
+docker-ollama-list:  ## 列出 Ollama 模型
+	docker-compose exec ollama ollama list
+
+docker-backup:  ## 備份 Docker 數據卷
+	@echo "Backing up Docker volumes..."
+	@mkdir -p backups
+	docker run --rm -v llm-agent-demo_chroma-data:/data -v $$(pwd)/backups:/backup ubuntu tar czf /backup/chromadb-$$(date +%Y%m%d-%H%M%S).tar.gz /data
+	docker run --rm -v llm-agent-demo_ollama-data:/data -v $$(pwd)/backups:/backup ubuntu tar czf /backup/ollama-$$(date +%Y%m%d-%H%M%S).tar.gz /data
+	@echo "✓ Backups saved to ./backups/"
+

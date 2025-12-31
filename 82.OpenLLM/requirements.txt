@@ -1,0 +1,36 @@
+# OpenLLM 核心依賴
+openllm>=0.4.0
+
+# BentoML 服務框架
+bentoml>=1.2.0
+
+# PyTorch 深度學習框架
+torch>=2.0.0
+
+# Transformers 模型庫
+transformers>=4.40.0
+
+# 加速推理後端（可選）
+vllm>=0.4.0
+ctransformers>=0.2.27
+
+# HuggingFace 工具
+huggingface-hub>=0.20.0
+accelerate>=0.26.0
+
+# API 服務相關
+fastapi>=0.109.0
+uvicorn>=0.27.0
+pydantic>=2.0.0
+
+# 量化支持
+bitsandbytes>=0.41.0
+auto-gptq>=0.7.0
+
+# 環境變量管理
+python-dotenv>=1.0.0
+
+# 其他有用的依賴
+numpy>=1.24.0
+requests>=2.31.0
+tqdm>=4.66.0

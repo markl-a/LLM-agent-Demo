@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+dist/
+*.egg-info/
+
+# GraphRAG 相關
+data/
+output/
+cache/
+logs/
+*.graphml
+*.json
+*.png
+*.html
+
+# 環境變量
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 臨時文件
+*.tmp
+*.log

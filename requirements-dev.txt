@@ -6,6 +6,8 @@
 pytest>=8.3.0
 pytest-asyncio>=0.24.0
 pytest-cov>=6.0.0
+pytest-mock>=3.12.0
+pytest-timeout>=2.2.0
 
 # ==================== 代碼質量和格式化 ====================
 black>=24.10.0
