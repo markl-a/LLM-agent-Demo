@@ -1,0 +1,60 @@
+# PhiData 核心框架
+phidata>=2.5.0
+
+# AI 模型提供商
+openai>=1.50.0
+anthropic>=0.37.0
+
+# 搜索工具
+duckduckgo-search>=6.0.0
+
+# 網頁和文檔處理
+newspaper4k>=0.9.0
+beautifulsoup4>=4.12.0
+pypdf>=3.17.0
+python-docx>=1.1.0
+
+# 向量數據庫（可選）
+# pgvector>=0.2.0
+# qdrant-client>=1.7.0
+# chromadb>=0.4.0
+# pinecone-client>=3.0.0
+
+# 金融數據
+yfinance>=0.2.35
+
+# 數據處理
+pandas>=2.0.0
+numpy>=1.24.0
+
+# 環境變量管理
+python-dotenv>=1.0.0
+
+# HTTP 客戶端
+httpx>=0.25.0
+requests>=2.31.0
+
+# 異步支持
+asyncio>=3.4.3
+
+# 日誌和監控
+loguru>=0.7.0
+
+# 結構化輸出
+pydantic>=2.5.0
+
+# 圖像處理（多模態）
+pillow>=10.0.0
+
+# 數據可視化
+matplotlib>=3.8.0
+plotly>=5.18.0
+
+# SQL 數據庫
+sqlalchemy>=2.0.0
+
+# JSON 處理
+orjson>=3.9.0
+
+# 文本處理
+tiktoken>=0.5.0

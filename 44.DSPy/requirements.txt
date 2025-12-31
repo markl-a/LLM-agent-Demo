@@ -1,0 +1,32 @@
+# DSPy 核心依賴
+dspy-ai>=2.5.0
+
+# LLM 提供商
+openai>=1.50.0
+anthropic>=0.37.0
+
+# 向量數據庫和檢索
+chromadb>=0.5.0
+sentence-transformers>=3.0.0
+
+# 可選依賴（取消註釋以使用）
+# faiss-cpu>=1.7.4  # Facebook AI 相似性搜索
+# weaviate-client>=4.5.0  # Weaviate 向量數據庫
+# pinecone-client>=3.0.0  # Pinecone 向量數據庫
+# qdrant-client>=1.7.0  # Qdrant 向量數據庫
+
+# 優化和評估
+# optuna>=3.5.0  # 超參數優化
+# wandb>=0.16.0  # 實驗追蹤
+
+# 數據處理
+# pandas>=2.0.0
+# numpy>=1.24.0
+
+# 本地模型支援
+# ollama>=0.1.0
+# vllm>=0.2.0
+
+# 工具和實用程式
+# tqdm>=4.66.0
+# rich>=13.7.0

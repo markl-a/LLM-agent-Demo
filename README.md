@@ -51,7 +51,7 @@
 | **RAG技術** | - | ✅ 完整 | 基礎RAG、多模態RAG、進階檢索 |
 | **向量數據庫** | - | ✅ 完整 | Chroma, FAISS, Pinecone, Qdrant |
 
-🎉 **2025 年 12 月最新更新**: 43 個 AI Agent 框架全面覆蓋！**270+ 個完整示例**！
+🎉 **2025 年 12 月最新更新**: 50 個 AI Agent 框架全面覆蓋！**340+ 個完整示例**！
 
 ## 🔥 快速導航
 
@@ -60,7 +60,7 @@
 - [📊 項目完成總結](PROJECT_SUMMARY.md) - 完整的項目概覽和統計
 - [🤝 貢獻指南](CONTRIBUTING.md) - 如何為項目貢獻
 
-### 🆕 新框架示例 (270+ 個示例)
+### 🆕 新框架示例 (340+ 個示例)
 
 | 框架 | 示例數 | 適用場景 | README | 快速開始 |
 |------|--------|---------|--------|---------|
@@ -87,6 +87,13 @@
 | [Mastra](41.Mastra/) | 10 🆕 | TypeScript AI 框架 | [查看](41.Mastra/README.md) | 工作流，整合，Agent |
 | [Atomic-Agents](42.Atomic-Agents/) | 10 🆕 | 模組化 Agent | [查看](42.Atomic-Agents/README.md) | Schema 驅動，可測試 |
 | [Browserbase](43.Browserbase/) | 10 🆕 | 雲端瀏覽器基礎設施 | [查看](43.Browserbase/README.md) | 隱身模式，Session 管理 |
+| [DSPy](44.DSPy/) | 10 🆕 | LLM 編程框架 | [查看](44.DSPy/README.md) | Stanford，自動提示優化 |
+| [Letta](45.Letta/) | 10 🆕 | 有狀態 Agent | [查看](45.Letta/README.md) | MemGPT，持久記憶 |
+| [Julep](46.Julep/) | 10 🆕 | AI 應用平台 | [查看](46.Julep/README.md) | 90+ 整合，任務系統 |
+| [Instructor](47.Instructor/) | 10 🆕 | 結構化輸出 | [查看](47.Instructor/README.md) | 3M+ 下載，Pydantic |
+| [ControlFlow](48.ControlFlow/) | 10 🆕 | 工作流編排 | [查看](48.ControlFlow/README.md) | 流程控制，任務管理 |
+| [SWE-Agent](49.SWE-Agent/) | 10 🆕 | 軟體工程 Agent | [查看](49.SWE-Agent/README.md) | Princeton，SWE-bench |
+| [PhiData](50.PhiData/) | 10 🆕 | 多模態 Agent | [查看](50.PhiData/README.md) | 高性能，知識庫 |
 
 💡 **提示**: 所有示例都包含完整代碼和詳細中文註釋！
 
@@ -96,12 +103,12 @@
 
 | 統計項 | 數量 |
 |--------|------|
-| 🎯 **支持框架** | 43 個 |
-| 📝 **完整示例** | 270+ 個 |
-| 📄 **代碼行數** | 70,000+ 行 |
-| 📚 **文檔字數** | 180,000+ 字 |
-| 🎓 **教程數量** | 120+ 個 |
-| 🌟 **覆蓋場景** | 250+ 個 |
+| 🎯 **支持框架** | 50 個 |
+| 📝 **完整示例** | 340+ 個 |
+| 📄 **代碼行數** | 120,000+ 行 |
+| 📚 **文檔字數** | 250,000+ 字 |
+| 🎓 **教程數量** | 150+ 個 |
+| 🌟 **覆蓋場景** | 300+ 個 |
 
 </div>
 
@@ -466,6 +473,13 @@ jupyter notebook
 | **Mastra** 🔥 | TypeScript AI | 中 | ⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
 | **Atomic-Agents** 🔥 | 模組化 Agent | 低-中 | ⭐⭐⭐ | 較低 | ⭐⭐⭐⭐ |
 | **Browserbase** 🔥 | 雲端瀏覽器 | 中 | ⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **DSPy** 🔥 | LLM 編程 | 中 | ⭐⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **Letta** 🔥 | 有狀態 Agent | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **Julep** 🔥 | AI 應用平台 | 中 | ⭐⭐⭐ | 較低 | ⭐⭐⭐⭐ |
+| **Instructor** 🔥 | 結構化輸出 | 低 | ⭐⭐⭐⭐⭐ | 極低 | ⭐⭐⭐⭐⭐ |
+| **ControlFlow** 🔥 | 工作流編排 | 中 | ⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **SWE-Agent** 🔥 | 軟體工程 | 高 | ⭐⭐⭐⭐ | 較高 | ⭐⭐⭐⭐ |
+| **PhiData** 🔥 | 多模態 Agent | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
 
 ### 選擇建議
 
@@ -484,8 +498,12 @@ jupyter notebook
 - **模型互操作**: MCP Protocol
 - **官方支持**: OpenAI Agents SDK
 - **瀏覽器自動化**: Browser-Use、Browserbase
-- **編程助手**: Cline、Goose
+- **編程助手**: Cline、Goose、SWE-Agent
 - **模組化設計**: Atomic-Agents
+- **LLM 編程**: DSPy
+- **有狀態 Agent**: Letta (MemGPT)
+- **結構化輸出**: Instructor
+- **工作流編排**: ControlFlow
 
 ## 💼 實際應用案例
 
@@ -698,6 +716,13 @@ jupyter notebook
 - [x] Mastra TypeScript AI 框架 🔥🆕
 - [x] Atomic-Agents 模組化 Agent 🔥🆕
 - [x] Browserbase 雲端瀏覽器 🔥🆕
+- [x] DSPy LLM 編程框架 🔥🆕
+- [x] Letta 有狀態 Agent 🔥🆕
+- [x] Julep AI 應用平台 🔥🆕
+- [x] Instructor 結構化輸出 🔥🆕
+- [x] ControlFlow 工作流編排 🔥🆕
+- [x] SWE-Agent 軟體工程 Agent 🔥🆕
+- [x] PhiData 多模態 Agent 🔥🆕
 - [ ] 更多實際應用案例
 - [ ] 視頻教程
 - [ ] 英文版本
