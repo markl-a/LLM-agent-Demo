@@ -51,7 +51,7 @@
 | **RAG技術** | - | ✅ 完整 | 基礎RAG、多模態RAG、進階檢索 |
 | **向量數據庫** | - | ✅ 完整 | Chroma, FAISS, Pinecone, Qdrant |
 
-🎉 **2025 年 12 月最新更新**: 50 個 AI Agent 框架全面覆蓋！**340+ 個完整示例**！
+🎉 **2025 年 12 月最新更新**: 55 個 AI Agent 框架全面覆蓋！**390+ 個完整示例**！
 
 ## 🔥 快速導航
 
@@ -60,7 +60,7 @@
 - [📊 項目完成總結](PROJECT_SUMMARY.md) - 完整的項目概覽和統計
 - [🤝 貢獻指南](CONTRIBUTING.md) - 如何為項目貢獻
 
-### 🆕 新框架示例 (340+ 個示例)
+### 🆕 新框架示例 (390+ 個示例)
 
 | 框架 | 示例數 | 適用場景 | README | 快速開始 |
 |------|--------|---------|--------|---------|
@@ -94,6 +94,11 @@
 | [ControlFlow](48.ControlFlow/) | 10 🆕 | 工作流編排 | [查看](48.ControlFlow/README.md) | 流程控制，任務管理 |
 | [SWE-Agent](49.SWE-Agent/) | 10 🆕 | 軟體工程 Agent | [查看](49.SWE-Agent/README.md) | Princeton，SWE-bench |
 | [PhiData](50.PhiData/) | 10 🆕 | 多模態 Agent | [查看](50.PhiData/README.md) | 高性能，知識庫 |
+| [MS-Agent-Framework](51.MS-Agent-Framework/) | 10 🆕 | 統一 Agent 框架 | [查看](51.MS-Agent-Framework/README.md) | AutoGen + SK 融合 |
+| [LiteLLM](52.LiteLLM/) | 10 🆕 | LLM API 網關 | [查看](52.LiteLLM/README.md) | 100+ 模型，8ms 延遲 |
+| [Outlines](53.Outlines/) | 10 🆕 | 結構化生成 | [查看](53.Outlines/README.md) | JSON/CFG 約束 |
+| [Strands-Agents](54.Strands-Agents/) | 10 🆕 | AWS Agent SDK | [查看](54.Strands-Agents/README.md) | 企業級，Bedrock |
+| [Guidance](55.Guidance/) | 10 🆕 | LLM 控制 | [查看](55.Guidance/README.md) | 受控解碼，90% 降錯 |
 
 💡 **提示**: 所有示例都包含完整代碼和詳細中文註釋！
 
@@ -103,12 +108,12 @@
 
 | 統計項 | 數量 |
 |--------|------|
-| 🎯 **支持框架** | 50 個 |
-| 📝 **完整示例** | 340+ 個 |
-| 📄 **代碼行數** | 120,000+ 行 |
-| 📚 **文檔字數** | 250,000+ 字 |
-| 🎓 **教程數量** | 150+ 個 |
-| 🌟 **覆蓋場景** | 300+ 個 |
+| 🎯 **支持框架** | 55 個 |
+| 📝 **完整示例** | 390+ 個 |
+| 📄 **代碼行數** | 150,000+ 行 |
+| 📚 **文檔字數** | 300,000+ 字 |
+| 🎓 **教程數量** | 180+ 個 |
+| 🌟 **覆蓋場景** | 350+ 個 |
 
 </div>
 
@@ -480,6 +485,11 @@ jupyter notebook
 | **ControlFlow** 🔥 | 工作流編排 | 中 | ⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
 | **SWE-Agent** 🔥 | 軟體工程 | 高 | ⭐⭐⭐⭐ | 較高 | ⭐⭐⭐⭐ |
 | **PhiData** 🔥 | 多模態 Agent | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **MS Agent Framework** 🔥 | 統一 Agent | 中 | ⭐⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **LiteLLM** 🔥 | LLM 網關 | 低-中 | ⭐⭐⭐⭐⭐ | 較低 | ⭐⭐⭐⭐⭐ |
+| **Outlines** 🔥 | 結構化生成 | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
+| **Strands Agents** 🔥 | AWS Agent | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐⭐ |
+| **Guidance** 🔥 | LLM 控制 | 中 | ⭐⭐⭐⭐ | 中等 | ⭐⭐⭐⭐ |
 
 ### 選擇建議
 
@@ -502,8 +512,11 @@ jupyter notebook
 - **模組化設計**: Atomic-Agents
 - **LLM 編程**: DSPy
 - **有狀態 Agent**: Letta (MemGPT)
-- **結構化輸出**: Instructor
+- **結構化輸出**: Instructor、Outlines、Guidance
 - **工作流編排**: ControlFlow
+- **LLM 網關**: LiteLLM
+- **AWS 生態**: Strands Agents
+- **Microsoft 生態**: MS Agent Framework
 
 ## 💼 實際應用案例
 
@@ -723,6 +736,11 @@ jupyter notebook
 - [x] ControlFlow 工作流編排 🔥🆕
 - [x] SWE-Agent 軟體工程 Agent 🔥🆕
 - [x] PhiData 多模態 Agent 🔥🆕
+- [x] MS Agent Framework 統一框架 🔥🆕
+- [x] LiteLLM LLM API 網關 🔥🆕
+- [x] Outlines 結構化生成 🔥🆕
+- [x] Strands Agents AWS SDK 🔥🆕
+- [x] Guidance LLM 控制 🔥🆕
 - [ ] 更多實際應用案例
 - [ ] 視頻教程
 - [ ] 英文版本

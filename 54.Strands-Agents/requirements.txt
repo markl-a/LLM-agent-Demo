@@ -1,0 +1,32 @@
+# Strands Agents 核心依賴
+strands-agents>=1.0.0
+
+# AWS 服務整合
+boto3>=1.35.0
+botocore>=1.35.0
+
+# LLM 供應商
+anthropic>=0.37.0
+openai>=1.50.0
+
+# 可觀測性
+opentelemetry-api>=1.27.0
+opentelemetry-sdk>=1.27.0
+opentelemetry-instrumentation>=0.48b0
+opentelemetry-exporter-otlp>=1.27.0
+
+# 數據處理
+pydantic>=2.9.0
+jsonschema>=4.23.0
+
+# HTTP 請求
+httpx>=0.27.0
+aiohttp>=3.10.0
+
+# 日誌和監控
+structlog>=24.4.0
+python-json-logger>=2.0.7
+
+# 實用工具
+python-dotenv>=1.0.1
+tenacity>=9.0.0
