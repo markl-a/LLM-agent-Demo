@@ -1,0 +1,6 @@
+trl>=0.8.0
+transformers>=4.40.0
+torch>=2.0.0
+peft>=0.10.0
+datasets>=2.18.0
+python-dotenv>=1.0.0
