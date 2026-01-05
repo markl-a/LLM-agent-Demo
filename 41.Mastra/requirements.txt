@@ -59,12 +59,12 @@ click==8.1.7
 rich==13.7.0
 
 # 測試工具
-pytest==7.4.3
-pytest-asyncio==0.21.1
-pytest-mock==3.12.0
+pytest==8.4.2
+pytest-asyncio==1.2.0
+pytest-mock==3.15.1
 
 # 代碼格式化
-black==23.12.1
+black==25.11.0
 isort==5.13.2
 
 # 文檔工具
