@@ -624,9 +624,19 @@ class MultiLanguageCodebase:
         self.console.print(f"[bold]運行 {language.value} {tool_type}: {command}[/bold]")
 
         try:
+            # 安全注意：這裡使用 shell=True 是因為命令來自預定義的配置
+            # 在生產環境中，應該使用命令列表而非字串以避免注入風險
+            #
+            # 安全最佳實踐：
+            # - 命令應來自可信的配置文件，而非用戶輸入
+            # - 可以使用 shlex.split(command) 轉換為列表格式
+            # - 使用 shell=False 搭配命令列表可避免注入攻擊
+            import shlex
+            cmd_list = shlex.split(command) if isinstance(command, str) else command
+
             result = subprocess.run(
-                command,
-                shell=True,
+                cmd_list,
+                shell=False,  # 使用安全的非 shell 模式
                 cwd=self.repo_path,
                 capture_output=True,
                 text=True,

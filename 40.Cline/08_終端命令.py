@@ -53,23 +53,48 @@ class ClineTerminal:
         self,
         command: str,
         cwd: Optional[str] = None,
-        timeout: int = 30
+        timeout: int = 30,
+        use_shell: bool = True
     ) -> Tuple[int, str, str]:
         """
         執行終端命令
 
+        ⚠️ 安全警告：
+        - 使用 shell=True 可能存在命令注入風險
+        - 不要直接執行來自不信任來源的命令
+        - 生產環境建議使用 use_shell=False 並傳入命令列表
+
         Args:
-            command: 要執行的命令
+            command: 要執行的命令（字串或列表）
             cwd: 工作目錄
             timeout: 超時時間（秒）
+            use_shell: 是否使用 shell（預設 True，生產環境建議 False）
 
         Returns:
             (返回碼, 標準輸出, 錯誤輸出)
+
+        安全最佳實踐:
+            # 不安全（命令注入風險）:
+            execute_command(f"ls {user_input}", use_shell=True)
+
+            # 安全做法:
+            import shlex
+            execute_command(shlex.split(command), use_shell=False)
         """
         try:
+            # 安全提醒
+            if use_shell and isinstance(command, str):
+                import warnings
+                warnings.warn(
+                    "Using shell=True with string command may be vulnerable to "
+                    "command injection. Consider using a command list with use_shell=False.",
+                    SecurityWarning if hasattr(__builtins__, 'SecurityWarning') else UserWarning,
+                    stacklevel=2
+                )
+
             result = subprocess.run(
                 command,
-                shell=True,
+                shell=use_shell,
                 cwd=cwd,
                 timeout=timeout,
                 capture_output=True,

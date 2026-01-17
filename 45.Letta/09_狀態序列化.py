@@ -111,15 +111,26 @@ class StateSerializer:
         """
         序列化為 Pickle
 
+        ⚠️ 安全警告：pickle 序列化已棄用，建議使用 to_json() 方法。
+        pickle 存在遠程代碼執行 (RCE) 風險。
+
         參數:
             state: Agent 狀態
 
         返回:
             二進制數據
         """
+        import warnings
+        warnings.warn(
+            "pickle serialization is deprecated due to security risks. "
+            "Use to_json() instead.",
+            DeprecationWarning,
+            stacklevel=2
+        )
         pickle_data = pickle.dumps(state)
 
-        print(f"\n[Pickle 序列化] 大小: {len(pickle_data)} 字節")
+        print(f"\n[Pickle 序列化] ⚠️ 已棄用 - 大小: {len(pickle_data)} 字節")
+        print("  建議使用 to_json() 方法替代")
 
         return pickle_data
 
@@ -127,15 +138,31 @@ class StateSerializer:
         """
         從 Pickle 反序列化
 
+        ⚠️ 安全警告：此方法存在嚴重的 RCE（遠程代碼執行）漏洞！
+        pickle.loads() 可以執行任意代碼，切勿用於不信任的數據。
+        請使用 from_json() 方法替代。
+
         參數:
-            pickle_data: 二進制數據
+            pickle_data: 二進制數據（僅接受可信來源）
 
         返回:
             Agent 狀態
         """
+        import warnings
+        warnings.warn(
+            "SECURITY WARNING: pickle.loads() can execute arbitrary code. "
+            "This method is deprecated. Use from_json() instead.",
+            DeprecationWarning,
+            stacklevel=2
+        )
+
+        # 安全提醒：僅在數據來源可信時使用
+        print("\n⚠️ [安全警告] pickle 反序列化存在 RCE 風險！")
+        print("  切勿用於不信任的數據來源，建議使用 from_json() 替代")
+
         state = pickle.loads(pickle_data)
 
-        print(f"\n[Pickle 反序列化] Agent: {state.agent_name}")
+        print(f"[Pickle 反序列化] Agent: {state.agent_name}")
 
         return state
 

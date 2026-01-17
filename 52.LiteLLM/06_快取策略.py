@@ -360,16 +360,26 @@ class DatabaseCache:
             conn.commit()
             conn.close()
 
-            # 反序列化值
-            return pickle.loads(value_blob)
+            # 反序列化值（使用 JSON 替代 pickle 以避免 RCE 風險）
+            try:
+                return json.loads(value_blob.decode('utf-8') if isinstance(value_blob, bytes) else value_blob)
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                # 兼容舊數據：如果 JSON 解析失敗，嘗試 pickle（已棄用）
+                import warnings
+                warnings.warn(
+                    "Legacy pickle data detected. Please migrate to JSON format.",
+                    DeprecationWarning
+                )
+                return pickle.loads(value_blob)
 
         conn.close()
         return None
 
     def set(self, model: str, messages: List[Dict], value: Any, **kwargs):
-        """設定快取值"""
+        """設定快取值（使用 JSON 序列化以確保安全）"""
         key = self._generate_key(model, messages, **kwargs)
-        value_blob = pickle.dumps(value)
+        # 使用 JSON 替代 pickle 以避免 RCE 安全風險
+        value_blob = json.dumps(value).encode('utf-8')
         created_at = datetime.now().isoformat()
         expires_at = (datetime.now() + timedelta(seconds=self.ttl)).isoformat()
 

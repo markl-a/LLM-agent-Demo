@@ -73,19 +73,75 @@ class JSONFormatter(logging.Formatter):
     - 進程和線程信息
     - 主機名
     - 自定義欄位
+
+    安全特性：
+    - 可選擇隱藏完整路徑（避免洩露服務器結構）
+    - 堆棧跟蹤路徑過濾
     """
 
-    def __init__(self, include_host: bool = True, include_process: bool = True):
+    def __init__(
+        self,
+        include_host: bool = True,
+        include_process: bool = True,
+        sanitize_paths: bool = True,
+    ):
         """初始化 JSON 格式化器
 
         Args:
             include_host: 是否包含主機名
             include_process: 是否包含進程/線程信息
+            sanitize_paths: 是否過濾路徑信息（安全考量，建議在生產環境啟用）
         """
         super().__init__()
         self.include_host = include_host
         self.include_process = include_process
+        self.sanitize_paths = sanitize_paths
         self._hostname = socket.gethostname() if include_host else None
+
+    def _sanitize_path(self, path: str) -> str:
+        """過濾路徑中的敏感信息
+
+        Args:
+            path: 完整路徑
+
+        Returns:
+            過濾後的路徑（僅保留文件名或相對路徑）
+        """
+        if not self.sanitize_paths or not path:
+            return path
+
+        # 將完整路徑轉換為相對路徑或文件名
+        from pathlib import Path as PathLib
+        try:
+            p = PathLib(path)
+            # 嘗試找到 src 或項目根目錄
+            parts = p.parts
+            for i, part in enumerate(parts):
+                if part in ('src', 'lib', 'app', 'tests'):
+                    return str(PathLib(*parts[i:]))
+            # 如果找不到，只返回最後 3 層目錄
+            return str(PathLib(*parts[-3:])) if len(parts) > 3 else str(p)
+        except Exception:
+            return path
+
+    def _sanitize_traceback(self, tb_str: str) -> str:
+        """過濾堆棧跟蹤中的敏感路徑信息
+
+        Args:
+            tb_str: 堆棧跟蹤字串
+
+        Returns:
+            過濾後的堆棧跟蹤
+        """
+        if not self.sanitize_paths or not tb_str:
+            return tb_str
+
+        import re
+        # 過濾類似 /home/user/project/... 的完整路徑
+        # 保留相對路徑部分
+        pattern = r'File "(/[^"]+/)((?:src|lib|app|tests)/[^"]+)"'
+        replacement = r'File "\2"'
+        return re.sub(pattern, replacement, tb_str)
 
     def format(self, record: logging.LogRecord) -> str:
         """格式化為 JSON"""
@@ -98,7 +154,7 @@ class JSONFormatter(logging.Formatter):
                 "module": record.module,
                 "function": record.funcName,
                 "line": record.lineno,
-                "path": record.pathname,
+                "path": self._sanitize_path(record.pathname),
             },
         }
 
@@ -117,17 +173,19 @@ class JSONFormatter(logging.Formatter):
                 "name": record.threadName,
             }
 
-        # 添加異常信息
+        # 添加異常信息（過濾敏感路徑）
         if record.exc_info:
+            traceback_str = self.formatException(record.exc_info)
             log_data["exception"] = {
                 "type": record.exc_info[0].__name__ if record.exc_info[0] else None,
                 "message": str(record.exc_info[1]) if record.exc_info[1] else None,
-                "traceback": self.formatException(record.exc_info),
+                "traceback": self._sanitize_traceback(traceback_str),
             }
 
-        # 添加棧信息（如果有）
+        # 添加棧信息（如果有，過濾敏感路徑）
         if record.stack_info:
-            log_data["stack_info"] = self.formatStack(record.stack_info)
+            stack_str = self.formatStack(record.stack_info)
+            log_data["stack_info"] = self._sanitize_traceback(stack_str)
 
         # 添加額外欄位
         if hasattr(record, "extra_data"):

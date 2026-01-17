@@ -45,7 +45,11 @@ jobs:
 
     - name: Run tests with pytest
       run: |
-        pytest -v --cov=. --cov-report=xml --cov-report=term-missing -m "not requires_api_key"
+        pytest -v --cov=. --cov-report=xml --cov-report=term-missing --cov-fail-under=50 -m "not requires_api_key"
+
+    - name: Verify test coverage meets minimum threshold
+      run: |
+        echo "✅ Test coverage meets minimum threshold (50%)"
 
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v4
